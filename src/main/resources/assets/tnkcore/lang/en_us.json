@@ -1,0 +1,7 @@
+{
+  "itemGroup.tnkcore": "Towns and Kingdoms Core",
+  "item.tnkcore.spawner_core": "Spawner Cage",
+  "tooltip.tnkcore.spawner_core.empty": "Right-click a spawner to capture it.",
+  "tooltip.tnkcore.spawner_core.filled": "Spawner captured. Right-click a block to place it.",
+  "tooltip.tnkcore.spawner_core.single_use": "Consumed after placement. Single use."
+}

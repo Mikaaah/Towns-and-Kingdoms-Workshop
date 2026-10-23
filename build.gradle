@@ -1,0 +1,22 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.148'
+}
+version = '0.1.1'
+group = 'nl.townsandkingdoms.core'
+base { archivesName = 'towns-and-kingdoms-core-1.21.1-neoforge' }
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+java { withSourcesJar() }
+repositories { mavenCentral() }
+neoForge {
+    version = '21.1.219'
+    runs {
+        client { client() }
+        server { server(); programArgument '--nogui' }
+        gameTestServer { type = 'gameTestServer'; systemProperty 'neoforge.enabledGameTestNamespaces', 'tnkcore' }
+    }
+    mods { tnkcore { sourceSet sourceSets.main } }
+}
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+// Integration tests are available in development runs, never in the shipped mod.
+tasks.named('jar') { exclude 'nl/townsandkingdoms/core/test/**'; exclude 'data/tnkcore/structure/empty.nbt' }

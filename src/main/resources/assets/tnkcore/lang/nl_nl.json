@@ -1,0 +1,7 @@
+{
+  "itemGroup.tnkcore": "Towns and Kingdoms Core",
+  "item.tnkcore.spawner_core": "Spawnerkooi",
+  "tooltip.tnkcore.spawner_core.empty": "Rechtsklik op een spawner om hem op te pakken.",
+  "tooltip.tnkcore.spawner_core.filled": "Spawner opgeslagen. Rechtsklik op een blok om hem te plaatsen.",
+  "tooltip.tnkcore.spawner_core.single_use": "Verbruikt na plaatsing. Eenmalig gebruik."
+}

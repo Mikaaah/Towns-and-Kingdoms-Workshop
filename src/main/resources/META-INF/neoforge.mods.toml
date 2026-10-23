@@ -1,0 +1,21 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="All Rights Reserved"
+[[mods]]
+modId="tnkcore"
+version="0.1.1"
+displayName="Towns and Kingdoms Core"
+authors="Towns & Kingdoms"
+description='''Core features for Towns and Kingdoms. Adds a single-use Spawner Cage for moving spawners.'''
+[[dependencies.tnkcore]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.219,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.tnkcore]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1,1.21.2)"
+ordering="NONE"
+side="BOTH"

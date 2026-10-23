@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "tnkcore:item/spawner_cage_empty"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "tnkcore:filled": 1.0
+      },
+      "model": "tnkcore:item/spawner_cage_filled"
+    }
+  ]
+}
