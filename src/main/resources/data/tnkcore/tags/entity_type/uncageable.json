@@ -10,6 +10,10 @@
     {
       "id": "#neoforge:bosses",
       "required": false
+    },
+    {
+      "id": "tnkcore:sculk_goliath",
+      "required": false
     }
   ]
 }

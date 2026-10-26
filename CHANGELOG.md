@@ -1,3 +1,19 @@
+# 0.4.0
+
+- Integrate the full-skills Sculk Goliath branch into main, preserving Workshop
+  0.3.0 construction tools, mirrors, Mob Cage and the current projector features.
+- Include all 115 named skills, 1,370 action lines, 48 phase triggers, four
+  animated models, two boss phases and Final Castle encounter integration.
+- Include static castle corruption, capped Deeper and Darker patrols, loot and
+  a separate TNK3 KubeJS enable marker. Existing features remain independent.
+- Isolate optional entity initialization behind dependency checks; exclude the
+  boss from Mob Cage capture; eject grabbed players on phase changes/death.
+- Repair inherited projectile targets, resolve the source healing callback
+  alias and select healing/phase-two helper callbacks correctly.
+- Correct the castle mixin shadow signature for Minecraft 1.21.1 and add
+  a CI run without optional boss mods that explicitly applies the mixin.
+- Retain the documented native skill approximations and full-pack QA checklist.
+
 # 0.3.0
 
 - Add Measuring Pencil with two-point dimensions/distance and a held-item world outline.

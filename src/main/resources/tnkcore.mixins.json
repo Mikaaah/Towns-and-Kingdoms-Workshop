@@ -1,0 +1,12 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "nl.townsandkingdoms.core.boss.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "CastlePaletteMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

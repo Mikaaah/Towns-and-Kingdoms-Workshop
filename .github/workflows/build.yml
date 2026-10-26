@@ -15,8 +15,20 @@ jobs:
           distribution: temurin
           java-version: '21'
       - uses: gradle/actions/setup-gradle@v4
+      - name: Validate metadata and JSON assets
+        run: |
+          python3 - <<'PY'
+          import json, tomllib
+          from pathlib import Path
+          with Path('src/main/resources/META-INF/neoforge.mods.toml').open('rb') as stream:
+              tomllib.load(stream)
+          for path in Path('src/main/resources').rglob('*.json'):
+              json.loads(path.read_text(encoding='utf-8'))
+          PY
       - name: Build and run integration tests
         run: ./gradlew build runGameTestServer --no-daemon
+      - name: Test standalone Workshop and castle mixin without boss mods
+        run: ./gradlew runGameTestServer --no-daemon -I tools/test_without_boss_mods.gradle
       - uses: actions/upload-artifact@v4
         with:
           name: towns-and-kingdoms-workshop

@@ -21,5 +21,7 @@
   "item.tnkcore.builders_brush": "Builder’s Brush",
   "item.tnkcore.mob_cage": "Mob Cage",
   "item.tnkcore.magic_mirror": "Magic Mirror",
-  "item.tnkcore.chorus_mirror": "Chorus Mirror"
+  "item.tnkcore.chorus_mirror": "Chorus Mirror",
+  "entity.tnkcore.sculk_goliath": "Sculk Goliath",
+  "entity.tnkcore.sculk_goliath_effect": "Sculk Goliath Effect"
 }

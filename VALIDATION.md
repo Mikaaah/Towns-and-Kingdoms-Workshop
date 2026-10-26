@@ -1,3 +1,41 @@
+# Validation — Workshop 0.4.0
+
+Minecraft 1.21.1 / NeoForge 21.1.219 / Java 21 / GeckoLib 4.9.3 compile target.
+Imported full-skills branch `eb22c12763d7fce264e0ab343100410e8a7fe040` into
+main based on `a09d9d193a0f6f51abae3baa48ed6546c83963fd`.
+
+- Production mod compiles and builds as 0.4.0.
+- All **49** required headless GameTests pass: previous 46 tests plus three
+  Goliath skill-library/parser/callback checks.
+- All **49** pass again with GeckoLib removed from the runtime classpath and
+  the castle mixin explicitly enabled. The mod list contains only Minecraft,
+  NeoForge and Workshop. The log confirms CastlePaletteMixin applies to
+  StructurePiece; the corrected MutableBlockPos shadow matches Minecraft 1.21.1.
+- Skill data retains all 115 definitions, 1,370 action lines and 48 phase
+  triggers. Nested references, guard names and projectile callbacks resolve,
+  including the documented native healing callback alias. Implicit damage
+  actions inherit their callback target; explicit parent targets remain intact.
+- All four original model, animation and texture sets and skill JSON are
+  byte-identical to the imported branch. Resource JSON and mod TOML parse.
+- Main's projector implementation, hex palette, motion, construction tools and
+  existing assets are retained. The Goliath is excluded from Mob Cage capture.
+- The production JAR contains both feature sets and all boss resources, and
+  excludes development tests and test structures.
+
+Limits: the complete TNK3 modpack, a graphical client and a live Final Castle
+fight were not available. These checks do not verify full combat/animation
+parity, progression gating, patrol behavior, castle appearance or multiplayer
+balance. Use the full-skill audit and in-game checklist for those checks. The
+boss remains pack-gated; the KubeJS enable marker is shipped in the repository's
+`pack/` folder rather than silently installed by the JAR.
+
+The sandbox's process self-detection required a local build-cache workaround
+for NeoForm. It is not part of the repository or distributed mod. Headless tests
+use a local placeholder asset-index properties file; production resources are
+built normally.
+
+## Previous releases
+
 # Validation — Workshop 0.3.0
 
 Minecraft 1.21.1 / NeoForge 21.1.219 / Java 21.

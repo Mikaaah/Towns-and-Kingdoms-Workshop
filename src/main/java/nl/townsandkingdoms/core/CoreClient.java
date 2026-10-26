@@ -28,6 +28,8 @@ public final class CoreClient {
 
     @SubscribeEvent public static void renderers(net.neoforged.neoforge.client.event.EntityRenderersEvent.RegisterRenderers event) {
         event.registerBlockEntityRenderer(TownsAndKingdomsCore.PROJECTOR_ENTITY.get(), nl.townsandkingdoms.core.projector.client.ProjectorRenderer::new);
+        if (nl.townsandkingdoms.core.boss.GoliathIntegration.dependenciesPresent())
+            nl.townsandkingdoms.core.boss.SculkGoliathBootstrap.registerRenderers(event);
     }
     @SubscribeEvent public static void blockColors(net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.Block event) {
         event.register((state, level, pos, tint) -> {

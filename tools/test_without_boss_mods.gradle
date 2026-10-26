@@ -1,0 +1,10 @@
+allprojects {
+    afterEvaluate {
+        configurations.runtimeClasspath.exclude(group: 'software.bernie.geckolib')
+        neoForge.runs.named('gameTestServer') {
+            programArgument '--mixin'
+            programArgument 'tnkcore.mixins.json'
+            systemProperty 'mixin.debug.verbose', 'true'
+        }
+    }
+}

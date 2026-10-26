@@ -3,10 +3,10 @@ loaderVersion="[4,)"
 license="All Rights Reserved"
 [[mods]]
 modId="tnkcore"
-version="0.3.0"
+version="0.4.0"
 displayName="Towns and Kingdoms - Workshop"
 authors="Towns & Kingdoms"
-description='''Workshop features for Towns and Kingdoms: Spawner Cage and Quest Projector.'''
+description='''Workshop tools, construction utilities, Quest Projector and the optional TNK3 encounter.'''
 [[dependencies.tnkcore]]
 modId="neoforge"
 type="required"
@@ -26,3 +26,35 @@ type="optional"
 versionRange="[2101.1.0,2102)"
 ordering="AFTER"
 side="BOTH"
+
+[[dependencies.tnkcore]]
+modId="geckolib"
+type="optional"
+versionRange="[4.9.3,5)"
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.tnkcore]]
+modId="twilightforest"
+type="optional"
+versionRange=""
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.tnkcore]]
+modId="deeperdarker"
+type="optional"
+versionRange=""
+ordering="AFTER"
+side="BOTH"
+
+[[dependencies.tnkcore]]
+modId="kubejs"
+type="optional"
+versionRange=""
+ordering="AFTER"
+side="BOTH"
+
+[[mixins]]
+config="tnkcore.mixins.json"
+requiredMods=["twilightforest","deeperdarker","kubejs"]

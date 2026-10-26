@@ -36,5 +36,6 @@ public final class TownsAndKingdomsCore {
         ITEMS.register(bus);
         bus.addListener(nl.townsandkingdoms.core.projector.ProjectorNetwork::register);
         TABS.register(bus);
+        nl.townsandkingdoms.core.boss.GoliathIntegration.register(bus);
     }
 }
