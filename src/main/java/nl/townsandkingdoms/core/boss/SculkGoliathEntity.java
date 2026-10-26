@@ -49,6 +49,8 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 public final class SculkGoliathEntity extends Monster implements GeoEntity {
     private static final EntityDataAccessor<Integer> PHASE =
             SynchedEntityData.defineId(SculkGoliathEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> BUSY =
+            SynchedEntityData.defineId(SculkGoliathEntity.class, EntityDataSerializers.BOOLEAN);
 
     private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
     private final ServerBossEvent bossBar = new ServerBossEvent(
@@ -64,6 +66,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
     private int transformationTicks;
     private boolean validatedPack;
     private long castleKey;
+    private int deathAnimationTicks;
 
     public SculkGoliathEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -85,6 +88,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(PHASE, 1);
+        builder.define(BUSY, false);
     }
 
     public boolean isPhaseTwo() {
@@ -107,7 +111,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "movement", 5, state -> {
-            if (this.transformationTicks > 0 || activeAttack != Attack.NONE) return PlayState.STOP;
+            if (this.entityData.get(BUSY)) return PlayState.STOP;
             state.setAnimation(RawAnimation.begin().thenLoop(animBase() +
                     (state.isMoving() ? "walk" : "idle")));
             return PlayState.CONTINUE;
@@ -169,6 +173,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
 
         if (transformationTicks > 0) {
             transformationTicks--;
+            if (transformationTicks == 0) this.entityData.set(BUSY, false);
             getNavigation().stop();
             if (transformationTicks % 8 == 0)
                 server.sendParticles(ParticleTypes.SCULK_SOUL, getX(), getY() + 2.5, getZ(), 14, 1.2, 1.4, 1.2, 0.03);
@@ -178,6 +183,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
         LivingEntity target = getTarget();
         if (target == null || !target.isAlive() || distanceToSqr(target) > 48 * 48) {
             activeAttack = Attack.NONE;
+            this.entityData.set(BUSY, false);
             return;
         }
         if (activeAttack != Attack.NONE) {
@@ -204,6 +210,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
 
     private void startAttack(Attack attack) {
         activeAttack = attack;
+        this.entityData.set(BUSY, true);
         attackAge = 0;
         getNavigation().stop();
         String animation = switch (attack) {
@@ -338,6 +345,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
 
     private void finishAttack() {
         activeAttack = Attack.NONE;
+        this.entityData.set(BUSY, false);
         attackAge = 0;
         nextAttack = isPhaseTwo() ? 30 : 45;
     }
@@ -359,6 +367,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
             this.entityData.set(PHASE, 2);
             this.setHealth(400.0F);
             this.activeAttack = Attack.NONE;
+            this.entityData.set(BUSY, true);
             this.transformationTicks = 140;
             this.nextAttack = 80;
             this.animate("startphase2");
@@ -366,7 +375,16 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
             return;
         }
         SculkGoliathEncounters.defeated(this);
+        this.animate("death");
         super.die(source);
+    }
+
+    @Override
+    protected void tickDeath() {
+        // Keep the corpse rendered long enough for the original four-second
+        // ModelEngine death animation instead of vanishing after 20 ticks.
+        if (++deathAnimationTicks < 60) return;
+        super.tickDeath();
     }
 
     @Override
@@ -396,6 +414,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
         this.transformationTicks = tag.getInt("GoliathTransformationTicks");
         this.castleKey = tag.getLong("GoliathCastleKey");
         this.activeAttack = Attack.NONE;
+        this.entityData.set(BUSY, transformationTicks > 0);
         this.nextAttack = 60;
     }
 }
