@@ -157,6 +157,15 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
         super.tick();
         if (!(level() instanceof ServerLevel server)) return;
 
+        // Vanilla continues ticking a mob while its death animation is active.
+        // Never let a defeated boss acquire targets or execute attacks as a corpse.
+        if (isDeadOrDying()) {
+            activeAttack = Attack.NONE;
+            this.entityData.set(BUSY, true);
+            getNavigation().stop();
+            return;
+        }
+
         if (!validatedPack) {
             validatedPack = true;
             if (!SculkGoliathBootstrap.packEnabled()) {

@@ -31,9 +31,11 @@ public abstract class CastlePaletteMixin {
     @Inject(method = "placeBlock", at = @At("HEAD"), cancellable = true)
     private void tnkcore$corruptCastle(WorldGenLevel world, BlockState state, int x, int y, int z,
                                        BoundingBox box, CallbackInfo ci) {
-        if (!SculkGoliathBootstrap.packEnabled()) return;
         if (!this.getClass().getName().startsWith(
                 "twilightforest.world.components.structures.finalcastle.")) return;
+        // This mixin runs for every vanilla StructurePiece. Keep the filesystem
+        // marker and mod-list checks off the hot path for unrelated structures.
+        if (!SculkGoliathBootstrap.packEnabled()) return;
 
         BlockPos worldPos = getWorldPos(x, y, z);
         if (!box.isInside(worldPos)) return;
