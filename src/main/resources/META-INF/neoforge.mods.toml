@@ -54,3 +54,4 @@ type="optional"
 versionRange=""
 ordering="AFTER"
 side="BOTH"
+\n[[mixins]]\nconfig="tnkcore.mixins.json"\nrequiredMods=["twilightforest","deeperdarker","kubejs"]\n

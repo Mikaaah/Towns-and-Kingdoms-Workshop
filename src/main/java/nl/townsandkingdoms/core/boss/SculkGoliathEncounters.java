@@ -4,13 +4,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.Structure;
@@ -47,6 +53,8 @@ public final class SculkGoliathEncounters {
         StructureStart start = level.structureManager().getStructureAt(player.blockPosition(), castle);
         if (!start.isValid()) return;
 
+        maybeSpawnPatrol(level, player);
+
         for (StructurePiece piece : start.getPieces()) {
             if (!piece.getClass().getSimpleName().equals("FinalCastleBossGazeboComponent")) continue;
             BoundingBox bbox = piece.getBoundingBox();
@@ -72,6 +80,44 @@ public final class SculkGoliathEncounters {
             boss.setCastleKey(castleKey);
             level.addFreshEntity(boss);
             return;
+        }
+    }
+
+    /**
+     * Sparse Otherside patrols replace the majority of castle spawners. A
+     * nearby cap prevents extra patrols from accumulating with more players.
+     */
+    private static void maybeSpawnPatrol(ServerLevel level, ServerPlayer player) {
+        if (player.isSpectator() || level.random.nextInt(3) != 0) return;
+        int nearby = level.getEntitiesOfClass(Mob.class, player.getBoundingBox().inflate(28),
+                mob -> BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType()).getNamespace()
+                        .equals("deeperdarker")).size();
+        if (nearby >= 3) return;
+
+        String[] pool = {"shattered", "sculk_leech", "shattered", "stalker"};
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath("deeperdarker",
+                pool[level.random.nextInt(pool.length)]);
+        var type = BuiltInRegistries.ENTITY_TYPE.getOptional(id);
+        if (type.isEmpty()) return;
+
+        for (int attempt = 0; attempt < 8; attempt++) {
+            int dx = level.random.nextInt(25) - 12;
+            int dz = level.random.nextInt(25) - 12;
+            if (dx * dx + dz * dz < 36) continue;
+            BlockPos candidate = player.blockPosition().offset(dx, 0, dz);
+            for (int dy = -3; dy <= 3; dy++) {
+                BlockPos p = candidate.offset(0, dy, 0);
+                if (!level.hasChunkAt(p) || !level.getBlockState(p).isAir()
+                        || !level.getBlockState(p.above()).isAir()) continue;
+                BlockState floor = level.getBlockState(p.below());
+                if (!floor.isFaceSturdy(level, p.below(), Direction.UP)) continue;
+                Entity entity = type.get().create(level);
+                if (!(entity instanceof Mob mob)) return;
+                mob.moveTo(p.getX() + 0.5, p.getY(), p.getZ() + 0.5,
+                        level.random.nextFloat() * 360.0F, 0);
+                level.addFreshEntity(mob);
+                return;
+            }
         }
     }
 
