@@ -31,9 +31,14 @@ public class SpawnerCoreTests {
         nbt.putShort("MinSpawnDelay", (short) 73);
         nbt.putShort("MaxSpawnDelay", (short) 243);
         nbt.putShort("SpawnCount", (short) 7);
+        nbt.putShort("MaxNearbyEntities", (short) 11);
         nbt.putShort("RequiredPlayerRange", (short) 23);
         nbt.putShort("Delay", (short) 123);
-        nbt.getCompound("SpawnData").getCompound("entity").putString("id", "minecraft:blaze");
+        var entity = new CompoundTag();
+        entity.putString("id", "minecraft:blaze");
+        var spawnData = new CompoundTag();
+        spawnData.put("entity", entity);
+        nbt.put("SpawnData", spawnData);
         be.loadWithComponents(nbt, h.getLevel().registryAccess());
         be.getPersistentData().putString("tnk_test_mod_data", "preserved");
         var player = h.makeMockServerPlayerInLevel();
@@ -109,4 +114,57 @@ public class SpawnerCoreTests {
         h.assertTrue(s.stack.getCount() == 1 && SpawnerCoreItem.isFilled(s.stack), "Denied placement lost payload");
         h.succeed();
     }
+    @GameTest(template="empty")
+    public static void tooltipUsesCapturedSpawner(GameTestHelper h) {
+        var s = setup(h, false);
+        use(h, s, SOURCE);
+        var before = s.stack.get(net.minecraft.core.component.DataComponents.CUSTOM_DATA).copyTag();
+        var lines = new java.util.ArrayList<net.minecraft.network.chat.Component>();
+        s.stack.getItem().appendHoverText(s.stack, Item.TooltipContext.EMPTY, lines, TooltipFlag.NORMAL);
+        var mob = (net.minecraft.network.chat.Component) ((net.minecraft.network.chat.contents.TranslatableContents) lines.get(0).getContents()).getArgs()[0];
+        h.assertTrue(mob.equals(net.minecraft.world.entity.EntityType.BLAZE.getDescription()), "Tooltip did not identify captured Blaze");
+        String text = lines.stream().filter(line -> line.getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents)
+                .map(line -> java.util.Arrays.toString(((net.minecraft.network.chat.contents.TranslatableContents) line.getContents()).getArgs()))
+                .collect(java.util.stream.Collectors.joining("\n"));
+        h.assertTrue(text.contains("7") && text.contains("11") && text.contains("3.65") && text.contains("12.15") && text.contains("23"),
+                "Tooltip did not use this spawner's actual settings: " + text);
+        h.assertTrue(before.equals(s.stack.get(net.minecraft.core.component.DataComponents.CUSTOM_DATA).copyTag()),
+                "Reading tooltip modified captured data");
+        h.succeed();
+    }
+
+    @GameTest(template="empty")
+    public static void tooltipSupportsMixedPoolsAndMissingMods(GameTestHelper h) {
+        var payload = new CompoundTag();
+        var spawnData = new CompoundTag();
+        var entity = new CompoundTag(); entity.putString("id", "minecraft:skeleton"); spawnData.put("entity", entity);
+        payload.put("SpawnData", spawnData);
+        var pool = new net.minecraft.nbt.ListTag();
+        for (String id : java.util.List.of("minecraft:skeleton", "missingmod:custom_mob")) {
+            var entry = new CompoundTag(); var data = new CompoundTag(); var mob = new CompoundTag();
+            mob.putString("id", id); data.put("entity", mob); entry.put("data", data); entry.putInt("weight", 1); pool.add(entry);
+        }
+        payload.put("SpawnPotentials", pool);
+        var lines = new java.util.ArrayList<net.minecraft.network.chat.Component>();
+        SpawnerTooltip.append(payload, lines);
+        h.assertTrue(lines.size() == 2, "Duplicate mob types or invented missing statistics");
+        var first = (net.minecraft.network.chat.Component) ((net.minecraft.network.chat.contents.TranslatableContents) lines.get(0).getContents()).getArgs()[0];
+        var second = (net.minecraft.network.chat.Component) ((net.minecraft.network.chat.contents.TranslatableContents) lines.get(1).getContents()).getArgs()[0];
+        h.assertTrue(first.equals(net.minecraft.world.entity.EntityType.SKELETON.getDescription()), "Current mob was not listed first");
+        h.assertTrue(second.getString().equals("missingmod:custom_mob"), "Missing entity falsely identified");
+        h.succeed();
+    }
+
+    @GameTest(template="empty")
+    public static void tooltipHandlesMissingOrMalformedData(GameTestHelper h) {
+        var payload = new CompoundTag(); payload.putString("SpawnCount", "invalid"); payload.putInt("SpawnRange", -1);
+        var lines = new java.util.ArrayList<net.minecraft.network.chat.Component>();
+        SpawnerTooltip.append(payload, lines);
+        h.assertTrue(lines.size() == 1, "Malformed payload invented statistics");
+        var unknown = (net.minecraft.network.chat.Component) ((net.minecraft.network.chat.contents.TranslatableContents) lines.get(0).getContents()).getArgs()[0];
+        h.assertTrue(((net.minecraft.network.chat.contents.TranslatableContents) unknown.getContents()).getKey().endsWith(".unknown"),
+                "Invalid payload should show unknown mob");
+        h.succeed();
+    }
+
 }

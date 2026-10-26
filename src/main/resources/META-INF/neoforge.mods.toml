@@ -3,10 +3,10 @@ loaderVersion="[4,)"
 license="All Rights Reserved"
 [[mods]]
 modId="tnkcore"
-version="0.1.1"
-displayName="Towns and Kingdoms Core"
+version="0.2.0"
+displayName="Towns and Kingdoms - Workshop"
 authors="Towns & Kingdoms"
-description='''Core features for Towns and Kingdoms. Adds a single-use Spawner Cage for moving spawners.'''
+description='''Workshop features for Towns and Kingdoms: Spawner Cage and Quest Projector.'''
 [[dependencies.tnkcore]]
 modId="neoforge"
 type="required"
@@ -18,4 +18,11 @@ modId="minecraft"
 type="required"
 versionRange="[1.21.1,1.21.2)"
 ordering="NONE"
+side="BOTH"
+
+[[dependencies.tnkcore]]
+modId="ftbquests"
+type="optional"
+versionRange="[2101.1.0,2102)"
+ordering="AFTER"
 side="BOTH"

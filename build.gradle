@@ -2,9 +2,9 @@ plugins {
     id 'java-library'
     id 'net.neoforged.moddev' version '2.0.148'
 }
-version = '0.1.1'
+version = '0.2.0'
 group = 'nl.townsandkingdoms.core'
-base { archivesName = 'towns-and-kingdoms-core-1.21.1-neoforge' }
+base { archivesName = 'towns-and-kingdoms-workshop-1.21.1-neoforge' }
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 java { withSourcesJar() }
 repositories { mavenCentral() }

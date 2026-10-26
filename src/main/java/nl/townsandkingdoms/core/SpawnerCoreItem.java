@@ -113,6 +113,10 @@ public final class SpawnerCoreItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+        if (isFilled(stack)) {
+            CompoundTag payload = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getCompound(PAYLOAD);
+            SpawnerTooltip.append(payload, tooltip);
+        }
         tooltip.add(Component.translatable(isFilled(stack) ? "tooltip.tnkcore.spawner_core.filled" : "tooltip.tnkcore.spawner_core.empty")
                 .withStyle(isFilled(stack) ? ChatFormatting.GOLD : ChatFormatting.GRAY));
         tooltip.add(Component.translatable("tooltip.tnkcore.spawner_core.single_use").withStyle(ChatFormatting.DARK_GRAY));

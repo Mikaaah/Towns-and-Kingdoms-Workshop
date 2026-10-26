@@ -1,7 +1,19 @@
 {
-  "itemGroup.tnkcore": "Towns and Kingdoms Core",
+  "itemGroup.tnkcore": "Towns and Kingdoms - Workshop",
   "item.tnkcore.spawner_core": "Spawner Cage",
   "tooltip.tnkcore.spawner_core.empty": "Right-click a spawner to capture it.",
-  "tooltip.tnkcore.spawner_core.filled": "Spawner captured. Right-click a block to place it.",
-  "tooltip.tnkcore.spawner_core.single_use": "Consumed after placement. Single use."
+  "tooltip.tnkcore.spawner_core.filled": "Right-click a block to place this spawner.",
+  "tooltip.tnkcore.spawner_core.single_use": "Consumed after placement. Single use.",
+  "tooltip.tnkcore.spawner_core.contains": "Contains: %s Spawner",
+  "tooltip.tnkcore.spawner_core.also_spawns": "Also spawns: %s",
+  "tooltip.tnkcore.spawner_core.unknown": "Unknown",
+  "tooltip.tnkcore.spawner_core.spawn_count": "Spawn count: %s",
+  "tooltip.tnkcore.spawner_core.spawn_delay": "Spawn delay: %s–%s seconds",
+  "tooltip.tnkcore.spawner_core.player_range": "Activation range: %s blocks",
+  "tooltip.tnkcore.spawner_core.spawn_range": "Spawn range: %s blocks",
+  "tooltip.tnkcore.spawner_core.max_nearby": "Nearby mob limit: %s",
+  "block.tnkcore.quest_projector": "Quest Projector",
+  "tooltip.tnkcore.projector.use": "Place and right-click to configure.",
+  "tooltip.tnkcore.projector.modes": "Quests with tasks · Images · Formatted text",
+  "tooltip.tnkcore.projector.configured": "Contains saved display settings."
 }

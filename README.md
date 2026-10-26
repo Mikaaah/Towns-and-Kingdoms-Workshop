@@ -1,7 +1,51 @@
-# Towns and Kingdoms Core 0.1.1
+# Towns and Kingdoms - Workshop 0.2.0
 
 Minecraft 1.21.1 / NeoForge 21.1.219 or newer (21.1.x) / Java 21.
 Install the JAR on the server and all clients. No other mods required.
+
+## Quest Projector
+
+A placeable projector using the supplied Polaroid Studio / KidTokio model and
+original animated texture. Place it and right-click: all setup uses the screen.
+
+- **Quests:** search by quest/chapter name and select up to five quests. The
+  hologram shows titles, task item icons, required amounts and live progress for
+  the viewing player's FTB Quests team. Hidden quests/details stay hidden.
+  Long lists automatically turn pages every eight seconds, repeating the quest
+  heading on continued pages. The arrow beside a quest opens its FTB details.
+- **Image:** paste a direct HTTP/HTTPS image link and press Preview / reload.
+  PNG, JPG and GIF are supported (first frame for GIF). Aspect ratio is preserved.
+- **Formatted text:** multiline text with Minecraft `&0`–`&f` colors,
+  `&#RRGGBB`, `&l` bold, `&o` italic, `&n` underline, `&m` strike-through,
+  `&r` reset, plus `**bold**` and `*italic*`. Literal `\n` also creates a newline.
+- Adjustable projection width (1–8 blocks), elevation (0.5–6 blocks), backdrop
+  and optional face-player orientation. Otherwise it faces its placement direction.
+- Only the placer or an operator can change settings. Other players can view
+  the selection and open linked quests. Claim interaction denial is respected.
+- Breaking the projector preserves its display settings on the dropped item;
+  placing it assigns ownership to the new placer.
+
+Crafting pattern (I = iron ingot, G = glass, A = amethyst shard, R = redstone):
+
+| | | |
+|---|---|---|
+| I | G | I |
+| A | R | A |
+| I | I | I |
+
+FTB Quests is optional: required only for quest mode. The bridge targets its
+Minecraft 1.21.1 / 2101 API and reads the already synchronized local team data.
+It does not submit tasks, take items, change progression or auto-claim rewards.
+Use the normal quest details for those actions. Your KubeJS items stay intact.
+
+Images are fetched on clients with two bounded background workers, a 32-image
+session cache, an 8 MB transfer cap and a 4096-pixel / 8-megapixel decode cap.
+Public internet hosts only; redirects receive the same address validation.
+A failed image displays a status message and can be retried with Preview / reload.
+Images and formatting do not require FTB Quests.
+
+Stable registry namespace: `tnkcore`. Projector item/block: `tnkcore:quest_projector`.
+Existing Spawner Cage IDs and saved data are unchanged.
 
 ## Spawner Cage
 
@@ -9,17 +53,19 @@ Install the JAR on the server and all clients. No other mods required.
 
 Empty: dull grey and static. Filled: the original animated orange flame.
 
-
 Item ID: `tnkcore:spawner_core`
 
 `/give @s tnkcore:spawner_core`
 
-Also available in the Towns and Kingdoms Core creative tab.
+Also available in the Towns and Kingdoms - Workshop creative tab.
 No recipe is included. Add a late-game recipe or quest reward in the modpack.
 
 1. Right-click a regular monster spawner with an empty core to capture it.
 2. Right-click a block with the filled core to place the spawner at the target face.
 3. The core is consumed after successful placement, including in Creative.
+
+Filled cages show the captured mob, additional spawn-pool types, spawn count,
+delay range, activation range and spawn range from the saved spawner data.
 
 One core carries one spawner. No durability, repairs or reusable remainder.
 The empty cage uses a static, dull grey version of the supplied texture.

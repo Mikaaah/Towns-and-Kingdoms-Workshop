@@ -1,7 +1,19 @@
 {
-  "itemGroup.tnkcore": "Towns and Kingdoms Core",
+  "itemGroup.tnkcore": "Towns and Kingdoms - Workshop",
   "item.tnkcore.spawner_core": "Spawnerkooi",
   "tooltip.tnkcore.spawner_core.empty": "Rechtsklik op een spawner om hem op te pakken.",
-  "tooltip.tnkcore.spawner_core.filled": "Spawner opgeslagen. Rechtsklik op een blok om hem te plaatsen.",
-  "tooltip.tnkcore.spawner_core.single_use": "Verbruikt na plaatsing. Eenmalig gebruik."
+  "tooltip.tnkcore.spawner_core.filled": "Rechtsklik op een blok om deze spawner te plaatsen.",
+  "tooltip.tnkcore.spawner_core.single_use": "Verbruikt na plaatsing. Eenmalig gebruik.",
+  "tooltip.tnkcore.spawner_core.contains": "Bevat: %s-spawner",
+  "tooltip.tnkcore.spawner_core.also_spawns": "Spawnt ook: %s",
+  "tooltip.tnkcore.spawner_core.unknown": "Onbekend",
+  "tooltip.tnkcore.spawner_core.spawn_count": "Aantal per poging: %s",
+  "tooltip.tnkcore.spawner_core.spawn_delay": "Spawnvertraging: %s–%s seconden",
+  "tooltip.tnkcore.spawner_core.player_range": "Activeringsafstand: %s blokken",
+  "tooltip.tnkcore.spawner_core.spawn_range": "Spawnafstand: %s blokken",
+  "tooltip.tnkcore.spawner_core.max_nearby": "Maximum mobs in de buurt: %s",
+  "block.tnkcore.quest_projector": "Questprojector",
+  "tooltip.tnkcore.projector.use": "Place and right-click to configure.",
+  "tooltip.tnkcore.projector.modes": "Quests with tasks · Images · Formatted text",
+  "tooltip.tnkcore.projector.configured": "Contains saved display settings."
 }

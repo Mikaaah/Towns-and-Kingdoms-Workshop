@@ -1,0 +1,20 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "tnkcore:block/quest_projector",
+      "y": 0
+    },
+    "facing=east": {
+      "model": "tnkcore:block/quest_projector",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "tnkcore:block/quest_projector",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "tnkcore:block/quest_projector",
+      "y": 270
+    }
+  }
+}
