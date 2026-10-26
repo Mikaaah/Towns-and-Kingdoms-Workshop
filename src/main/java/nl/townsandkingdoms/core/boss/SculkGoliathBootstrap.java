@@ -10,6 +10,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -49,6 +50,7 @@ public final class SculkGoliathBootstrap {
         if (!dependenciesPresent()) return;
         ENTITY_TYPES.register(bus);
         bus.addListener(SculkGoliathBootstrap::attributes);
+        NeoForge.EVENT_BUS.addListener(SculkGoliathEncounters::onPlayerTick);
     }
 
     private static void attributes(EntityAttributeCreationEvent event) {

@@ -63,6 +63,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
     private int nextAttack = 60;
     private int transformationTicks;
     private boolean validatedPack;
+    private long castleKey;
 
     public SculkGoliathEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -88,6 +89,14 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
 
     public boolean isPhaseTwo() {
         return this.entityData.get(PHASE) == 2;
+    }
+
+    public void setCastleKey(long key) {
+        this.castleKey = key;
+    }
+
+    public long getCastleKey() {
+        return this.castleKey;
     }
 
     private String animBase() {
@@ -356,6 +365,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
             this.playSound(SoundEvents.WARDEN_ROAR, 3.0F, 0.45F);
             return;
         }
+        SculkGoliathEncounters.defeated(this);
         super.die(source);
     }
 
@@ -376,6 +386,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
         super.addAdditionalSaveData(tag);
         tag.putInt("GoliathPhase", isPhaseTwo() ? 2 : 1);
         tag.putInt("GoliathTransformationTicks", transformationTicks);
+        tag.putLong("GoliathCastleKey", castleKey);
     }
 
     @Override
@@ -383,6 +394,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
         super.readAdditionalSaveData(tag);
         this.entityData.set(PHASE, tag.getInt("GoliathPhase") == 2 ? 2 : 1);
         this.transformationTicks = tag.getInt("GoliathTransformationTicks");
+        this.castleKey = tag.getLong("GoliathCastleKey");
         this.activeAttack = Attack.NONE;
         this.nextAttack = 60;
     }
