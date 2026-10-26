@@ -58,6 +58,24 @@ public final class GoliathSkillLibrary {
     public Definition definition(String id) { return definitions.get(id); }
     public List<Trigger> triggers(boolean secondPhase) { return secondPhase ? phaseTwo : phaseOne; }
     public int definitionCount() { return definitions.size(); }
+    public int mechanicCount() {
+        return definitions.values().stream().mapToInt(def -> def.steps().size()).sum();
+    }
+    public int eventTriggerCount() { return phaseOne.size() + phaseTwo.size(); }
+    public int unresolvedSkillReferences() {
+        int missing = 0;
+        for (Definition definition : definitions.values()) {
+            for (Step step : definition.steps()) {
+                if (!step.operation().equals("skill")) continue;
+                if (!definitions.containsKey(step.arg("s", step.arg("skill", "")))) missing++;
+            }
+        }
+        for (Trigger trigger : phaseOne) for (String name : trigger.skills())
+            if (!definitions.containsKey(name)) missing++;
+        for (Trigger trigger : phaseTwo) for (String name : trigger.skills())
+            if (!definitions.containsKey(name)) missing++;
+        return missing;
+    }
 
     public static GoliathSkillLibrary load(ServerLevel level) {
         ResourceLocation location = ResourceLocation.fromNamespaceAndPath(

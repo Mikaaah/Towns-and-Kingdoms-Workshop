@@ -85,6 +85,9 @@ public final class GoliathSkillRuntime {
                 owner.markSkillsSpawnPlayed();
                 castEvent("onspawn");
             }
+            // Set the spawn/global cooldown before evaluating any onTimer:1
+            // triggers, otherwise multiple boss attacks start on tick one.
+            runDueTasks(level, MAX_TASKS_PER_TICK);
         }
         if (!inDeathSequence) {
             for (GoliathSkillLibrary.Trigger trigger : library.triggers(owner.isPhaseTwo())) {
@@ -148,8 +151,9 @@ public final class GoliathSkillRuntime {
     }
 
     private void castTrigger(GoliathSkillLibrary.Trigger trigger, LivingEntity source) {
+        float phaseMaxHealth = owner.isPhaseTwo() ? 400.0f : 850.0f;
         if (trigger.healthBelow() <= 100 && owner.getHealth() >=
-                owner.getMaxHealth() * trigger.healthBelow() / 100.0f) return;
+                phaseMaxHealth * trigger.healthBelow() / 100.0f) return;
         if (trigger.requiresMace() && !(source instanceof Player player
                 && player.getMainHandItem().is(Items.MACE))) return;
         if (trigger.skills().isEmpty()) return;
