@@ -1,3 +1,25 @@
+# Validation — Workshop 0.2.1
+
+Java 21 / Minecraft 1.21.1 / NeoForge 21.1.219. Built from an isolated snapshot
+of main at ab01003d2670dfbc3d285322940417ee63757506. Only the main branch is
+updated for this feature; boss development branches are not used or changed.
+
+Twenty-one headless NeoForge GameTests pass. Existing settings persistence,
+drop/re-placement and save-permission tests now use a custom palette and motion
+disabled. Added tests cover six-digit hex parsing (including black, white and
+leading zeros), malformed/out-of-range rejection, old 0.2.0 settings migration,
+full settings-packet round trips, and the bobbing amplitude/period/off toggle.
+
+Client and server source compilation passes. Asset checks retain the projector
+PNG, animation metadata and complete model unchanged. The body uses only its
+existing tint-index faces. A client chunk rebuild is requested when settings
+synchronize so the placed model's new body color can be baked into its mesh.
+
+No graphical Minecraft client is available here. The live color editor, block
+tint refresh and projection animation still need in-game visual verification.
+
+## Previous validation
+
 # Validation — Workshop 0.2.0
 
 Java 21; Minecraft 1.21.1 / NeoForge 21.1.219.

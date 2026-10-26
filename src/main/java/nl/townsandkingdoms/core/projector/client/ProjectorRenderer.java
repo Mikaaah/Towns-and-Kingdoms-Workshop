@@ -28,16 +28,19 @@ public final class ProjectorRenderer implements BlockEntityRenderer<ProjectorBlo
     private List<Line> lines(ProjectorBlockEntity be){
         long now=System.currentTimeMillis();var old=cache.get(be.getBlockPos());
         if(old!=null&&now-old.at<1000&&old.settings.equals(be.settings()))return old.lines;
-        var s=be.settings();var result=new ArrayList<Line>();
+        var s=be.settings();var colors=s.palette();
+        int accent=ProjectorPalette.opaque(colors.accent()), textColor=ProjectorPalette.opaque(colors.text()),
+                done=ProjectorPalette.opaque(colors.completed()), muted=ProjectorPalette.opaque(ProjectorPalette.muted(colors.text()));
+        var result=new ArrayList<Line>();
         if(s.mode()==ProjectorSettings.Mode.TEXT){
-            for(FormattedCharSequence text:font.split(FormattedText.parse(s.text()),W-32))result.add(new Line(text,ItemStack.EMPTY,0xFFEDE6FF,false));
+            for(FormattedCharSequence text:font.split(FormattedText.parse(s.text()),W-32))result.add(new Line(text,ItemStack.EMPTY,textColor,false));
         }else{
             for(long id:s.quests()){
                 var view=QuestBridge.view(id);
-                if(view==null){result.add(new Line(Component.literal("Quest unavailable or hidden").getVisualOrderText(),ItemStack.EMPTY,0xFFB8A6CB,true));continue;}
+                if(view==null){result.add(new Line(Component.literal("Quest unavailable or hidden").getVisualOrderText(),ItemStack.EMPTY,muted,true));continue;}
                 String mark=view.completed()?"✓ ":view.locked()?"◆ ":"";
-                addWrapped(result,Component.literal(mark).append(view.title()),view.icon(),view.completed()?0xFF91E7A9:0xFFD8B8FF,true);
-                if(view.tasks().isEmpty())addWrapped(result,Component.literal(view.locked()?"Locked · complete earlier quests":"No tasks"),ItemStack.EMPTY,0xFFAD9CBE,false);
+                addWrapped(result,Component.literal(mark).append(view.title()),view.icon(),view.completed()?done:accent,true);
+                if(view.tasks().isEmpty())addWrapped(result,Component.literal(view.locked()?"Locked · complete earlier quests":"No tasks"),ItemStack.EMPTY,muted,false);
                 for(var task:view.tasks()){
                     String amount=task.progress();int available=W-46-font.width(amount)-12;
                     var wrapped=font.split(task.title(),Math.max(40,available));
@@ -45,12 +48,12 @@ public final class ProjectorRenderer implements BlockEntityRenderer<ProjectorBlo
                         // Keep the complete requirement; long task names wrap onto extra rows.
                         Component suffix=Component.literal(i==0?"    "+amount:"");
                         FormattedCharSequence sequence=FormattedCharSequence.composite(wrapped.get(i),suffix.getVisualOrderText());
-                        result.add(new Line(sequence,i==0?task.icon():ItemStack.EMPTY,task.completed()?0xFF91E7A9:0xFFE8E0F0,false));
+                        result.add(new Line(sequence,i==0?task.icon():ItemStack.EMPTY,task.completed()?done:textColor,false));
                     }
                 }
                 result.add(new Line(Component.empty().getVisualOrderText(),ItemStack.EMPTY,0,false));
             }
-            if(result.isEmpty())addWrapped(result,Component.literal(s.quests().isEmpty()?"Right-click to select up to five quests":QuestBridge.status()),ItemStack.EMPTY,0xFFD8B8FF,false);
+            if(result.isEmpty())addWrapped(result,Component.literal(s.quests().isEmpty()?"Right-click to select up to five quests":QuestBridge.status()),ItemStack.EMPTY,accent,false);
         }
         if(s.mode()==ProjectorSettings.Mode.QUESTS) {
             var paged=new ArrayList<Line>(); Line heading=null;
@@ -67,24 +70,25 @@ public final class ProjectorRenderer implements BlockEntityRenderer<ProjectorBlo
     }
     private void addWrapped(List<Line> lines,Component text,ItemStack icon,int color,boolean header){var split=font.split(text,W-46);for(int i=0;i<split.size();i++)lines.add(new Line(split.get(i),i==0?icon:ItemStack.EMPTY,color,header));}
     @Override public void render(ProjectorBlockEntity be,float partial,PoseStack pose,MultiBufferSource buffers,int light,int overlay){
-        var s=be.settings();var mc=Minecraft.getInstance();
+        var s=be.settings();var colors=s.palette();var mc=Minecraft.getInstance();
         if(mc.player==null||mc.player.distanceToSqr(be.getBlockPos().getCenter())>48*48)return;
-        pose.pushPose();pose.translate(.5,s.elevation()+.6,.5);
+        double ticks=(be.getLevel()==null?0:be.getLevel().getGameTime())+(double)partial;
+        pose.pushPose();pose.translate(.5,s.elevation()+.6+ProjectionMotion.offset(ticks,s.bobbing()),.5);
         if(s.billboard())pose.mulPose(mc.getEntityRenderDispatcher().cameraOrientation());
         else pose.mulPose(Axis.YP.rotationDegrees(-be.getBlockState().getValue(ProjectorBlock.FACING).toYRot()));
         float scale=s.width()/W;pose.scale(scale,-scale,scale);
         if(s.mode()==ProjectorSettings.Mode.IMAGE){
             var image=RemoteImages.get(s.imageUrl());
             if(image.texture()!=null){float height=Math.min(600,W*(float)image.height()/image.width());float width=height*image.width()/image.height();
-                if(s.background())quad(pose,buffers,WHITE,-width/2-6,-height-6,width+12,height+12,-.4F,0xBB170F29);
+                if(s.background())quad(pose,buffers,WHITE,-width/2-6,-height-6,width+12,height+12,-.4F,(0xBB000000|colors.backdrop()));
                 quad(pose,buffers,image.texture(),-width/2,-height,width,height,0,0xFFFFFFFF);
-            }else{drawText(pose,buffers,Component.literal(image.message()).getVisualOrderText(),-W/2+12,-18,0xFFD8B8FF);}
+            }else{drawText(pose,buffers,Component.literal(image.message()).getVisualOrderText(),-W/2+12,-18,ProjectorPalette.opaque(colors.accent()));}
         }else{
             List<Line> lines=lines(be);int pages=Math.max(1,(lines.size()+PAGE_ROWS-1)/PAGE_ROWS);
             long time=be.getLevel()==null?0:be.getLevel().getGameTime();int page=(int)((time/160)%pages);
             int start=page*PAGE_ROWS,end=Math.min(lines.size(),start+PAGE_ROWS),height=Math.max(36,(end-start)*ROW+24+(pages>1?14:0));
-            if(s.background())quad(pose,buffers,WHITE,-W/2,-height,W,height,-.4F,0xCE170F29);
-            quad(pose,buffers,WHITE,-W/2,-height,W,2,-.2F,0xDDBB88FF);
+            if(s.background())quad(pose,buffers,WHITE,-W/2,-height,W,height,-.4F,(0xCE000000|colors.backdrop()));
+            quad(pose,buffers,WHITE,-W/2,-height,W,2,-.2F,(0xDD000000|colors.accent()));
             int y=-height+12;
             for(int i=start;i<end;i++,y+=ROW){var line=lines.get(i);
                 if(!line.icon.isEmpty()){
@@ -93,7 +97,7 @@ public final class ProjectorRenderer implements BlockEntityRenderer<ProjectorBlo
                 }
                 drawText(pose,buffers,line.text,-W/2+34,y,line.color);
             }
-            if(pages>1)drawText(pose,buffers,Component.literal("Page "+(page+1)+" / "+pages+" · changes every 8 seconds").getVisualOrderText(),-W/2+12,-15,0xFFA998BB);
+            if(pages>1)drawText(pose,buffers,Component.literal("Page "+(page+1)+" / "+pages+" · changes every 8 seconds").getVisualOrderText(),-W/2+12,-15,ProjectorPalette.opaque(ProjectorPalette.muted(colors.text())));
         }
         pose.popPose();
     }

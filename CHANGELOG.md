@@ -1,3 +1,15 @@
+# 0.2.1
+
+- Add an Appearance tab with per-projector hex colors and live color swatches.
+- Tint the model's original tintable faces and configured dropped/inventory items; preserve untinted metal faces.
+- Configure projection accent, default text, completed-task and backdrop colors independently.
+- Add optional gentle bobbing of the entire hologram, with a seven-second loop.
+- Preserve the original two-frame animated texture and all supplied model geometry/UVs.
+- Persist colors and motion through saves, settings synchronization, breaking and re-placement.
+- Read older projector data with defaults; reject invalid hex/RGB values.
+- Rebuild the client chunk mesh when updated body tint arrives.
+- Update the settings packet to protocol version 2; requires matching client/server versions.
+
 # 0.2.0
 
 - Rename the mod and creative tab to Towns and Kingdoms - Workshop; preserve existing IDs.

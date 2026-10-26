@@ -31,6 +31,9 @@ public final class ProjectorBlockEntity extends BlockEntity {
     @Override protected void loadAdditional(CompoundTag tag, HolderLookup.Provider lookup) {
         super.loadAdditional(tag, lookup); settings = ProjectorSettings.read(tag.getCompound("projector"));
         revision = tag.getInt("revision"); owner = tag.hasUUID("owner") ? tag.getUUID("owner") : null;
+        // Tint is baked into the chunk mesh. Rebuild it when a block-entity update arrives.
+        if (level != null && level.isClientSide)
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
     }
     @Override public CompoundTag getUpdateTag(HolderLookup.Provider lookup) { return saveWithoutMetadata(lookup); }
     @Override public ClientboundBlockEntityDataPacket getUpdatePacket() { return ClientboundBlockEntityDataPacket.create(this); }

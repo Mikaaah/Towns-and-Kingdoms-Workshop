@@ -1,4 +1,4 @@
-# Towns and Kingdoms - Workshop 0.2.0
+# Towns and Kingdoms - Workshop 0.2.1
 
 Minecraft 1.21.1 / NeoForge 21.1.219 or newer (21.1.x) / Java 21.
 Install the JAR on the server and all clients. No other mods required.
@@ -18,6 +18,16 @@ original animated texture. Place it and right-click: all setup uses the screen.
 - **Formatted text:** multiline text with Minecraft `&0`–`&f` colors,
   `&#RRGGBB`, `&l` bold, `&o` italic, `&n` underline, `&m` strike-through,
   `&r` reset, plus `**bold**` and `*italic*`. Literal `\n` also creates a newline.
+- **Appearance:** separate six-digit hex inputs (`#RRGGBB`, or without `#`) with
+  color swatches for the model's tintable parts, projection accent, default text,
+  completed tasks and backdrop. The original untinted metal parts stay neutral.
+  Each placed projector stores its own palette; configured drops use its body tint.
+  Inline text formatting still overrides the default text color.
+- Gentle bobbing moves the entire projected field together (text, task icons,
+  images and backdrop), ±0.035 blocks over a seven-second cycle. Toggle it on/off
+  in Appearance. It is enabled by default, including on older projector settings.
+  The supplied two-frame texture animation remains unchanged; each frame lasts
+  ten ticks (half a second). The block model itself has no moving parts.
 - Adjustable projection width (1–8 blocks), elevation (0.5–6 blocks), backdrop
   and optional face-player orientation. Otherwise it faces its placement direction.
 - Only the placer or an operator can change settings. Other players can view
@@ -46,6 +56,9 @@ Images and formatting do not require FTB Quests.
 
 Stable registry namespace: `tnkcore`. Projector item/block: `tnkcore:quest_projector`.
 Existing Spawner Cage IDs and saved data are unchanged.
+Existing 0.2.0 projector settings load with the default purple palette.
+Install matching Workshop 0.2.1 on the server and clients: the projector settings
+packet now carries colors and the animation toggle (protocol version 2).
 
 ## Spawner Cage
 

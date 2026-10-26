@@ -19,7 +19,7 @@ import nl.townsandkingdoms.core.projector.client.FormattedText;
 public class ProjectorTests {
     static final BlockPos POS=new BlockPos(2,2,2);
     static ProjectorBlockEntity setup(GameTestHelper h){h.setBlock(POS,TownsAndKingdomsCore.PROJECTOR.get());return (ProjectorBlockEntity)h.getBlockEntity(POS);}
-    static ProjectorSettings sample(){return new ProjectorSettings(ProjectorSettings.Mode.IMAGE,List.of(1L,2L,3L,4L,5L),"&d**Town Square**\nGather &l32 iron&r.","https://example.org/poster.png",4,2.5F,true,false);}
+    static ProjectorSettings sample(){return new ProjectorSettings(ProjectorSettings.Mode.IMAGE,List.of(1L,2L,3L,4L,5L),"&d**Town Square**\nGather &l32 iron&r.","https://example.org/poster.png",4,2.5F,true,false,new ProjectorPalette(0x00CC88,0x1199EE,0xFFFFFF,0x55FF00,0x102030),false);}
     @GameTest(template="empty") public static void projectorPersistsSettingsAndOwner(GameTestHelper h){
         var be=setup(h);UUID owner=UUID.randomUUID();be.setOwner(owner);be.update(sample());
         var tag=be.saveWithFullMetadata(h.getLevel().registryAccess());
@@ -97,5 +97,46 @@ public class ProjectorTests {
         try{ProjectorNetwork.apply(new ProjectorNetwork.Save(be.getBlockPos(),0,sample()),owner);}
         finally{net.neoforged.neoforge.common.NeoForge.EVENT_BUS.unregister(listener);}
         h.assertTrue(be.revision()==0,"Claim-denied settings were applied");h.succeed();
+    }
+
+    @GameTest(template="empty") public static void projectorHexColorsAcceptFullRgbRange(GameTestHelper h) {
+        h.assertTrue(ProjectorPalette.parseHex("#000000")==0,"Black rejected");
+        h.assertTrue(ProjectorPalette.parseHex("ffffff")==0xFFFFFF,"White rejected");
+        h.assertTrue(ProjectorPalette.parseHex(" #aB01fF ")==0xAB01FF,"Mixed-case hex rejected");
+        h.assertTrue(ProjectorPalette.hex(0x001234).equals("#001234"),"Leading zeroes lost");
+        int rejected=0;
+        for(String invalid:List.of("#FFF","#12345678","#GG1234","#-00001","0x123456",""))
+            try{ProjectorPalette.parseHex(invalid);}catch(IllegalArgumentException e){rejected++;}
+        try{new ProjectorPalette(-1,0,0,0,0);}catch(IllegalArgumentException e){rejected++;}
+        try{new ProjectorPalette(0x1000000,0,0,0,0);}catch(IllegalArgumentException e){rejected++;}
+        h.assertTrue(rejected==8,"Invalid color accepted");h.succeed();
+    }
+    @GameTest(template="empty") public static void projectorMigratesLegacySettings(GameTestHelper h) {
+        var old=sample().save();old.remove("palette");old.remove("bobbing");
+        var migrated=ProjectorSettings.read(old);
+        h.assertTrue(migrated.quests().equals(sample().quests())&&migrated.text().equals(sample().text())
+                &&migrated.imageUrl().equals(sample().imageUrl())&&migrated.width()==sample().width(),"Legacy content lost");
+        h.assertTrue(migrated.palette().equals(ProjectorPalette.DEFAULT)&&migrated.bobbing(),"Legacy defaults missing");
+        var partial=new net.minecraft.nbt.CompoundTag();partial.putInt("body",0);partial.putInt("accent",-1);
+        var colors=ProjectorPalette.read(partial);
+        h.assertTrue(colors.body()==0&&colors.accent()==ProjectorPalette.DEFAULT.accent(),"Partial palette lost black or retained invalid color");h.succeed();
+    }
+    @GameTest(template="empty") public static void projectorPacketPreservesColorsAndMotion(GameTestHelper h) {
+        var buf=new net.minecraft.network.RegistryFriendlyByteBuf(io.netty.buffer.Unpooled.buffer(),h.getLevel().registryAccess());
+        try {
+            var expected=new ProjectorNetwork.Save(h.absolutePos(POS),12,sample());
+            ProjectorNetwork.Save.CODEC.encode(buf,expected);
+            var decoded=ProjectorNetwork.Save.CODEC.decode(buf);
+            h.assertTrue(decoded.equals(expected),"Network changed color/motion settings");
+            h.assertTrue(buf.readableBytes()==0,"Packet left undecoded fields");
+        }finally{buf.release();}h.succeed();
+    }
+    @GameTest(template="empty") public static void projectorBobbingIsSubtleAndOptional(GameTestHelper h) {
+        double period=ProjectionMotion.PERIOD_TICKS,amp=ProjectionMotion.AMPLITUDE;
+        h.assertTrue(Math.abs(ProjectionMotion.offset(period/4,true)-amp)<1e-9,"Upper bob limit incorrect");
+        h.assertTrue(Math.abs(ProjectionMotion.offset(3*period/4,true)+amp)<1e-9,"Lower bob limit incorrect");
+        h.assertTrue(Math.abs(ProjectionMotion.offset(0,true)-ProjectionMotion.offset(period,true))<1e-9,"Motion does not loop");
+        h.assertTrue(ProjectionMotion.offset(period/4,false)==0,"Disabled motion still bobs");
+        h.assertTrue(amp<=0.04,"Motion is not subtle");h.succeed();
     }
 }

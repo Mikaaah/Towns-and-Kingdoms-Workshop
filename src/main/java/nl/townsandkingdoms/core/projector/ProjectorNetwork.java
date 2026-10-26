@@ -19,17 +19,21 @@ public final class ProjectorNetwork {
             var s = value.settings; b.writeEnum(s.mode()); b.writeVarInt(s.quests().size());
             s.quests().forEach(b::writeLong); b.writeUtf(s.text(),ProjectorSettings.MAX_TEXT); b.writeUtf(s.imageUrl(),ProjectorSettings.MAX_URL);
             b.writeFloat(s.width()); b.writeFloat(s.elevation()); b.writeBoolean(s.billboard()); b.writeBoolean(s.background());
+            var colors = s.palette();
+            b.writeInt(colors.body()); b.writeInt(colors.accent()); b.writeInt(colors.text());
+            b.writeInt(colors.completed()); b.writeInt(colors.backdrop()); b.writeBoolean(s.bobbing());
         }, b -> {
             BlockPos p=b.readBlockPos(); int revision=b.readVarInt(); var mode=b.readEnum(ProjectorSettings.Mode.class);
             int count=b.readVarInt(); if(count<0 || count>5) throw new io.netty.handler.codec.DecoderException("Too many quests");
             var ids=new ArrayList<Long>(); for(int i=0;i<count;i++) ids.add(b.readLong());
             return new Save(p,revision,new ProjectorSettings(mode,ids,b.readUtf(ProjectorSettings.MAX_TEXT),b.readUtf(ProjectorSettings.MAX_URL),
-                    b.readFloat(),b.readFloat(),b.readBoolean(),b.readBoolean()));
+                    b.readFloat(),b.readFloat(),b.readBoolean(),b.readBoolean(),
+                    new ProjectorPalette(b.readInt(),b.readInt(),b.readInt(),b.readInt(),b.readInt()),b.readBoolean()));
         });
         @Override public Type<Save> type() { return TYPE; }
     }
     public static void register(RegisterPayloadHandlersEvent event) {
-        event.registrar("1").playToServer(Save.TYPE, Save.CODEC, ProjectorNetwork::save);
+        event.registrar("2").playToServer(Save.TYPE, Save.CODEC, ProjectorNetwork::save);
     }
     private static void save(Save packet, IPayloadContext context) {
         context.enqueueWork(() -> {

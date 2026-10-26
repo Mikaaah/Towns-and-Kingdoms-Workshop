@@ -27,10 +27,21 @@ public final class CoreClient {
         event.registerBlockEntityRenderer(TownsAndKingdomsCore.PROJECTOR_ENTITY.get(), nl.townsandkingdoms.core.projector.client.ProjectorRenderer::new);
     }
     @SubscribeEvent public static void blockColors(net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.Block event) {
-        event.register((state, level, pos, tint) -> 0xFF9D5BFF, TownsAndKingdomsCore.PROJECTOR.get());
+        event.register((state, level, pos, tint) -> {
+            var colors = nl.townsandkingdoms.core.projector.ProjectorPalette.DEFAULT;
+            if (level != null && pos != null && level.getBlockEntity(pos) instanceof nl.townsandkingdoms.core.projector.ProjectorBlockEntity be)
+                colors = be.settings().palette();
+            return nl.townsandkingdoms.core.projector.ProjectorPalette.opaque(colors.body());
+        }, TownsAndKingdomsCore.PROJECTOR.get());
     }
     @SubscribeEvent public static void itemColors(net.neoforged.neoforge.client.event.RegisterColorHandlersEvent.Item event) {
-        event.register((stack, tint) -> 0xFF9D5BFF, TownsAndKingdomsCore.PROJECTOR_ITEM.get());
+        event.register((stack, tint) -> {
+            var data = stack.getOrDefault(net.minecraft.core.component.DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.EMPTY).copyTag();
+            var colors = data.contains("projector")
+                    ? nl.townsandkingdoms.core.projector.ProjectorSettings.read(data.getCompound("projector")).palette()
+                    : nl.townsandkingdoms.core.projector.ProjectorPalette.DEFAULT;
+            return nl.townsandkingdoms.core.projector.ProjectorPalette.opaque(colors.body());
+        }, TownsAndKingdomsCore.PROJECTOR_ITEM.get());
     }
 
     @SubscribeEvent public static void reload(net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent event) {
