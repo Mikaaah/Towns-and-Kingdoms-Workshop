@@ -64,6 +64,8 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
     private int attackAge;
     private int nextAttack = 60;
     private int transformationTicks;
+    private int entranceTicks = 125;
+    private boolean entranceStarted;
     private boolean validatedPack;
     private long castleKey;
     private int deathAnimationTicks;
@@ -172,6 +174,21 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
                 discard();
                 return;
             }
+        }
+
+        // The original pack has a 6.25-second emergence animation. Play it
+        // once at the beginning of the encounter, before any attack can start.
+        if (entranceTicks > 0) {
+            if (!entranceStarted) {
+                entranceStarted = true;
+                this.entityData.set(BUSY, true);
+                this.triggerAnim("attack", "p1_spawn");
+                this.playSound(SoundEvents.WARDEN_EMERGE, 3.0F, 0.6F);
+            }
+            getNavigation().stop();
+            entranceTicks--;
+            if (entranceTicks == 0) this.entityData.set(BUSY, false);
+            return;
         }
 
         if (this.tickCount % 5 == 0) {
@@ -376,6 +393,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
             this.entityData.set(PHASE, 2);
             this.setHealth(400.0F);
             this.activeAttack = Attack.NONE;
+            this.entranceTicks = 0;
             this.entityData.set(BUSY, true);
             this.transformationTicks = 140;
             this.nextAttack = 80;
@@ -413,6 +431,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
         super.addAdditionalSaveData(tag);
         tag.putInt("GoliathPhase", isPhaseTwo() ? 2 : 1);
         tag.putInt("GoliathTransformationTicks", transformationTicks);
+        tag.putInt("GoliathEntranceTicks", entranceTicks);
         tag.putLong("GoliathCastleKey", castleKey);
     }
 
@@ -421,9 +440,11 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
         super.readAdditionalSaveData(tag);
         this.entityData.set(PHASE, tag.getInt("GoliathPhase") == 2 ? 2 : 1);
         this.transformationTicks = tag.getInt("GoliathTransformationTicks");
+        this.entranceTicks = tag.getInt("GoliathEntranceTicks");
+        this.entranceStarted = false;
         this.castleKey = tag.getLong("GoliathCastleKey");
         this.activeAttack = Attack.NONE;
-        this.entityData.set(BUSY, transformationTicks > 0);
+        this.entityData.set(BUSY, transformationTicks > 0 || entranceTicks > 0);
         this.nextAttack = 60;
     }
 }
