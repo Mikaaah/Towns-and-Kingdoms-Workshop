@@ -231,6 +231,7 @@ public final class GoliathSkillRuntime {
         int r = Math.min(4, (int) Math.ceil(radius));
         for (int x = -r; x <= r; x++) for (int z = -r; z <= r; z++) {
             BlockPos p = center.offset(x, 0, z);
+            if (!owner.level().hasChunkAt(p)) continue;
             String id = BuiltInRegistries.BLOCK.getKey(owner.level().getBlockState(p).getBlock())
                     .getPath().toUpperCase(Locale.ROOT);
             if (blocks.contains(id)) return true;

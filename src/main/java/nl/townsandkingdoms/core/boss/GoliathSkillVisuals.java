@@ -118,7 +118,13 @@ public final class GoliathSkillVisuals {
                 missile.remove();
                 continue;
             }
-            if (level.getBlockState(BlockPos.containing(projectile.position)).isSolid()) {
+            BlockPos collisionPos = BlockPos.containing(projectile.position);
+            if (!level.hasChunkAt(collisionPos)) {
+                // Never load distant chunks just to update a visual projectile.
+                missile.remove();
+                continue;
+            }
+            if (level.getBlockState(collisionPos).isSolid()) {
                 callback(projectile.onHitBlock, projectile.target, projectile.position);
                 missile.remove();
                 continue;
