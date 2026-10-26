@@ -1,3 +1,8 @@
+# 0.4.2
+
+- Sort all four Goliath animation timelines numerically so GeckoLib does not reject late zero-time keyframes.
+- Fix source converter to emit chronological keyframes. Preserve every animation value and gameplay class.
+
 # 0.4.1
 
 - Replace empty dependency version ranges for KubeJS, Twilight Forest and

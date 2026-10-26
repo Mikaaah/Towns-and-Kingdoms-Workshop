@@ -1,4 +1,4 @@
-# Towns and Kingdoms - Workshop 0.4.1
+# Towns and Kingdoms - Workshop 0.4.2
 
 Minecraft 1.21.1 / NeoForge 21.1.219 or newer (21.1.x) / Java 21.
 Install the JAR on the server and all clients. The existing Workshop features require no other mods.

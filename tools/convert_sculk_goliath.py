@@ -108,7 +108,7 @@ def build_animations(model, names, identifier):
             if bone_uuid not in names:
                 continue
             channels = {}
-            for key in controller.get("keyframes", []):
+            for key in sorted(controller.get("keyframes", []), key=lambda frame: float(frame["time"])):
                 channel = key.get("channel")
                 if channel not in ("position", "rotation", "scale") or not key.get("data_points"):
                     continue
@@ -169,3 +169,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'net.neoforged.moddev' version '2.0.148'
 }
-version = '0.4.1'
+version = '0.4.2'
 group = 'nl.townsandkingdoms.core'
 base { archivesName = 'towns-and-kingdoms-workshop-1.21.1-neoforge' }
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)

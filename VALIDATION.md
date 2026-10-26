@@ -1,3 +1,7 @@
+# Validation — Workshop 0.4.2
+
+Resource-only animation fix: 43 clips, 734 timelines checked; 545 out-of-order tracks repaired. JSON values compare equal before/after; serialized timestamps now increase monotonically. Every compiled class remains byte-identical to 0.4.1. GeckoLib source rejects a zero-time keyframe after another entry. Live client rendering still needs verification.
+
 # Validation — Workshop 0.4.1
 
 Metadata-only dependency hotfix based on the tested 0.4.0 release.
