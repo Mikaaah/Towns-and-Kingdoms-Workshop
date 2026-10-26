@@ -33,6 +33,13 @@ public final class SculkGoliathBootstrap {
                     .clientTrackingRange(16)
                     .build("tnkcore:sculk_goliath"));
 
+    public static final DeferredHolder<EntityType<?>, EntityType<GoliathEffectEntity>> SCULK_EFFECT =
+            ENTITY_TYPES.register("sculk_goliath_effect", () -> EntityType.Builder
+                    .of(GoliathEffectEntity::new, MobCategory.MISC)
+                    .sized(2.0F, 2.0F)
+                    .clientTrackingRange(12)
+                    .build("tnkcore:sculk_goliath_effect"));
+
     public static boolean dependenciesPresent() {
         ModList mods = ModList.get();
         return mods != null && mods.isLoaded("geckolib") && mods.isLoaded("twilightforest")
@@ -55,11 +62,14 @@ public final class SculkGoliathBootstrap {
 
     private static void attributes(EntityAttributeCreationEvent event) {
         event.put(SCULK_GOLIATH.get(), SculkGoliathEntity.createAttributes().build());
+        event.put(SCULK_EFFECT.get(), net.minecraft.world.entity.monster.Monster
+                .createMonsterAttributes().add(net.minecraft.world.entity.ai.attributes.Attributes.MAX_HEALTH, 1.0).build());
     }
 
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         if (dependenciesPresent()) {
             event.registerEntityRenderer(SCULK_GOLIATH.get(), SculkGoliathRenderer::new);
+            event.registerEntityRenderer(SCULK_EFFECT.get(), GoliathEffectRenderer::new);
         }
     }
 }

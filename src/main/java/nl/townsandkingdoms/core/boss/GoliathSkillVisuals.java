@@ -211,6 +211,17 @@ public final class GoliathSkillVisuals {
                         0, (owner.getRandom().nextDouble() - 0.5) * radius);
             }
             newHelpers.add(new Helper(location, type));
+            // Render the two supplied ModelEngine helper models as native,
+            // visual-only GeckoLib entities. Combat stays in the bounded
+            // effect scheduler above, and each visual despawns after 80 ticks.
+            if (type.contains("GROUNDBREAK") || type.contains("DIG")) {
+                var effect = SculkGoliathBootstrap.SCULK_EFFECT.get().create(level);
+                if (effect != null) {
+                    effect.setGroundBreak(type.contains("GROUNDBREAK"));
+                    effect.moveTo(location.x, location.y, location.z, owner.getYRot(), 0);
+                    level.addFreshEntity(effect);
+                }
+            }
         }
         emit(level, ParticleTypes.SCULK_SOUL, pos, 12, 1.0, 0.04);
     }

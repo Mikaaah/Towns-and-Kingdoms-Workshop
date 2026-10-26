@@ -404,6 +404,8 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
+        if (transformationTicks > 0 && level() instanceof ServerLevel
+                && skillRuntime.available((ServerLevel) level())) return false;
         boolean nativeSkills = level() instanceof ServerLevel server && skillRuntime.available(server);
         if (nativeSkills && skillRuntime.damaged((ServerLevel) level(), source)) return false;
         if (!nativeSkills && source.getEntity() instanceof Player player && !isPhaseTwo()
@@ -419,6 +421,10 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
     public void die(DamageSource source) {
         if (!isPhaseTwo() && !level().isClientSide) {
             this.entityData.set(PHASE, 2);
+            // The source has a separate 400-HP second entity, rather than a
+            // 400/850-HP wounded first entity. Match its actual max health.
+            var maxHealth = this.getAttribute(Attributes.MAX_HEALTH);
+            if (maxHealth != null) maxHealth.setBaseValue(400.0);
             this.setHealth(400.0F);
             this.activeAttack = Attack.NONE;
             this.entranceTicks = 0;
@@ -472,6 +478,10 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         this.entityData.set(PHASE, tag.getInt("GoliathPhase") == 2 ? 2 : 1);
+        if (isPhaseTwo()) {
+            var maxHealth = this.getAttribute(Attributes.MAX_HEALTH);
+            if (maxHealth != null) maxHealth.setBaseValue(400.0);
+        }
         this.transformationTicks = tag.getInt("GoliathTransformationTicks");
         this.entranceTicks = tag.getInt("GoliathEntranceTicks");
         this.entranceStarted = false;

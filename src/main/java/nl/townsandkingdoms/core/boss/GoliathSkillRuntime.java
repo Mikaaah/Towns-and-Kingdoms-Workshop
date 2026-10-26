@@ -78,7 +78,7 @@ public final class GoliathSkillRuntime {
     public void tick(ServerLevel level) {
         if (!available(level)) return;
         if (rotationLocked) owner.setYRot(lockedYaw);
-        if (!initialized) {
+        if (!initialized && !inDeathSequence) {
             initialized = true;
             castEvent("onspawnorload");
             if (!owner.skillsSpawnPlayed()) {
