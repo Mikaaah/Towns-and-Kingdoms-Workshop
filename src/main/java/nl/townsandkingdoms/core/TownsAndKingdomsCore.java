@@ -1,6 +1,7 @@
 package nl.townsandkingdoms.core;
 
 import net.minecraft.core.registries.Registries;
+import nl.townsandkingdoms.core.boss.SculkGoliathBootstrap;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -35,5 +36,6 @@ public final class TownsAndKingdomsCore {
         ITEMS.register(bus);
         bus.addListener(nl.townsandkingdoms.core.projector.ProjectorNetwork::register);
         TABS.register(bus);
+        SculkGoliathBootstrap.register(bus);
     }
 }
