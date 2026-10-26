@@ -53,6 +53,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
             SynchedEntityData.defineId(SculkGoliathEntity.class, EntityDataSerializers.BOOLEAN);
 
     private final AnimatableInstanceCache animationCache = GeckoLibUtil.createInstanceCache(this);
+    private final GoliathSkillRuntime skillRuntime = new GoliathSkillRuntime(this);
     private final ServerBossEvent bossBar = new ServerBossEvent(
             Component.literal("SCULK GOLIATH"), BossEvent.BossBarColor.BLUE, BossEvent.BossBarOverlay.PROGRESS);
 
@@ -66,6 +67,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
     private int transformationTicks;
     private int entranceTicks = 125;
     private boolean entranceStarted;
+    private boolean fullSkillSpawnPlayed;
     private boolean validatedPack;
     private long castleKey;
     private int deathAnimationTicks;
@@ -120,7 +122,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
         }));
         AnimationController<SculkGoliathEntity> attacks =
                 new AnimationController<>(this, "attack", 0, state -> PlayState.STOP);
-        String[] animations = {"attack1", "attack2", "attack3", "antimace", "stompcombo",
+        String[] animations = {"attack1", "attack2", "attack3", "antimace", "stompcombo", "attackafterrun",
                 "sonicsmash", "scream", "run", "pullsmashes", "leapsmash", "soulscream",
                 "startphase2", "death", "spawn", "dig", "pickupsmash", "groundsmash",
                 "halfexplode", "breakscream", "sniff"};
@@ -145,6 +147,14 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
         this.triggerAnim("attack", phase + name);
     }
 
+    public void playSkillAnimation(String name) {
+        if (isPhaseTwo() && name.equals("spawn")) name = "startphase2";
+        animate(name);
+    }
+
+    public boolean skillsSpawnPlayed() { return fullSkillSpawnPlayed; }
+    public void markSkillsSpawnPlayed() { fullSkillSpawnPlayed = true; }
+
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
@@ -162,6 +172,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
         // Vanilla continues ticking a mob while its death animation is active.
         // Never let a defeated boss acquire targets or execute attacks as a corpse.
         if (isDeadOrDying()) {
+            if (skillRuntime.available(server)) skillRuntime.tick(server);
             activeAttack = Attack.NONE;
             this.entityData.set(BUSY, true);
             getNavigation().stop();
@@ -174,6 +185,21 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
                 discard();
                 return;
             }
+        }
+
+        // The full 115-definition runtime exists only on the experimental
+        // branch. The hand-coded prototype remains intact as a safe fallback.
+        if (skillRuntime.available(server)) {
+            if (this.tickCount % 5 == 0) {
+                float total = isPhaseTwo() ? 400.0F : 850.0F;
+                bossBar.setName(Component.literal(isPhaseTwo() ?
+                        "SCULK GOLIATH - PHASE 2" : "SCULK GOLIATH"));
+                bossBar.setProgress(Math.clamp(getHealth() / total, 0.0F, 1.0F));
+            }
+            if (transformationTicks > 0) transformationTicks--;
+            skillRuntime.tick(server);
+            this.entityData.set(BUSY, skillRuntime.isBusy(server) || transformationTicks > 0);
+            return;
         }
 
         // The original pack has a 6.25-second emergence animation. Play it
@@ -378,7 +404,9 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
 
     @Override
     public boolean hurt(DamageSource source, float amount) {
-        if (source.getEntity() instanceof Player player && !isPhaseTwo()
+        boolean nativeSkills = level() instanceof ServerLevel server && skillRuntime.available(server);
+        if (nativeSkills && skillRuntime.damaged((ServerLevel) level(), source)) return false;
+        if (!nativeSkills && source.getEntity() instanceof Player player && !isPhaseTwo()
                 && player.getMainHandItem().is(Items.MACE) && activeAttack == Attack.NONE
                 && transformationTicks == 0 && distanceToSqr(player) < 64) {
             startAttack(Attack.ANTIMACE);
@@ -397,12 +425,16 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
             this.entityData.set(BUSY, true);
             this.transformationTicks = 140;
             this.nextAttack = 80;
-            this.animate("startphase2");
+            if (level() instanceof ServerLevel server && skillRuntime.available(server))
+                skillRuntime.newPhase(server);
+            else this.animate("startphase2");
             this.playSound(SoundEvents.WARDEN_ROAR, 3.0F, 0.45F);
             return;
         }
         SculkGoliathEncounters.defeated(this);
-        this.animate("death");
+        if (level() instanceof ServerLevel server && skillRuntime.available(server))
+            skillRuntime.died(server);
+        else this.animate("death");
         super.die(source);
     }
 
@@ -432,6 +464,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
         tag.putInt("GoliathPhase", isPhaseTwo() ? 2 : 1);
         tag.putInt("GoliathTransformationTicks", transformationTicks);
         tag.putInt("GoliathEntranceTicks", entranceTicks);
+        tag.putBoolean("GoliathFullSkillsSpawnPlayed", fullSkillSpawnPlayed);
         tag.putLong("GoliathCastleKey", castleKey);
     }
 
@@ -442,6 +475,7 @@ public final class SculkGoliathEntity extends Monster implements GeoEntity {
         this.transformationTicks = tag.getInt("GoliathTransformationTicks");
         this.entranceTicks = tag.getInt("GoliathEntranceTicks");
         this.entranceStarted = false;
+        this.fullSkillSpawnPlayed = tag.getBoolean("GoliathFullSkillsSpawnPlayed");
         this.castleKey = tag.getLong("GoliathCastleKey");
         this.activeAttack = Attack.NONE;
         this.entityData.set(BUSY, transformationTicks > 0 || entranceTicks > 0);

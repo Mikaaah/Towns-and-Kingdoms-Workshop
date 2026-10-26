@@ -1,0 +1,2752 @@
+{
+  "format": 1,
+  "source": "HypactC Sculk Goliath MythicMobs (private TNK3 conversion)",
+  "definition_count": 115,
+  "mechanic_count": 1370,
+  "definitions": {
+    "SG_LIGHTS": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "brightness{p=leftarmlight;b=15;s=15} @self",
+        "brightness{p=rightarmlight;b=15;s=15} @self"
+      ]
+    },
+    "SG_SLOWHEARTBEAT": {
+      "cooldown": 0.0,
+      "conditions": [
+        "skillOnCooldown{s=SG_RUN} false",
+        "playerWithin{d=200} true",
+        "playerNotWithin{d=35} true"
+      ],
+      "steps": [
+        "sound{s=entity.warden.heartbeat;v=5;p=2.00;repeat=2;repeati=1} @self",
+        "sound{s=entity.warden.heartbeat;v=5;p=0.50;repeat=1;repeati=1} @self",
+        "sound{s=entity.warden.heartbeat;v=5} @self",
+        "brightness{p=heartlight;b=15;s=15} @self",
+        "brightness{p=heartlight;b=15;s=15;delay=20} @self",
+        "brightness{p=heartlight;b=13;s=13;delay=21} @self",
+        "brightness{p=heartlight;b=11;s=11;delay=22} @self",
+        "brightness{p=heartlight;b=9;s=9;delay=23} @self",
+        "brightness{p=heartlight;b=7;s=7;delay=24} @self",
+        "brightness{p=heartlight;b=5;s=5;delay=25} @self",
+        "brightness{p=heartlight;b=3;s=3;delay=26} @self",
+        "brightness{p=heartlight;b=1;s=1;delay=27} @self",
+        "brightness{p=heartlight;b=0;s=0;delay=28} @self",
+        "particle{p=sculk_soul;a=12;spread=0.5;s=0.05} @modelpart{p=heartlight}",
+        "particle{p=soulflame;a=12;spread=0.5;s=0.05} @modelpart{p=heartlight}"
+      ]
+    },
+    "SG_HEARTBEAT": {
+      "cooldown": 0.0,
+      "conditions": [
+        "skillOnCooldown{s=SG_RUN} false",
+        "playerWithin{d=35} true",
+        "playerNotWithin{d=16} true"
+      ],
+      "steps": [
+        "sound{s=entity.warden.heartbeat;v=5;p=2.00;repeat=2;repeati=1} @self",
+        "sound{s=entity.warden.heartbeat;v=5;p=0.50;repeat=1;repeati=1} @self",
+        "sound{s=entity.warden.heartbeat;v=5} @self",
+        "brightness{p=heartlight;b=15;s=15} @self",
+        "brightness{p=heartlight;b=15;s=15;delay=10} @self",
+        "brightness{p=heartlight;b=13;s=13;delay=11} @self",
+        "brightness{p=heartlight;b=11;s=11;delay=12} @self",
+        "brightness{p=heartlight;b=9;s=9;delay=13} @self",
+        "brightness{p=heartlight;b=7;s=7;delay=14} @self",
+        "brightness{p=heartlight;b=5;s=5;delay=15} @self",
+        "brightness{p=heartlight;b=3;s=3;delay=16} @self",
+        "brightness{p=heartlight;b=1;s=1;delay=17} @self",
+        "brightness{p=heartlight;b=0;s=0;delay=18} @self",
+        "particle{p=sculk_soul;a=12;spread=0.5;s=0.05} @modelpart{p=heartlight}",
+        "particle{p=soulflame;a=12;spread=0.5;s=0.05} @modelpart{p=heartlight}"
+      ]
+    },
+    "SG_FASTHEARTBEAT": {
+      "cooldown": 0.0,
+      "conditions": [
+        "skillOnCooldown{s=SG_RUN} false",
+        "playerWithin{d=16} true"
+      ],
+      "steps": [
+        "sound{s=entity.warden.heartbeat;v=5;p=2.00;repeat=2;repeati=1} @self",
+        "sound{s=entity.warden.heartbeat;v=5;p=0.50;repeat=1;repeati=1} @self",
+        "sound{s=entity.warden.heartbeat;v=5} @self",
+        "brightness{p=heartlight;b=15;s=15} @self",
+        "brightness{p=heartlight;b=15;s=15;delay=5} @self",
+        "brightness{p=heartlight;b=13;s=13;delay=6} @self",
+        "brightness{p=heartlight;b=11;s=11;delay=7} @self",
+        "brightness{p=heartlight;b=9;s=9;delay=8} @self",
+        "brightness{p=heartlight;b=7;s=7;delay=9} @self",
+        "brightness{p=heartlight;b=5;s=5;delay=10} @self",
+        "brightness{p=heartlight;b=3;s=3;delay=11} @self",
+        "brightness{p=heartlight;b=1;s=1;delay=12} @self",
+        "brightness{p=heartlight;b=0;s=0;delay=13} @self",
+        "particle{p=sculk_soul;a=12;spread=0.5;s=0.05} @modelpart{p=heartlight}",
+        "particle{p=soulflame;a=12;spread=0.5;s=0.05} @modelpart{p=heartlight}"
+      ]
+    },
+    "SG_AMBIENTSOUND": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "sound{s=entity.warden.ambient;v=4;p=0.50} @self",
+        "sound{s=entity.warden.ambient;v=4;p=1.00} @self",
+        "sound{s=entity.warden.listening;v=4;p=1.00} @self",
+        "sound{s=entity.warden.listening;v=4;p=0.50} @self"
+      ]
+    },
+    "SG_SCREAM_PUSHBACK": {
+      "cooldown": 20.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=12} true",
+        "playerNotWithin{d=4} true"
+      ],
+      "steps": [
+        "lockrotation{l=true} @self",
+        "lockrotation{l=false;delay=40} @self",
+        "skill{s=SG_DONTDOANTIMACE_SCREAM} @self",
+        "setgcd{ticks=80} @self",
+        "state{s=SCREAM} @self",
+        "sound{s=entity.warden.angry;p=0.50;v=3} @self",
+        "delay 15",
+        "sound{sound=entity.warden.roar;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.80;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=1.00;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=1.30;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=2.00;radius=100;volume=5.0} @self",
+        "throw{v=8;vy=2;fo=true;repeat=4;repeati=8} @PIR{r=24}",
+        "recoil{recoil=0.5;repeat=30;repeatinterval=1} @PIR{radius=48}"
+      ]
+    },
+    "SG_ANTIMACE": {
+      "cooldown": 5.0,
+      "conditions": [
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SONICSMASH} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_ATTACK} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_PICKUPSMASH} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SCREAM} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_RUN} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_ATTACKAFTERRUN} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SOULSCREAM} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_GROUNDSMASH} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SONICSMASH} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_STOMPCOMBO} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SPAWN} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_DIG} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_BREAKSCREAM} false"
+      ],
+      "steps": [
+        "setgcd{t=80} @self",
+        "cancelEvent{sync=true}",
+        "skill{s=SG_ANTIMACE_ATTACK} @trigger"
+      ]
+    },
+    "SG_ANTIMACE_ATTACK": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "state{s=ANTIMACE;ov=true;f=true} @self",
+        "setai{ai=false} @self",
+        "delay 5",
+        "sound{s=entity.phantom.bite;v=2;p=0.50} @trigger",
+        "sound{s=entity.phantom.bite;v=2;p=2.00} @trigger",
+        "mountmodel{f=true;d=false;mid=HPC_SCULK_GOLIATH;p=seat} @trigger",
+        "potion{effect=DARKNESS;duration=160;ambientparticles=false;hasicon=false;delay=25} @trigger",
+        "summon{type=HPC_SCULK_GOLIATH_GROUNDBREAK;delay=25} @forward{f=5;yoffset=2}",
+        "delay 30",
+        "dismountallmodel{p=seat;mid=HPC_SCULK_GOLIATH} @self",
+        "damage{a=32} @trigger",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=2.00} @trigger",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=0.50} @trigger",
+        "sound{s=item.mace.smash_ground_heavy;v=2} @trigger",
+        "particle{p=poof;a=32;s=0.1;y=1} @trigger",
+        "recoil{r=1;repeat=5;repeati=1} @trigger",
+        "recoil{r=0.7;repeat=20;repeati=1;delay=2} @trigger",
+        "recoil{r=0.5;repeat=20;repeati=1;delay=4} @trigger",
+        "recoil{r=0.3;repeat=20;repeati=1;delay=6} @trigger",
+        "recoil{r=0.1;repeat=45;repeati=1;delay=8} @trigger",
+        "potion{effect=SLOWNESS;level=3;duration=60;ambientparticles=false;hasicon=false} @trigger",
+        "delay 20",
+        "setai{ai=true} @self"
+      ]
+    },
+    "SG_LIGHT_VISUALS": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "brightness{p=rightarmlight;b=15;s=15} @self",
+        "brightness{p=leftarmlight;b=15;s=15} @self",
+        "brightness{p=sonicboom1;b=15;s=15} @self",
+        "brightness{p=sonicboom2;b=15;s=15} @self",
+        "brightness{p=sonicboom3;b=15;s=15} @self",
+        "brightness{p=sonicboom4;b=15;s=15} @self",
+        "brightness{p=sonicboom5;b=15;s=15} @self"
+      ]
+    },
+    "SG_ATTACK1": {
+      "cooldown": 8.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=5} true"
+      ],
+      "steps": [
+        "sound{s=entity.warden.listening_angry;p=2.00;v=3} @self",
+        "skill{s=SG_DONTDOANTIMACE_ATTACK} @self",
+        "setgcd{ticks=80} @self",
+        "state{s=ATTACK1} @self",
+        "delay 20",
+        "sound{s=entity.player.attack.sweep;v=2;p=0.50} @self",
+        "sound{s=entity.player.attack.sweep;v=2;p=2.00} @self",
+        "delay 5",
+        "sound{s=entity.warden.attack_impact;v=2;p=2.00} @self",
+        "sound{s=entity.warden.attack_impact;v=2;p=0.50} @self",
+        "damage{a=18} @PIR{r=5}",
+        "throw{v=16;vy=4} @PIR{r=5}",
+        "recoil{r=0.5} @PIR{r=5}"
+      ]
+    },
+    "SG_ATTACK2": {
+      "cooldown": 8.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=5} true"
+      ],
+      "steps": [
+        "sound{s=entity.warden.listening_angry;p=2.00;v=3} @self",
+        "skill{s=SG_DONTDOANTIMACE_ATTACK} @self",
+        "setgcd{ticks=80} @self",
+        "state{s=ATTACK2} @self",
+        "delay 20",
+        "sound{s=entity.player.attack.sweep;v=2;p=0.50} @self",
+        "sound{s=entity.player.attack.sweep;v=2;p=2.00} @self",
+        "delay 5",
+        "sound{s=entity.warden.attack_impact;v=2;p=2.00} @self",
+        "sound{s=entity.warden.attack_impact;v=2;p=0.50} @self",
+        "damage{a=18} @PIR{r=5}",
+        "throw{v=16;vy=4} @PIR{r=5}",
+        "recoil{r=0.5} @PIR{r=5}"
+      ]
+    },
+    "SG_ATTACK3": {
+      "cooldown": 8.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=5} true"
+      ],
+      "steps": [
+        "sound{s=entity.warden.listening_angry;p=2.00;v=3} @self",
+        "skill{s=SG_DONTDOANTIMACE_ATTACK} @self",
+        "setgcd{ticks=80} @self",
+        "state{s=ATTACK3} @self",
+        "delay 20",
+        "sound{s=entity.player.attack.sweep;v=2;p=0.50} @self",
+        "sound{s=entity.player.attack.sweep;v=2;p=2.00} @self",
+        "delay 5",
+        "sound{s=entity.warden.attack_impact;v=2;p=2.00} @self",
+        "sound{s=entity.warden.attack_impact;v=2;p=0.50} @self",
+        "damage{a=18} @PIR{r=5}",
+        "throw{v=16;vy=4} @PIR{r=5}",
+        "recoil{r=0.5} @PIR{r=5}"
+      ]
+    },
+    "SG_RUN_SET_COOLDOWN": {
+      "cooldown": 32.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=24} true",
+        "playerNotWithin{d=16} true"
+      ],
+      "steps": [
+        "skill{s=SG_RUN} @self"
+      ]
+    },
+    "SG_RUN": {
+      "cooldown": 2.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=24} true",
+        "playerNotWithin{d=16} true"
+      ],
+      "steps": [
+        "skill{s=SG_RUN_BREAKBLOCKS;repeat=40;repeati=1} @self",
+        "skill{s=SG_DONTDOANTIMACE_RUN} @self",
+        "setspeed{s=2.25} @self",
+        "setspeed{s=1;delay=35} @self",
+        "setgcd{ticks=80} @self",
+        "state{s=RUN} @self",
+        "sound{s=entity.warden.heartbeat;v=5;p=2.00;repeat=4;repeati=5} @self",
+        "sound{s=entity.warden.heartbeat;v=5;p=0.50;repeat=3;repeati=5} @self",
+        "sound{s=entity.warden.heartbeat;v=5} @self",
+        "skill{s=SG_ATTACKAFTERRUN;repeat=35;repeati=1} @self",
+        "skill{s=SG_RUNSOUND;repeat=8;repeati=6} @self",
+        "skill{s=SG_SADWARDEN;delay=35} @self"
+      ]
+    },
+    "SG_RUN_BREAKBLOCKS": {
+      "cooldown": 0.0,
+      "conditions": [
+        "blockTypeInRadius{types=DEEPSLATE,DEEPSLATE_BRICKS,CRACKED_DEEPSLATE_BRICKS,CRACKED_DEEPSLATE_TILES,DEEPSLATE_BRICK_STAIRS,POLISHED_DEEPSLATE,POLISHED_DEEPSLATE_SLAB,POLISHED_DEEPSLATE_STAIRS} true",
+        "blockTypeInRadius{r=3;ry=0;types=DEEPSLATE,DEEPSLATE_BRICKS,CRACKED_DEEPSLATE_BRICKS,CRACKED_DEEPSLATE_TILES,DEEPSLATE_BRICK_STAIRS,POLISHED_DEEPSLATE,POLISHED_DEEPSLATE_SLAB,POLISHED_DEEPSLATE_STAIRS} true"
+      ],
+      "steps": [
+        "particle{p=block_crack;m=DEEPSLATE;spread=0.25;chance=0.5} @blocksinradius{r=4}",
+        "breakblock{forcesync=true;doDrops=false;doEffect=true;useTool=false} @BlocksInRadius{r=3;ry=1;shape=CUBE;yo=1}",
+        "breakblock{forcesync=true;doDrops=false;doEffect=true;useTool=false} @BlocksInRadius{r=3;ry=1;shape=CUBE;yo=2}",
+        "breakblock{forcesync=true;doDrops=false;doEffect=true;useTool=false} @BlocksInRadius{r=3;ry=1;shape=CUBE;yo=3}",
+        "breakblock{forcesync=true;doDrops=false;doEffect=true;useTool=false} @BlocksInRadius{r=3;ry=1;shape=CUBE;yo=4}",
+        "breakblock{forcesync=true;doDrops=false;doEffect=true;useTool=false} @BlocksInRadius{r=3;ry=1;shape=CUBE;yo=5}",
+        "skill{s=SG_RUN_BREAKBLOCKS_SOUND} @self"
+      ]
+    },
+    "SG_RUN_BREAKBLOCKS_SOUND": {
+      "cooldown": 0.2,
+      "conditions": [],
+      "steps": [
+        "sound{s=entity.wither.break_block;v=2} @self"
+      ]
+    },
+    "SG_SADWARDEN": {
+      "cooldown": 0.0,
+      "conditions": [
+        "skillOnCooldown{s=SG_ATTACKAFTERRUN} false"
+      ],
+      "steps": [
+        "sound{s=entity.warden.listening_angry0;v=3} @self",
+        "sound{s=entity.warden.listening_angry;p=0.50;v=3} @self"
+      ]
+    },
+    "SG_ATTACKAFTERRUN": {
+      "cooldown": 8.0,
+      "conditions": [
+        "playerWithin{d=4} true"
+      ],
+      "steps": [
+        "setspeed{s=1} @self",
+        "setgcd{ticks=80} @self",
+        "state{s=ATTACKAFTERRUN;ov=true} @self",
+        "skill{s=SG_DONTDOANTIMACE_ATTACKAFTERRUN} @self",
+        "sound{s=entity.warden.angry;p=2.00}",
+        "delay 5",
+        "sound{s=entity.player.attack.sweep;p=2.00} @self",
+        "sound{s=entity.player.attack.sweep;p=0.50} @self",
+        "sound{s=entity.player.attack.sweep} @self",
+        "sound{sound=entity.warden.roar;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.80;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=1.00;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=1.30;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=2.00;radius=100;volume=5.0} @self",
+        "delay 13",
+        "sound{s=entity.player.attack.sweep;p=2.00} @self",
+        "sound{s=entity.player.attack.sweep;p=0.50} @self",
+        "sound{s=entity.player.attack.sweep} @self",
+        "delay 3",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=2.00} @self",
+        "sound{s=entity.lightning_bolt.thunder;v=2;p=2.00} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=0.50} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2} @self",
+        "particlering{points=16;a=12;speed=0.2;p=sculk_soul;r=1} @self",
+        "particlering{points=16;a=12;speed=0.2;p=poof;r=1} @self",
+        "particlering{points=16;a=12;speed=0.2;p=poof;r=3;delay=1} @self",
+        "particlering{points=16;a=12;speed=0.2;p=poof;r=5;delay=2} @self",
+        "particlering{points=16;a=12;speed=0.2;p=poof;r=7;delay=3} @self",
+        "particlering{points=16;a=12;speed=0.2;p=poof;r=9;delay=4} @self",
+        "particlering{points=16;a=12;speed=0.2;p=poof;r=11;delay=5} @self",
+        "particlering{points=16;a=12;p=sculk_soul;r=11;delay=8} @self",
+        "particlering{points=32;a=12;speed=0.2;p=sculk_soul;r=11;delay=8} @self",
+        "sound{s=entity.generic.explode;p=2.00}",
+        "sound{s=entity.wither.break_block;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;p=0.50;v=2} @self",
+        "sound{s=entity.wither.break_block;v=2} @self",
+        "damage{a=20;is=true} @PIR{r=12}",
+        "throw{v=20;vy=2} @PIR{r=12}",
+        "recoil{r=1;repeat=5;repeati=1} @PIR{r=12}",
+        "recoil{r=0.7;repeat=20;repeati=1;delay=2} @PIR{r=12}",
+        "recoil{r=0.5;repeat=20;repeati=1;delay=4} @PIR{r=14}",
+        "recoil{r=0.3;repeat=20;repeati=1;delay=6} @PIR{r=16}",
+        "recoil{r=0.1;repeat=45;repeati=1;delay=8} @PIR{r=18}"
+      ]
+    },
+    "SG_RUNSOUND": {
+      "cooldown": 0.0,
+      "conditions": [
+        "skillOnCooldown{s=SG_RUN_SET_COOLDOWN} true"
+      ],
+      "steps": [
+        "sound{s=entity.warden.step;v=2} @self",
+        "sound{s=entity.warden.step;v=2;p=0.50}",
+        "sound{s=entity.warden.step;v=2;p=2.00}"
+      ]
+    },
+    "SG_WALKSOUND": {
+      "cooldown": 0.0,
+      "conditions": [
+        "ismoving true",
+        "skillOnCooldown{s=SG_RUN} false"
+      ],
+      "steps": [
+        "sound{s=entity.warden.step;v=2} @self",
+        "sound{s=entity.warden.step;v=2;p=0.50}",
+        "sound{s=entity.warden.step;v=2;p=2.00}"
+      ]
+    },
+    "SG_SOULSCREAM": {
+      "cooldown": 64.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=24} true",
+        "playerNotWithin{d=8} true"
+      ],
+      "steps": [
+        "lockrotation{l=true} @self",
+        "lockrotation{l=false;delay=80} @self",
+        "setspeed{s=0.0} @self",
+        "setspeed{s=1.0;delay=80} @self",
+        "skill{s=SG_DONTDOANTIMACE_SOULSCREAM} @self",
+        "setgcd{ticks=150} @self",
+        "state{s=SOULSCREAM} @self",
+        "delay 15",
+        "sound{s=entity.generic.explode;p=2.00;v=2} @self",
+        "sound{s=entity.generic.explode;p=0.50;v=2} @self",
+        "sound{s=entity.wither.break_block;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;p=0.50;v=2} @self",
+        "sound{s=entity.warden.angry;p=0.50;v=3} @self",
+        "summon{a=2;repeat=3;repeati=8;t=HPC_SCULK_GOLIATH_SOULSHOOTER;noise=16;os=true} @self",
+        "delay 25",
+        "sound{sound=entity.warden.roar;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.80;radius=100;volume=5.0;delay=5} @self",
+        "sound{sound=entity.warden.roar;pitch=1.00;radius=100;volume=5.0;delay=5} @self",
+        "sound{sound=entity.warden.roar;pitch=1.30;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=2.00;radius=100;volume=5.0} @self",
+        "delay 10",
+        "sound{sound=entity.warden.roar;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.80;radius=100;volume=5.0;delay=5} @self",
+        "sound{sound=entity.warden.roar;pitch=1.00;radius=100;volume=5.0;delay=5} @self",
+        "sound{sound=entity.warden.roar;pitch=1.30;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=2.00;radius=100;volume=5.0} @self"
+      ]
+    },
+    "SG_S_SHOOT": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "missile{v=16;verticaloffset=5;ot=SG_S_SHOOT_OT;oh=SG_S_SHOOT_OH;ohb=SG_S_SHOOT_OHB;intertia=8;hnp=false;mr=128} @PIR{r=64}",
+        "particle{p=poof;a=32;s=0.1} @self",
+        "sound{s=entity.wither.ambient;p=2.00;v=2} @self"
+      ]
+    },
+    "SG_S_SHOOT_OT": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "particle{p=soul_fire_flame;spread=0.2} @origin",
+        "particle{p=sculk_soul;spread=0.2} @origin",
+        "sound{s=item.book.page_turn;p=2.00} @origin"
+      ]
+    },
+    "SG_S_SHOOT_OH": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "damage{a=3}",
+        "particle{p=explode}",
+        "potion{type=BLINDNESS;d=10}",
+        "particle{p=poof;a=12;s=0.5}",
+        "particle{p=sculk_soul;a=12;s=0.5}",
+        "particle{p=soul_fire_flame;a=12;s=0.5}",
+        "throw{v=5}",
+        "sound{s=entity.generic.explode;p=2.00}",
+        "sound{s=block.sculk_sensor.clicking;p=2.00}",
+        "sound{s=item.wolf_armor.break} @origin"
+      ]
+    },
+    "SG_S_SHOOT_OHB": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "damage{a=6}",
+        "particle{p=explode}",
+        "particle{p=poof;a=12;s=0.5}",
+        "sound{s=entity.generic.explode}",
+        "sound{s=block.sculk_sensor.clicking;p=2.00}"
+      ]
+    },
+    "SG_SOULERUPTION": {
+      "cooldown": 18.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=16} true",
+        "playerNotWithin{d=8} true"
+      ],
+      "steps": [
+        "skill{s=SG_DONTDOANTIMACE_GROUNDSMASH} @self",
+        "setgcd{ticks=120} @self",
+        "state{s=GROUNDSMASH} @self",
+        "sound{s=entity.warden.angry;v=3;p=2.00} @self",
+        "sound{s=entity.warden.angry;v=3;p=0.50} @self",
+        "delay 35",
+        "sound{s=entity.lightning_bolt.thunder;v=2;p=2.00} @self",
+        "sound{s=entity.lightning_bolt.thunder;v=2;p=0.50} @self",
+        "sound{s=entity.generic.explode;v=2;p=2.00} @self",
+        "sound{s=entity.generic.explode;v=2;p=0.50} @self",
+        "particle{p=explosion;a=6;spread=0.5;y=-3} @modelpart{p=rightarmlight}",
+        "particle{p=explosion;a=6;spread=0.5;y=-3} @modelpart{p=leftarmlight}",
+        "particle{p=poof;a=16;spread=0.5;y=-3;speed=0.5} @modelpart{p=rightarmlight}",
+        "particle{p=poof;a=16;spread=0.5;y=-3;speed=0.5} @modelpart{p=leftarmlight}",
+        "throw{v=20;vy=2} @PIR{r=12}",
+        "recoil{r=1;repeat=5;repeati=1} @PIR{r=14}",
+        "recoil{r=0.7;repeat=20;repeati=1;delay=2} @PIR{r=16}",
+        "recoil{r=0.5;repeat=20;repeati=1;delay=4} @PIR{r=18}",
+        "recoil{r=0.3;repeat=20;repeati=1;delay=6} @PIR{r=20}",
+        "recoil{r=0.1;repeat=35;repeati=1;delay=8} @PIR{r=22}",
+        "summon{t=HPC_SCULK_GOLIATH_GROUNDBREAK;noise=16;os=true;a=16} @self",
+        "projectile{v=16;ot=SG_SOULERUPTION_OT;mr=24;interval=4;hs=true} @modelpart{p=groundsmash_targeter1}",
+        "projectile{v=16;ot=SG_SOULERUPTION_OT;mr=24;interval=4;hs=true} @modelpart{p=groundsmash_targeter2}",
+        "projectile{v=16;ot=SG_SOULERUPTION_OT;mr=24;interval=4;hs=true} @modelpart{p=groundsmash_targeter3}",
+        "projectile{v=16;ot=SG_SOULERUPTION_OT;mr=24;interval=4;hs=true} @modelpart{p=groundsmash_targeter4}",
+        "projectile{v=16;ot=SG_SOULERUPTION_OT;mr=24;interval=4;hs=true} @modelpart{p=groundsmash_targeter5}",
+        "projectile{v=16;ot=SG_SOULERUPTION_OT;mr=24;interval=4;hs=true} @modelpart{p=groundsmash_targeter6}",
+        "projectile{v=16;ot=SG_SOULERUPTION_OT;mr=24;interval=4;hs=true} @modelpart{p=groundsmash_targeter7}",
+        "projectile{v=16;ot=SG_SOULERUPTION_OT;mr=24;interval=4;hs=true} @modelpart{p=groundsmash_targeter8}",
+        "delay 5",
+        "projectile{v=12;ot=SG_SOULERUPTION_OT;mr=24;interval=7;hs=true} @modelpart{p=groundsmash_targeter1}",
+        "projectile{v=12;ot=SG_SOULERUPTION_OT;mr=24;interval=7;hs=true} @modelpart{p=groundsmash_targeter2}",
+        "projectile{v=12;ot=SG_SOULERUPTION_OT;mr=24;interval=7;hs=true} @modelpart{p=groundsmash_targeter3}",
+        "projectile{v=12;ot=SG_SOULERUPTION_OT;mr=24;interval=7;hs=true} @modelpart{p=groundsmash_targeter4}",
+        "projectile{v=12;ot=SG_SOULERUPTION_OT;mr=24;interval=7;hs=true} @modelpart{p=groundsmash_targeter5}",
+        "projectile{v=12;ot=SG_SOULERUPTION_OT;mr=24;interval=7;hs=true} @modelpart{p=groundsmash_targeter6}",
+        "projectile{v=12;ot=SG_SOULERUPTION_OT;mr=24;interval=7;hs=true} @modelpart{p=groundsmash_targeter7}",
+        "projectile{v=12;ot=SG_SOULERUPTION_OT;mr=24;interval=7;hs=true} @modelpart{p=groundsmash_targeter8}"
+      ]
+    },
+    "SG_SOULERUPTION_OT": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "summon{t=HPC_SCULK_GOLIATH_GROUNDBREAK;noise=2;os=true} @origin",
+        "particle{p=sculk_soul;hs=0.75;a=12;y=-0.2} @origin",
+        "particle{p=block_crack;m=SCULK;hs=0.75;a=12;y=-0.2} @origin",
+        "particle{p=block_crack;m=SCULK_CATALYST;hs=0.75;a=12;y=-0.2} @origin"
+      ]
+    },
+    "SG_PICKUPSMASH": {
+      "cooldown": 32.0,
+      "conditions": [
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SONICSMASH} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_ATTACK} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SCREAM} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_RUN} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_ATTACKAFTERRUN} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SOULSCREAM} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_GROUNDSMASH} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SONICSMASH} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_STOMPCOMBO} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SPAWN} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_DIG} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_BREAKSCREAM} false",
+        "offGCD",
+        "playerWithin{d=6} true",
+        "playernotWithin{d=2} true"
+      ],
+      "steps": [
+        "setgcd{t=80}",
+        "skill{s=SG_DONTDOANTIMACE_PICKUPSMASH} @self",
+        "state{s=PICKUPSMASH} @self",
+        "setai{ai=false} @self",
+        "delay 5",
+        "sound{s=entity.phantom.bite;v=2;p=0.50} @self",
+        "sound{s=entity.phantom.bite;v=2;p=2.00} @self",
+        "mountmodel{f=true;d=false;mid=HPC_SCULK_GOLIATH;p=seat} @PIR{r=5}",
+        "potion{effect=DARKNESS;duration=160;ambientparticles=false;hasicon=false;delay=25} @PIR{r=6}",
+        "summon{type=HPC_SCULK_GOLIATH_GROUNDBREAK;delay=25} @forward{f=5;yoffset=2}",
+        "delay 30",
+        "dismountallmodel{p=seat;mid=HPC_SCULK_GOLIATH} @self",
+        "damage{a=20} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=2.00} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=0.50} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2} @self",
+        "particle{p=poof;a=32;s=0.1;y=1} @PIR{r=6}",
+        "recoil{r=1;repeat=5;repeati=1} @PIR{r=6}",
+        "recoil{r=0.7;repeat=20;repeati=1;delay=2} @PIR{r=6}",
+        "recoil{r=0.5;repeat=20;repeati=1;delay=4} @PIR{r=6}",
+        "recoil{r=0.3;repeat=20;repeati=1;delay=6} @PIR{r=6}",
+        "recoil{r=0.1;repeat=45;repeati=1;delay=8} @PIR{r=6}",
+        "potion{effect=SLOWNESS;level=3;duration=60;ambientparticles=false;hasicon=false} @PIR{r=6}",
+        "delay 20",
+        "setai{ai=true} @self"
+      ]
+    },
+    "SG_SONICSMASH": {
+      "cooldown": 12.0,
+      "conditions": [
+        "offGCD",
+        "playerWithin{d=16} true",
+        "playernotWithin{d=8} true"
+      ],
+      "steps": [
+        "setgcd{t=45}",
+        "skill{s=SG_DONTDOANTIMACE_SONICSMASH} @self",
+        "state{s=SONICSMASH} @self",
+        "sound{s=entity.warden.sonic_charge;p=2.00;v=3} @self",
+        "sound{s=entity.warden.sonic_charge;p=0.50;v=3} @self",
+        "sound{s=entity.warden.sonic_charge;v=3} @self",
+        "delay 23",
+        "projectile{v=32;ot=SG_SONICSMASH_OT;oh=SG_SONICSMASH_OH;mr=32;accuracy=0.9;startyoffset=3.5} @target",
+        "projectile{v=32;ot=SG_SONICSMASH_OT;oh=SG_SONICSMASH_OH;mr=32;accuracy=0.9;delay=2;startyoffset=3.5} @target",
+        "projectile{v=32;ot=SG_SONICSMASH_OT;oh=SG_SONICSMASH_OH;mr=32;accuracy=0.9;delay=4;startyoffset=3.5} @target",
+        "projectile{v=32;ot=SG_SONICSMASH_OT;oh=SG_SONICSMASH_OH;mr=32;accuracy=0.9;delay=6;startyoffset=3.5} @target",
+        "projectile{v=32;ot=SG_SONICSMASH_OT;oh=SG_SONICSMASH_OH;mr=32;accuracy=0.9;delay=8;startyoffset=3.5} @target",
+        "sound{s=entity.warden.sonic_boom;p=0.50;v=3} @self",
+        "sound{s=entity.warden.sonic_boom;p=2.00;v=3} @self",
+        "sound{s=entity.warden.sonic_boom;v=3} @self"
+      ]
+    },
+    "SG_SONICSMASH_OT": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "particle{p=sonic_boom} @origin",
+        "particle{p=sculk_soul;spread=0.25} @origin"
+      ]
+    },
+    "SG_SONICSMASH_OH": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "particle{p=sculk_soul;spread=0.25;a=12;y=1}",
+        "damage{a=4;pi=true}",
+        "throw{v=8;vy=2}",
+        "potion{type=SLOWNESS;d=60;level=2;p=false;i=false}"
+      ]
+    },
+    "SG_STOMPCOMBO": {
+      "cooldown": 10.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=5} true"
+      ],
+      "steps": [
+        "setspeed{s=0.0;delay=40} @self",
+        "setspeed{s=1.0;delay=80} @self",
+        "lockrotation{l=true} @self",
+        "lockrotation{l=false;delay=80} @self",
+        "skill{s=SG_DONTDOANTIMACE_STOMPCOMBO} @self",
+        "setgcd{ticks=80} @self",
+        "state{s=STOMPCOMBO} @self",
+        "delay 8",
+        "sound{s=entity.warden.hurt;v=2;p=2.00} @self",
+        "sound{s=entity.warden.hurt;v=2;p=0.50} @self",
+        "particle{p=poof;a=12;hs=0.25;s=0.3} @modelpart{p=legparticle2}",
+        "particle{p=poof;a=12;hs=0.25;s=0.1} @modelpart{p=legparticle2}",
+        "particle{p=block_crack;m=SCULK;a=32;hs=1;s=0.3;y=0.3} @modelpart{p=legparticle2}",
+        "particle{p=sculk_soul;a=32;hs=1;s=0.1;y=0.3} @modelpart{p=legparticle2}",
+        "sound{s=entity.wither.break_block;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;p=0.50;v=2} @self",
+        "sound{s=entity.lightning_bolt.thunder;p=2.00;v=2} @self",
+        "damage{a=8;is=true} @PIR{r=8}",
+        "throw{yv=3} @PIR{r=8}",
+        "recoil{r=0.5} @PIR{r=16}",
+        "recoil{r=0.2;repeat=10;repeati=1} @PIR{r=16}",
+        "delay 15",
+        "sound{s=entity.warden.hurt;v=2;p=2.00} @self",
+        "sound{s=entity.warden.hurt;v=2;p=0.50} @self",
+        "particle{p=poof;a=12;hs=0.25;s=0.3} @modelpart{p=legparticle1}",
+        "particle{p=poof;a=12;hs=0.25;s=0.1} @modelpart{p=legparticle1}",
+        "particle{p=block_crack;m=SCULK;a=32;hs=1;s=0.3;y=0.3} @modelpart{p=legparticle1}",
+        "particle{p=sculk_soul;a=32;hs=1;s=0.1;y=0.3} @modelpart{p=legparticle1}",
+        "sound{s=entity.wither.break_block;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;p=0.50;v=2} @self",
+        "sound{s=entity.lightning_bolt.thunder;p=2.00;v=2} @self",
+        "damage{a=8;is=true} @PIR{r=8}",
+        "throw{yv=3} @PIR{r=8}",
+        "recoil{r=0.5} @PIR{r=16}",
+        "recoil{r=0.2;repeat=10;repeati=1} @PIR{r=16}",
+        "delay 29",
+        "sound{s=entity.warden.hurt;v=2;p=2.00} @self",
+        "sound{s=entity.warden.hurt;v=2;p=0.50} @self",
+        "damage{a=12;is=true} @PIR{r=12}",
+        "throw{yv=5} @PIR{r=8}",
+        "particle{p=poof;a=32;hs=0.5;s=0.3} @modelpart{p=rightarmparticle}",
+        "particle{p=poof;a=32;hs=0.5;s=0.1} @modelpart{p=rightparticle}",
+        "particle{p=block_crack;m=SCULK;a=32;hs=1;s=0.3;y=0.3} @modelpart{p=rightparticle}",
+        "particle{p=sculk_soul;a=32;hs=1;s=0.1;y=0.3} @modelpart{p=rightparticle}",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=2.00} @self",
+        "sound{s=entity.lightning_bolt.thunder;v=2;p=2.00} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=0.50} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2} @self",
+        "sound{s=entity.wither.break_block;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;p=0.50;v=2} @self",
+        "sound{s=entity.lightning_bolt.thunder;p=2.00;v=2} @self",
+        "sound{s=entity.generic.explode;p=2.00;v=2} @self",
+        "recoil{r=0.7} @PIR{r=16}",
+        "recoil{r=0.2;repeat=20;repeati=1} @PIR{r=16}"
+      ]
+    },
+    "SG_SPAWN": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "recoil{r=0.1;repeat=120;repeati=1} @PIR{r=256}",
+        "setspeed{s=0.0} @self",
+        "lockrotation{l=true} @self",
+        "setspeed{s=1.0;delay=120} @self",
+        "lockrotation{l=false;delay=120} @self",
+        "skill{s=SG_DONTDOANTIMACE_SPAWN} @self",
+        "setgcd{ticks=160} @self",
+        "state{s=SPAWN} @self",
+        "sound{s=entity.warden.emerge;v=5;p=2.00} @self",
+        "sound{s=entity.warden.emerge;v=5;p=0.50} @self",
+        "sound{s=entity.warden.emerge;v=5} @self",
+        "sound{s=entity.warden.dig;v=5;p=2.00} @self",
+        "sound{s=entity.warden.dig;v=5;p=0.50} @self",
+        "sound{s=entity.warden.dig;v=5} @self",
+        "particle{p=block_crack;m=SCULK;a=16;spread=1;repeat=45;repeati=1} @self",
+        "particle{p=block_crack;m=SCULK;a=16;spread=2;repeat=45;repeati=1} @self",
+        "particle{p=sculk_soul;a=16;spread=2;repeat=45;repeati=1} @self",
+        "particle{p=sculk_soul;m=SCULK;a=16;spread=1;repeat=45;repeati=1} @self",
+        "delay 70",
+        "sound{sound=entity.warden.roar;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.80;radius=100;volume=5.0;delay=5} @self",
+        "sound{sound=entity.warden.roar;pitch=1.00;radius=100;volume=5.0;delay=5} @self",
+        "sound{sound=entity.warden.roar;pitch=1.30;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=2.00;radius=100;volume=5.0} @self",
+        "recoil{r=1;repeat=5;repeati=1} @PIR{r=128}",
+        "recoil{r=0.7;repeat=20;repeati=1;delay=2} @PIR{r=128}",
+        "recoil{r=0.5;repeat=20;repeati=1;delay=4} @PIR{r=128}",
+        "recoil{r=0.3;repeat=20;repeati=1;delay=6} @PIR{r=128}",
+        "recoil{r=0.1;repeat=45;repeati=1;delay=8} @PIR{r=128}",
+        "delay 10",
+        "sound{sound=entity.warden.roar;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.80;radius=100;volume=5.0;delay=5} @self",
+        "sound{sound=entity.warden.roar;pitch=1.00;radius=100;volume=5.0;delay=5} @self",
+        "sound{sound=entity.warden.roar;pitch=1.30;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=2.00;radius=100;volume=5.0} @self"
+      ]
+    },
+    "SG_DIG_DAMAGE_CANCEL": {
+      "cooldown": 0.0,
+      "conditions": [
+        "skillOnCooldown{skill=SG_DIG_START} true"
+      ],
+      "steps": [
+        "cancelEvent"
+      ]
+    },
+    "SG_DIG_START": {
+      "cooldown": 8.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=24} true",
+        "playerNotWithin{d=12} true"
+      ],
+      "steps": [
+        "skill{s=SG_DIG} @self"
+      ]
+    },
+    "SG_DIG": {
+      "cooldown": 30.0,
+      "conditions": [],
+      "steps": [
+        "skill{s=SG_DONTDOANTIMACE_DIG} @self",
+        "recoil{r=0.1;repeat=40;repeati=2;delay=40} @PIR{r=12}",
+        "setgcd{ticks=170} @self",
+        "state{s=DIG} @self",
+        "setspeed{s=0.0} @self",
+        "setspeed{s=2.0;delay=40} @self",
+        "setspeed{s=0.0;delay=120} @self",
+        "setspeed{s=1.0;delay=160} @self",
+        "delay 10",
+        "sound{s=entity.wither.break_block;v=3;p=0.50} @self",
+        "sound{s=entity.wither.break_block;v=3} @self",
+        "particle{p=block_crack;m=SCULK;a=32;spread=1;y=0.5;repeat=5;repeati=5} @self",
+        "particle{p=sculk_soul;a=32;spread=1;y=0.5;repeat=5;repeati=5} @self",
+        "sound{s=entity.warden.dig;v=3;p=2.00} @self",
+        "sound{s=entity.warden.dig;v=3;p=0.50} @self",
+        "sound{s=entity.warden.dig;v=3} @self",
+        "delay 30",
+        "summon{t=HPC_SCULK_GOLIATH_DIG;os=true;repeat=10;repeati=8} @self",
+        "delay 80",
+        "sound{s=entity.wither.break_block;v=3;p=0.50} @self",
+        "sound{s=entity.wither.break_block;v=3} @self",
+        "damage{a=12} @PIR{r=4}",
+        "damage{a=2;ia=true} @PIR{r=8}",
+        "particle{p=block_crack;m=SCULK;a=32;spread=1;y=0.5;repeat=5;repeati=5} @self",
+        "particle{p=sculk_soul;a=32;spread=1;y=0.5;repeat=5;repeati=5} @self",
+        "throw{yv=8;v=8} @PIR{r=6}",
+        "recoil{r=1;repeat=2;repeati=1} @PIR{r=12}"
+      ]
+    },
+    "SH_R_GROUND": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "sound{s=entity.generic.explode;v=2;p=2.00} @self",
+        "sound{s=block.soul_sand.break;v=2;p=2.00} @self",
+        "sound{s=block.soul_sand.break;v=2;p=0.50} @self",
+        "sound{s=particle.soul_escape;v=2;p=0.50} @self",
+        "particle{p=poof;a=6;s=0.5} @self",
+        "particle{p=squid_ink;a=6;s=0.5;spread=0.5} @self",
+        "particle{p=sculk_soul;a=6;spread=0.5} @self",
+        "damage{a=8;is=true} @PIR{r=5}",
+        "throw{v=8;vy=2;fo=true} @PIR{r=5}",
+        "delay 1",
+        "remove @self"
+      ]
+    },
+    "SG_BREAKSCREAM": {
+      "cooldown": 32.0,
+      "conditions": [
+        "offGCD",
+        "playerWithin{d=18} true",
+        "playernotWithin{d=4} true"
+      ],
+      "steps": [
+        "skill{s=SG_DONTDOANTIMACE_BREAKSCREAM} @self",
+        "setgcd{t=80}",
+        "state{s=BREAKSCREAM} @self",
+        "sound{s=entity.warden.angry;p=0.50;v=3} @self",
+        "delay 15",
+        "sound{sound=entity.warden.roar;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.80;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=1.00;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=1.30;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=2.00;radius=100;volume=5.0} @self",
+        "summon{a=2;repeat=20;repeati=4;noise=32;t=HPC_SCULK_GOLIATH_FALLINGROCK} @self",
+        "throw{v=8;vy=2;fo=true} @PIR{r=12}",
+        "recoil{recoil=0.5;repeat=30;repeatinterval=1} @PIR{radius=48}"
+      ]
+    },
+    "SG_HALFEXPLODE": {
+      "cooldown": 9999.0,
+      "conditions": [
+        "offGCD true"
+      ],
+      "steps": [
+        "particle{p=sculk_soul;a=32;spread=1;s=0.1;repeat=20;repeati=1} @modelpart{p=heartlight}",
+        "particle{p=soulflame;a=32;spread=1;s=0.1;repeat=20;repeati=1} @modelpart{p=heartlight}",
+        "particlering{points=64;r=32;p=lava;y=1} @self",
+        "particlering{points=128;r=32;p=red_dust;y=1;spread=0.25} @self",
+        "setspeed{s=1} @self",
+        "setgcd{ticks=250} @self",
+        "setspeed{s=0.0} @self",
+        "setspeed{s=1.0;delay=250} @self",
+        "lockrotation{l=true} @self",
+        "lockrotation{l=false;delay=250} @self",
+        "summon{a=2;repeat=32;repeati=12;t=HPC_SCULK_GOLIATH_HALFEXPLODE_SOULSHOOTER;noise=32;pitch=128;os=true;summonerisowner=true} @self",
+        "state{s=HALFEXPLODE;ov=true} @self",
+        "sound{s=entity.lightning_bolt.thunder;v=3;p=2.00} @self",
+        "sound{s=entity.lightning_bolt.thunder;v=3;p=0.50} @self",
+        "sound{s=entity.lightning_bolt.thunder;v=3} @self",
+        "sound{s=entity.warden.hurt;v=3;p=2.00} @self",
+        "sound{s=entity.warden.hurt;v=3;p=0.50} @self",
+        "sound{s=entity.warden.hurt;v=3} @self",
+        "delay 60",
+        "sound{s=entity.warden.angry;v=3;p=2.00} @self",
+        "delay 40",
+        "sound{s=entity.warden.hurt;v=3;p=2.00} @self",
+        "sound{s=entity.warden.hurt;v=3;p=0.50} @self",
+        "delay 20",
+        "sound{s=entity.warden.heartbeat;v=5;p=2.00;repeat=40;repeati=2} @self",
+        "particle{p=sculk_soul;a=12;spread=0.5;s=0.05;repeat=80;repeati=1} @modelpart{p=heartlight}",
+        "particle{p=soulflame;a=12;spread=0.5;s=0.05;repeat=80;repeati=1} @modelpart{p=heartlight}",
+        "delay 80",
+        "particle{p=sculk_soul;a=32;spread=1;s=0.05;repeat=40;repeati=1} @modelpart{p=heartlight}",
+        "particle{p=soulflame;a=32;spread=1;s=0.05;repeat=40;repeati=1} @modelpart{p=heartlight}",
+        "particle{p=explosion;a=12;spread=1} @modelpart{p=heartlight}",
+        "particlesphere{r=2;p=sculk_soul;a=64;delay=1} @modelpart{p=heartlight}",
+        "particlesphere{r=3;p=sculk_soul;a=64;delay=2} @modelpart{p=heartlight}",
+        "particlesphere{r=4;p=sculk_soul;a=64;delay=3} @modelpart{p=heartlight}",
+        "particlesphere{r=5;p=sculk_soul;a=64;delay=4} @modelpart{p=heartlight}",
+        "particlesphere{r=6;p=sculk_soul;a=64;delay=5} @modelpart{p=heartlight}",
+        "particlesphere{r=7;p=sculk_soul;a=64;delay=6} @modelpart{p=heartlight}",
+        "particlesphere{r=8;p=sculk_soul;a=64;delay=7} @modelpart{p=heartlight}",
+        "particlesphere{r=9;p=sculk_soul;a=64;delay=8} @modelpart{p=heartlight}",
+        "particlesphere{r=10;p=sculk_soul;a=64;delay=9} @modelpart{p=heartlight}",
+        "particlesphere{r=11;p=sculk_soul;a=64;delay=10} @modelpart{p=heartlight}",
+        "particlesphere{r=12;p=sculk_soul;a=64;delay=11} @modelpart{p=heartlight}",
+        "particlesphere{r=13;p=sculk_soul;a=64;delay=12} @modelpart{p=heartlight}",
+        "particlesphere{r=14;p=sculk_soul;a=64;delay=13} @modelpart{p=heartlight}",
+        "particlesphere{r=15;p=sculk_soul;a=64;delay=14} @modelpart{p=heartlight}",
+        "particlesphere{r=16;p=sculk_soul;a=64;delay=15} @modelpart{p=heartlight}",
+        "particlesphere{r=17;p=sculk_soul;a=64;delay=16} @modelpart{p=heartlight}",
+        "particlesphere{r=18;p=sculk_soul;a=64;delay=17} @modelpart{p=heartlight}",
+        "particlesphere{r=19;p=sculk_soul;a=64;delay=18} @modelpart{p=heartlight}",
+        "particlesphere{r=20;p=sculk_soul;a=64;delay=19} @modelpart{p=heartlight}",
+        "particlesphere{r=21;p=sculk_soul;a=64;delay=20} @modelpart{p=heartlight}",
+        "particlesphere{r=22;p=sculk_soul;a=64;delay=21} @modelpart{p=heartlight}",
+        "particlesphere{r=23;p=sculk_soul;a=64;delay=22} @modelpart{p=heartlight}",
+        "particlesphere{r=24;p=sculk_soul;a=64;delay=23} @modelpart{p=heartlight}",
+        "particlesphere{r=25;p=sculk_soul;a=64;delay=24} @modelpart{p=heartlight}",
+        "particlesphere{r=26;p=sculk_soul;a=64;delay=25} @modelpart{p=heartlight}",
+        "particlesphere{r=27;p=sculk_soul;a=64;delay=26} @modelpart{p=heartlight}",
+        "particlesphere{r=28;p=sculk_soul;a=64;delay=27} @modelpart{p=heartlight}",
+        "particlesphere{r=29;p=sculk_soul;a=64;delay=28} @modelpart{p=heartlight}",
+        "particlesphere{r=30;p=sculk_soul;a=64;delay=29} @modelpart{p=heartlight}",
+        "particlesphere{r=31;p=sculk_soul;a=64;delay=30} @modelpart{p=heartlight}",
+        "particlesphere{r=32;p=sculk_soul;a=64;delay=31} @modelpart{p=heartlight}",
+        "particlesphere{r=1;p=soulfire;a=8} @modelpart{p=heartlight}",
+        "particlesphere{r=2;p=soulfire;a=64;delay=1} @modelpart{p=heartlight}",
+        "particlesphere{r=3;p=soulfire;a=64;delay=2} @modelpart{p=heartlight}",
+        "particlesphere{r=4;p=soulfire;a=64;delay=3} @modelpart{p=heartlight}",
+        "particlesphere{r=5;p=soulfire;a=64;delay=4} @modelpart{p=heartlight}",
+        "particlesphere{r=6;p=soulfire;a=64;delay=5} @modelpart{p=heartlight}",
+        "particlesphere{r=7;p=soulfire;a=64;delay=6} @modelpart{p=heartlight}",
+        "particlesphere{r=8;p=soulfire;a=64;delay=7} @modelpart{p=heartlight}",
+        "particlesphere{r=9;p=soulfire;a=64;delay=8} @modelpart{p=heartlight}",
+        "particlesphere{r=10;p=soulfire;a=64;delay=9} @modelpart{p=heartlight}",
+        "particlesphere{r=11;p=soulfire;a=64;delay=10} @modelpart{p=heartlight}",
+        "particlesphere{r=12;p=soulfire;a=64;delay=11} @modelpart{p=heartlight}",
+        "particlesphere{r=13;p=soulfire;a=64;delay=12} @modelpart{p=heartlight}",
+        "particlesphere{r=14;p=soulfire;a=64;delay=13} @modelpart{p=heartlight}",
+        "particlesphere{r=15;p=soulfire;a=64;delay=14} @modelpart{p=heartlight}",
+        "particlesphere{r=16;p=soulfire;a=64;delay=15} @modelpart{p=heartlight}",
+        "particlesphere{r=17;p=soulfire;a=64;delay=16} @modelpart{p=heartlight}",
+        "particlesphere{r=18;p=soulfire;a=64;delay=17} @modelpart{p=heartlight}",
+        "particlesphere{r=19;p=soulfire;a=64;delay=18} @modelpart{p=heartlight}",
+        "particlesphere{r=20;p=soulfire;a=64;delay=19} @modelpart{p=heartlight}",
+        "particlesphere{r=21;p=soulfire;a=64;delay=20} @modelpart{p=heartlight}",
+        "particlesphere{r=22;p=soulfire;a=64;delay=21} @modelpart{p=heartlight}",
+        "particlesphere{r=23;p=soulfire;a=64;delay=22} @modelpart{p=heartlight}",
+        "particlesphere{r=24;p=soulfire;a=64;delay=23} @modelpart{p=heartlight}",
+        "particlesphere{r=25;p=soulfire;a=64;delay=24} @modelpart{p=heartlight}",
+        "particlesphere{r=26;p=soulfire;a=64;delay=25} @modelpart{p=heartlight}",
+        "particlesphere{r=27;p=soulfire;a=64;delay=26} @modelpart{p=heartlight}",
+        "particlesphere{r=28;p=soulfire;a=64;delay=27} @modelpart{p=heartlight}",
+        "particlesphere{r=29;p=soulfire;a=64;delay=28} @modelpart{p=heartlight}",
+        "particlesphere{r=30;p=soulfire;a=64;delay=29} @modelpart{p=heartlight}",
+        "particlesphere{r=31;p=soulfire;a=64;delay=30} @modelpart{p=heartlight}",
+        "particlesphere{r=32;p=soulfire;a=64;delay=31} @modelpart{p=heartlight}",
+        "summon{a=2;repeat=16;repeati=20;t=HPC_SCULK_GOLIATH_SOULSHOOTER;noise=32;pitch=128;os=true} @self",
+        "sound{s=entity.generic.explode;v=5;p=2.00;repeat=2;repeati=1} @self",
+        "sound{s=entity.generic.explode;v=5;p=0.50;repeat=2;repeati=1} @self",
+        "sound{s=entity.generic.explode;v=5;repeat=2;repeati=1} @self",
+        "sound{s=entity.lightning_bolt.thunder;v=3;p=2.00;repeat=2;repeati=5} @self",
+        "sound{s=entity.lightning_bolt.thunder;v=3;p=0.50;repeat=2;repeati=5} @self",
+        "sound{s=entity.lightning_bolt.thunder;v=3;repeat=2;repeati=5} @self",
+        "sound{s=entity.warden.hurt;v=3;p=2.00;repeat=2;repeati=5} @self",
+        "sound{s=entity.warden.hurt;v=3;p=0.50;repeat=2;repeati=5} @self",
+        "sound{s=entity.warden.hurt;v=3;repeat=2;repeati=5} @self",
+        "sound{s=entity.warden.roar;v=3;p=2.00;repeat=2;repeati=5} @self",
+        "sound{s=entity.warden.roar;v=3;p=0.50;repeat=2;repeati=5} @self",
+        "sound{s=entity.warden.roar;v=3;repeat=2;repeati=5} @self",
+        "throw{v=128;vy=32} @PIR{r=8}",
+        "throw{v=64;vy=12} @PIR{r=24}",
+        "damage{a=16;is=true} @PIR{r=8}",
+        "damage{a=12} @PIR{r=16}",
+        "damage{a=8} @PIR{r=12}",
+        "recoil{r=5;repeat=5;repeati=1} @PIR{r=6}",
+        "recoil{r=4;repeat=20;repeati=1;delay=2} @PIR{r=64}",
+        "recoil{r=3;repeat=20;repeati=1;delay=4} @PIR{r=64}",
+        "recoil{r=2;repeat=20;repeati=1;delay=6} @PIR{r=64}",
+        "recoil{r=1;repeat=20;repeati=1;delay=8} @PIR{r=64}"
+      ]
+    },
+    "SG_SNIFF": {
+      "cooldown": 32.0,
+      "conditions": [
+        "offGCD",
+        "playerWithin{d=64} true",
+        "playernotWithin{d=32} true"
+      ],
+      "steps": [
+        "setgcd{t=80}",
+        "state{s=SNIFF} @self",
+        "sound{s=entity.warden.sniff;v=6;p=2.00} @self",
+        "sound{s=entity.warden.sniff;v=6;p=0.50} @self",
+        "sound{s=entity.warden.sniff;v=6} @self",
+        "delay 60",
+        "sound{s=entity.warden.listening;v=6;p=0.50} @self",
+        "sound{s=entity.warden.listening;v=6;p=2.00} @self",
+        "delay 50",
+        "sound{s=entity.warden.listening_angry;v=6;p=0.50} @self",
+        "sound{s=entity.warden.listening_angry;v=6;p=2.00} @self",
+        "delay 40",
+        "skill{s=SG_SCREAM_SNIFF} @self"
+      ]
+    },
+    "SG_SCREAM_SNIFF": {
+      "cooldown": 0.0,
+      "conditions": [
+        "offGCD true"
+      ],
+      "steps": [
+        "lockrotation{l=true} @self",
+        "lockrotation{l=false;delay=40} @self",
+        "skill{s=SG_DONTDOANTIMACE_SCREAM} @self",
+        "setgcd{ticks=80} @self",
+        "state{s=SCREAM} @self",
+        "sound{s=entity.warden.angry;p=0.50;v=3} @self",
+        "delay 15",
+        "sound{sound=entity.warden.roar;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.80;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=1.00;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=1.30;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.50;radius=100;volume=5.0;delay=10} @self",
+        "sound{sound=entity.warden.roar;pitch=0.80;radius=100;volume=5.0;delay=10} @self",
+        "sound{sound=entity.warden.roar;pitch=1.00;radius=100;volume=5.0;delay=10} @self",
+        "sound{sound=entity.warden.roar;pitch=1.30;radius=100;volume=5.0;delay=10} @self",
+        "sound{sound=entity.warden.roar;pitch=2.00;radius=100;volume=5.0;delay=10} @self",
+        "sound{sound=entity.lightning_bolt.thunder;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{sound=entity.lightning_bolt.thunder;pitch=2.00;radius=100;volume=5.0} @self",
+        "throw{v=8;vy=2;fo=true} @PIR{r=128}",
+        "recoil{recoil=0.5;repeat=10;repeatinterval=1} @PIR{radius=128}",
+        "recoil{recoil=0.1;repeat=70;repeatinterval=1} @PIR{radius=128}"
+      ]
+    },
+    "SG_HURT": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "sound{s=entity.warden.hurt;v=2;p=2.00} @self",
+        "sound{s=entity.warden.hurt;v=2;p=0.50} @self",
+        "sound{s=entity.warden.hurt;v=2} @self",
+        "particle{p=block_crack;m=SCULK;a=16;spread=0.5} @modelpart{p=heartlight}",
+        "particle{p=block_crack;m=SCULK_CATALYST;a=16;spread=0.5} @modelpart{p=heartlight}",
+        "particle{p=block_crack;m=SCULK_VEIN;a=16;spread=0.5} @modelpart{p=heartlight}",
+        "particle{p=effect;c=#00ffe5;a=16;spread=0.1} @modelpart{p=heartlight}"
+      ]
+    },
+    "SG_S_SHOOT_SELF": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "missile{v=16;verticaloffset=10;ot=SG_S_SHOOT_OT_SELF;oh=SG_S_SHOOT_OH_SELF;ohb=SG_S_SHOOT_OHB_SELF;intertia=12;hnp=false;mr=128} @parent{bb=true}",
+        "particle{p=poof;a=32;s=0.1} @self",
+        "sound{s=entity.wither.ambient;p=2.00;v=2} @self"
+      ]
+    },
+    "SG_S_SHOOT_OT_SELF": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "particle{p=soul_fire_flame;spread=0.2} @origin",
+        "particle{p=sculk_soul;spread=0.2} @origin",
+        "sound{s=item.book.page_turn;p=2.00} @origin"
+      ]
+    },
+    "SG_S_SHOOT_OHB_SELF": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "heal{a=3} @parent",
+        "particle{p=heart;spread=1;y=1} @parent",
+        "particle{p=explode}",
+        "particle{p=poof;a=12;s=0.5}",
+        "particle{p=sculk_soul;a=12;s=0.5}",
+        "particle{p=soul_fire_flame;a=12;s=0.5}",
+        "throw{v=5}",
+        "sound{s=entity.generic.explode;p=2.00}",
+        "sound{s=block.sculk_sensor.clicking;p=2.00}",
+        "sound{s=item.wolf_armor.break} @origin"
+      ]
+    },
+    "SG_PULLSMASHES": {
+      "cooldown": 42.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=24} true",
+        "playerNotWithin{d=14} true"
+      ],
+      "steps": [
+        "setspeed{s=0.0} @self",
+        "setspeed{s=1.0;delay=140} @self",
+        "skill{s=SG_DONTDOANTIMACE_PULLSMASHES} @self",
+        "setgcd{ticks=140} @self",
+        "state{s=PULLSMASHES} @self",
+        "delay 15",
+        "damage{a=6} @PIR{r=6}",
+        "particle{p=block_crack;m=SCULK;hs=12;a=64} @self",
+        "particle{p=poof;s=0.3;a=12} @modelpart{p=leftarmparticle}",
+        "particle{p=sculk_soul;s=0.3;a=12} @modelpart{p=leftarmparticle}",
+        "particle{p=soulflame;s=0.3;a=12} @modelpart{p=leftarmparticle}",
+        "sound{s=entity.warden.hurt;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;v=2;p=2.00} @self",
+        "sound{s=entity.wither.break_block;v=2;p=0.50} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=2.00} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=0.50} @self",
+        "pull{v=4;to=true} @PIR{r=24}",
+        "recoil{r=0.5} @PIR{r=20}",
+        "recoil{r=0.1;repeat=5;repeati=1} @PIR{r=20}",
+        "delay 8",
+        "damage{a=6} @PIR{r=6}",
+        "particle{p=block_crack;m=SCULK;hs=12;a=64} @self",
+        "particle{p=poof;s=0.3;a=12} @modelpart{p=rightarmparticle}",
+        "particle{p=sculk_soul;s=0.3;a=12} @modelpart{p=rightarmparticle}",
+        "particle{p=soulflame;s=0.3;a=12} @modelpart{p=rightarmparticle}",
+        "sound{s=entity.warden.hurt;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;v=2;p=2.00} @self",
+        "sound{s=entity.wither.break_block;v=2;p=0.50} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=2.00} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=0.50} @self",
+        "pull{v=4;to=true} @PIR{r=24}",
+        "recoil{r=0.5} @PIR{r=20}",
+        "recoil{r=0.1;repeat=5;repeati=1} @PIR{r=20}",
+        "delay 11",
+        "damage{a=6} @PIR{r=6}",
+        "particle{p=block_crack;m=SCULK;hs=12;a=64} @self",
+        "particle{p=poof;s=0.3;a=12} @modelpart{p=leftarmparticle}",
+        "particle{p=sculk_soul;s=0.3;a=12} @modelpart{p=leftarmparticle}",
+        "particle{p=soulflame;s=0.3;a=12} @modelpart{p=leftarmparticle}",
+        "sound{s=entity.warden.hurt;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;v=2;p=2.00} @self",
+        "sound{s=entity.wither.break_block;v=2;p=0.50} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=2.00} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=0.50} @self",
+        "pull{v=4;to=true} @PIR{r=24}",
+        "recoil{r=0.5} @PIR{r=20}",
+        "recoil{r=0.1;repeat=5;repeati=1} @PIR{r=20}",
+        "delay 10",
+        "damage{a=6} @PIR{r=6}",
+        "particle{p=block_crack;m=SCULK;hs=12;a=64} @self",
+        "particle{p=poof;s=0.3;a=12} @modelpart{p=rightarmparticle}",
+        "particle{p=sculk_soul;s=0.3;a=12} @modelpart{p=rightarmparticle}",
+        "particle{p=soulflame;s=0.3;a=12} @modelpart{p=rightarmparticle}",
+        "sound{s=entity.warden.hurt;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;v=2;p=2.00} @self",
+        "sound{s=entity.wither.break_block;v=2;p=0.50} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=2.00} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=0.50} @self",
+        "pull{v=4;to=true} @PIR{r=24}",
+        "recoil{r=0.5} @PIR{r=20}",
+        "recoil{r=0.1;repeat=5;repeati=1} @PIR{r=20}",
+        "delay 10",
+        "damage{a=6} @PIR{r=6}",
+        "particle{p=block_crack;m=SCULK;hs=12;a=64} @self",
+        "particle{p=poof;s=0.3;a=12} @modelpart{p=leftarmparticle}",
+        "particle{p=sculk_soul;s=0.3;a=12} @modelpart{p=leftarmparticle}",
+        "particle{p=soulflame;s=0.3;a=12} @modelpart{p=leftarmparticle}",
+        "sound{s=entity.warden.hurt;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;v=2;p=2.00} @self",
+        "sound{s=entity.wither.break_block;v=2;p=0.50} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=2.00} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=0.50} @self",
+        "pull{v=4;to=true} @PIR{r=24}",
+        "recoil{r=0.5} @PIR{r=20}",
+        "recoil{r=0.1;repeat=5;repeati=1} @PIR{r=20}",
+        "delay 10",
+        "damage{a=6} @PIR{r=6}",
+        "particle{p=block_crack;m=SCULK;hs=12;a=64} @self",
+        "particle{p=poof;s=0.3;a=12} @modelpart{p=rightarmparticle}",
+        "particle{p=sculk_soul;s=0.3;a=12} @modelpart{p=rightarmparticle}",
+        "particle{p=soulflame;s=0.3;a=12} @modelpart{p=rightarmparticle}",
+        "sound{s=entity.warden.hurt;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;v=2;p=2.00} @self",
+        "sound{s=entity.wither.break_block;v=2;p=0.50} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=2.00} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=0.50} @self",
+        "pull{v=4;to=true} @PIR{r=24}",
+        "recoil{r=0.5} @PIR{r=20}",
+        "recoil{r=0.1;repeat=5;repeati=1} @PIR{r=20}",
+        "delay 10",
+        "damage{a=6} @PIR{r=6}",
+        "particle{p=block_crack;m=SCULK;hs=12;a=64} @self",
+        "particle{p=poof;s=0.3;a=12} @modelpart{p=leftarmparticle}",
+        "particle{p=sculk_soul;s=0.3;a=12} @modelpart{p=leftarmparticle}",
+        "particle{p=soulflame;s=0.3;a=12} @modelpart{p=leftarmparticle}",
+        "sound{s=entity.warden.hurt;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;v=2;p=2.00} @self",
+        "sound{s=entity.wither.break_block;v=2;p=0.50} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=2.00} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=0.50} @self",
+        "pull{v=4;to=true} @PIR{r=24}",
+        "recoil{r=0.5} @PIR{r=20}",
+        "recoil{r=0.1;repeat=5;repeati=1} @PIR{r=20}",
+        "delay 10",
+        "damage{a=6} @PIR{r=6}",
+        "particle{p=block_crack;m=SCULK;hs=12;a=64} @self",
+        "particle{p=poof;s=0.3;a=12} @modelpart{p=rightarmparticle}",
+        "particle{p=sculk_soul;s=0.3;a=12} @modelpart{p=rightarmparticle}",
+        "particle{p=soulflame;s=0.3;a=12} @modelpart{p=rightarmparticle}",
+        "sound{s=entity.warden.hurt;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;v=2;p=2.00} @self",
+        "sound{s=entity.wither.break_block;v=2;p=0.50} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=2.00} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=0.50} @self",
+        "pull{v=4;to=true} @PIR{r=24}",
+        "recoil{r=0.5} @PIR{r=20}",
+        "recoil{r=0.1;repeat=5;repeati=1} @PIR{r=20}",
+        "delay 30",
+        "damage{a=12} @PIR{r=10}",
+        "particle{p=block_crack;m=SCULK;hs=12;a=64} @self",
+        "particle{p=poof;s=0.5;a=32;spread=0.5} @forward{f=5;uel=false}",
+        "particle{p=poof;s=0.3;a=32;spread=0.5} @forward{f=5;uel=false}",
+        "particle{p=explosion;a=12;spread=0.25} @modelpart{p=rightarmparticle}",
+        "particle{p=explosion;a=12;spread=0.25} @modelpart{p=leftarmparticle}",
+        "particle{p=sculk_soul;s=0.3;a=12} @forward{f=5;uel=false}",
+        "particle{p=soulflame;s=0.3;a=12} @forward{f=5;uel=false}",
+        "sound{s=entity.warden.hurt;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;v=2;p=2.00} @self",
+        "sound{s=entity.wither.break_block;v=2;p=0.50} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=2.00} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=0.50} @self",
+        "sound{s=entity.lightning_bolt.thunder;v=2;p=2.00} @self",
+        "sound{s=entity.lightning_bolt.thunder;v=2;p=0.50} @self",
+        "recoil{r=0.75} @PIR{r=20}",
+        "recoil{r=0.1;repeat=20;repeati=1} @PIR{r=20}"
+      ]
+    },
+    "SG_LEAPSMASH": {
+      "cooldown": 42.0,
+      "conditions": [
+        "offGCD",
+        "playerWithin{d=12} true",
+        "playernotWithin{d=8} true"
+      ],
+      "steps": [
+        "skill{s=SG_DONTDOANTIMACE_BREAKSCREAM} @self",
+        "setNoDamageTicks{ticks=32} @target",
+        "setgcd{t=80}",
+        "state{s=LEAPSMASH} @self",
+        "sound{s=entity.warden.angry;p=2.00;v=3} @self",
+        "particle{p=sculk_soul;spread=1;a=16;repeat=60;repeati=1} @modelpart{p=heartlight}",
+        "sound{s=entity.warden.heartbeat;p=2.00;v=2;repeat=20;repeati=1} @self",
+        "sound{s=entity.warden.heartbeat;p=0.50;v=2;repeat=20;repeati=1} @self",
+        "setspeed{s=0.0} @self",
+        "delay 5",
+        "setspeed{s=3.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.80;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=1.00;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=1.30;radius=100;volume=5.0} @self",
+        "sound{s=entity.player.attack.sweep;pitch=1.00;radius=100;volume=5.0} @self",
+        "summon{type=HPC_SCULK_GOLIATH_GROUNDBREAK;delay=25;repeat=5;repeati=1;os=true;noise=12} @self",
+        "summon{type=HPC_SCULK_GOLIATH_GROUNDBREAK;delay=25;repeat=5;repeati=1;os=true;noise=12} @self",
+        "summon{type=HPC_SCULK_GOLIATH_GROUNDBREAK;delay=25;repeat=5;repeati=1;os=true;noise=12} @self",
+        "delay 30",
+        "setspeed{s=0.0} @self",
+        "sound{sound=entity.lightning_bolt.thunder;pitch=2.00;radius=100;volume=5.0} @self",
+        "sound{sound=entity.lightning_bolt.thunder;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=2.00} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=0.50} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2} @self",
+        "particle{p=poof;a=64;s=0.1;spread=0.5} @self",
+        "particle{p=poof;a=64;s=0.1;hs=3} @self",
+        "particle{p=sculk_soul;a=64;s=0.1;hs=3} @self",
+        "recoil{r=1;repeat=5;repeati=1} @PIR{r=6}",
+        "recoil{r=0.7;repeat=20;repeati=1;delay=2} @PIR{r=6}",
+        "recoil{r=0.5;repeat=20;repeati=1;delay=4} @PIR{r=6}",
+        "recoil{r=0.3;repeat=20;repeati=1;delay=6} @PIR{r=6}",
+        "recoil{r=0.1;repeat=45;repeati=1;delay=8} @PIR{r=6}",
+        "particle{p=block_crack;m=SCULK;a=32;spread=1;y=0.5;repeat=5;repeati=5} @self",
+        "particle{p=sculk_soul;a=32;spread=1;y=0.5;repeat=5;repeati=5} @self",
+        "delay 35",
+        "setspeed{s=1.0} @self"
+      ]
+    },
+    "SG_DONTDOANTIMACE_LEAPSMASH": {
+      "cooldown": 5.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_PULLSMASHES": {
+      "cooldown": 5.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_BREAKSCREAM": {
+      "cooldown": 3.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_DIG": {
+      "cooldown": 7.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_SPAWN": {
+      "cooldown": 7.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_ATTACK": {
+      "cooldown": 3.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_PICKUPSMASH": {
+      "cooldown": 3.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_SCREAM": {
+      "cooldown": 3.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_RUN": {
+      "cooldown": 3.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_ATTACKAFTERRUN": {
+      "cooldown": 2.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_SOULSCREAM": {
+      "cooldown": 6.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_GROUNDSMASH": {
+      "cooldown": 3.5,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_SONICSMASH": {
+      "cooldown": 2.25,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_STOMPCOMBO": {
+      "cooldown": 4.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_LIGHTS_2": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "brightness{p=leftarmlight;b=15;s=15} @self"
+      ]
+    },
+    "SG_SLOWHEARTBEAT_2": {
+      "cooldown": 0.0,
+      "conditions": [
+        "skillOnCooldown{s=SG_RUN_2} false",
+        "playerWithin{d=200} true",
+        "playerNotWithin{d=35} true"
+      ],
+      "steps": [
+        "sound{s=entity.warden.heartbeat;v=5;p=2.00;repeat=2;repeati=1} @self",
+        "sound{s=entity.warden.heartbeat;v=5;p=0.50;repeat=1;repeati=1} @self",
+        "sound{s=entity.warden.heartbeat;v=5} @self",
+        "brightness{p=heartlight;b=15;s=15} @self",
+        "brightness{p=heartlight;b=15;s=15;delay=20} @self",
+        "brightness{p=heartlight;b=13;s=13;delay=21} @self",
+        "brightness{p=heartlight;b=11;s=11;delay=22} @self",
+        "brightness{p=heartlight;b=9;s=9;delay=23} @self",
+        "brightness{p=heartlight;b=7;s=7;delay=24} @self",
+        "brightness{p=heartlight;b=5;s=5;delay=25} @self",
+        "brightness{p=heartlight;b=3;s=3;delay=26} @self",
+        "brightness{p=heartlight;b=1;s=1;delay=27} @self",
+        "brightness{p=heartlight;b=0;s=0;delay=28} @self",
+        "particle{p=sculk_soul;a=12;spread=0.5;s=0.05} @modelpart{p=heartlight}",
+        "particle{p=soulflame;a=12;spread=0.5;s=0.05} @modelpart{p=heartlight}"
+      ]
+    },
+    "SG_HEARTBEAT_2": {
+      "cooldown": 0.0,
+      "conditions": [
+        "skillOnCooldown{s=SG_RUN_2} false",
+        "playerWithin{d=35} true",
+        "playerNotWithin{d=16} true"
+      ],
+      "steps": [
+        "sound{s=entity.warden.heartbeat;v=5;p=2.00;repeat=2;repeati=1} @self",
+        "sound{s=entity.warden.heartbeat;v=5;p=0.50;repeat=1;repeati=1} @self",
+        "sound{s=entity.warden.heartbeat;v=5} @self",
+        "brightness{p=heartlight;b=15;s=15} @self",
+        "brightness{p=heartlight;b=15;s=15;delay=10} @self",
+        "brightness{p=heartlight;b=13;s=13;delay=11} @self",
+        "brightness{p=heartlight;b=11;s=11;delay=12} @self",
+        "brightness{p=heartlight;b=9;s=9;delay=13} @self",
+        "brightness{p=heartlight;b=7;s=7;delay=14} @self",
+        "brightness{p=heartlight;b=5;s=5;delay=15} @self",
+        "brightness{p=heartlight;b=3;s=3;delay=16} @self",
+        "brightness{p=heartlight;b=1;s=1;delay=17} @self",
+        "brightness{p=heartlight;b=0;s=0;delay=18} @self",
+        "particle{p=sculk_soul;a=12;spread=0.5;s=0.05} @modelpart{p=heartlight}",
+        "particle{p=soulflame;a=12;spread=0.5;s=0.05} @modelpart{p=heartlight}"
+      ]
+    },
+    "SG_FASTHEARTBEAT_2": {
+      "cooldown": 0.0,
+      "conditions": [
+        "skillOnCooldown{s=SG_RUN_2} false",
+        "playerWithin{d=16} true"
+      ],
+      "steps": [
+        "sound{s=entity.warden.heartbeat;v=5;p=2.00;repeat=2;repeati=1} @self",
+        "sound{s=entity.warden.heartbeat;v=5;p=0.50;repeat=1;repeati=1} @self",
+        "sound{s=entity.warden.heartbeat;v=5} @self",
+        "brightness{p=heartlight;b=15;s=15} @self",
+        "brightness{p=heartlight;b=15;s=15;delay=5} @self",
+        "brightness{p=heartlight;b=13;s=13;delay=6} @self",
+        "brightness{p=heartlight;b=11;s=11;delay=7} @self",
+        "brightness{p=heartlight;b=9;s=9;delay=8} @self",
+        "brightness{p=heartlight;b=7;s=7;delay=9} @self",
+        "brightness{p=heartlight;b=5;s=5;delay=10} @self",
+        "brightness{p=heartlight;b=3;s=3;delay=11} @self",
+        "brightness{p=heartlight;b=1;s=1;delay=12} @self",
+        "brightness{p=heartlight;b=0;s=0;delay=13} @self",
+        "particle{p=sculk_soul;a=12;spread=0.5;s=0.05} @modelpart{p=heartlight}",
+        "particle{p=soulflame;a=12;spread=0.5;s=0.05} @modelpart{p=heartlight}"
+      ]
+    },
+    "SG_AMBIENTSOUND_2": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "sound{s=entity.warden.ambient;v=4;p=0.50} @self",
+        "sound{s=entity.warden.ambient;v=4;p=1.00} @self",
+        "sound{s=entity.warden.listening;v=4;p=1.00} @self",
+        "sound{s=entity.warden.listening;v=4;p=0.50} @self",
+        "sound{s=entity.warden.hurt;v=4;p=0.50} @self"
+      ]
+    },
+    "SG_SCREAM_PUSHBACK_2": {
+      "cooldown": 20.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=12} true",
+        "playerNotWithin{d=4} true"
+      ],
+      "steps": [
+        "lockrotation{l=true} @self",
+        "lockrotation{l=false;delay=40} @self",
+        "skill{s=SG_DONTDOANTIMACE_SCREAM_2} @self",
+        "setgcd{ticks=80} @self",
+        "state{s=SCREAM} @self",
+        "sound{s=entity.warden.angry;p=0.50;v=3} @self",
+        "delay 15",
+        "sound{sound=entity.warden.roar;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.80;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=1.00;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=1.30;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=2.00;radius=100;volume=5.0} @self",
+        "throw{v=12;vy=2;fo=true;repeat=4;repeati=8} @PIR{r=24}",
+        "recoil{recoil=0.5;repeat=30;repeatinterval=1} @PIR{radius=48}"
+      ]
+    },
+    "SG_ANTIMACE_2": {
+      "cooldown": 5.0,
+      "conditions": [
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SONICSMASH_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_ATTACK_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_PICKUPSMASH_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SCREAM_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_RUN_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_ATTACKAFTERRUN_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SOULSCREAM_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_GROUNDSMASH_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SONICSMASH_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_STOMPCOMBO_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SPAWN_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_DIG_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_BREAKSCREAM_2} false"
+      ],
+      "steps": [
+        "setgcd{t=80} @self",
+        "cancelEvent{sync=true}",
+        "skill{s=SG_ANTIMACE_ATTACK_2} @trigger"
+      ]
+    },
+    "SG_ANTIMACE_ATTACK_2": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "state{s=ANTIMACE;ov=true;f=true} @self",
+        "setai{ai=false} @self",
+        "delay 5",
+        "sound{s=entity.phantom.bite;v=2;p=0.50} @trigger",
+        "sound{s=entity.phantom.bite;v=2;p=2.00} @trigger",
+        "mountmodel{f=true;d=false;mid=HPC_SCULK_GOLIATH_DESTROYED;p=seat} @trigger",
+        "potion{effect=DARKNESS;duration=160;ambientparticles=false;hasicon=false;delay=25} @trigger",
+        "summon{type=HPC_SCULK_GOLIATH_GROUNDBREAK_2;delay=25} @forward{f=5;yoffset=2}",
+        "delay 30",
+        "dismountallmodel{p=seat;mid=HPC_SCULK_GOLIATH_DESTROYED} @self",
+        "damage{a=38} @trigger",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=2.00} @trigger",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=0.50} @trigger",
+        "sound{s=item.mace.smash_ground_heavy;v=2} @trigger",
+        "particle{p=poof;a=32;s=0.1;y=1} @trigger",
+        "recoil{r=1;repeat=5;repeati=1} @trigger",
+        "recoil{r=0.7;repeat=20;repeati=1;delay=2} @trigger",
+        "recoil{r=0.5;repeat=20;repeati=1;delay=4} @trigger",
+        "recoil{r=0.3;repeat=20;repeati=1;delay=6} @trigger",
+        "recoil{r=0.1;repeat=45;repeati=1;delay=8} @trigger",
+        "potion{effect=SLOWNESS;level=3;duration=60;ambientparticles=false;hasicon=false} @trigger",
+        "delay 20",
+        "setai{ai=true} @self"
+      ]
+    },
+    "SG_LIGHT_VISUALS_2": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "brightness{p=leftarmlight;b=15;s=15} @self",
+        "brightness{p=sonicboom1;b=15;s=15} @self",
+        "brightness{p=sonicboom2;b=15;s=15} @self",
+        "brightness{p=sonicboom3;b=15;s=15} @self",
+        "brightness{p=sonicboom4;b=15;s=15} @self",
+        "brightness{p=sonicboom5;b=15;s=15} @self"
+      ]
+    },
+    "SG_ATTACK1_2": {
+      "cooldown": 8.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=5} true"
+      ],
+      "steps": [
+        "sound{s=entity.warden.listening_angry;p=2.00;v=3} @self",
+        "skill{s=SG_DONTDOANTIMACE_ATTACK_2} @self",
+        "setgcd{ticks=80} @self",
+        "state{s=ATTACK1} @self",
+        "delay 20",
+        "sound{s=entity.player.attack.sweep;v=2;p=0.50} @self",
+        "sound{s=entity.player.attack.sweep;v=2;p=2.00} @self",
+        "delay 5",
+        "sound{s=entity.warden.attack_impact;v=2;p=2.00} @self",
+        "sound{s=entity.warden.attack_impact;v=2;p=0.50} @self",
+        "damage{a=20} @PIR{r=5}",
+        "throw{v=16;vy=4} @PIR{r=5}",
+        "recoil{r=0.5} @PIR{r=5}"
+      ]
+    },
+    "SG_ATTACK2_2": {
+      "cooldown": 8.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=5} true"
+      ],
+      "steps": [
+        "sound{s=entity.warden.listening_angry;p=2.00;v=3} @self",
+        "skill{s=SG_DONTDOANTIMACE_ATTACK_2} @self",
+        "setgcd{ticks=80} @self",
+        "state{s=ATTACK2} @self",
+        "delay 20",
+        "sound{s=entity.player.attack.sweep;v=2;p=0.50} @self",
+        "sound{s=entity.player.attack.sweep;v=2;p=2.00} @self",
+        "delay 5",
+        "sound{s=entity.warden.attack_impact;v=2;p=2.00} @self",
+        "sound{s=entity.warden.attack_impact;v=2;p=0.50} @self",
+        "damage{a=20} @PIR{r=5}",
+        "throw{v=16;vy=4} @PIR{r=5}",
+        "recoil{r=0.5} @PIR{r=5}"
+      ]
+    },
+    "SG_ATTACK3_2": {
+      "cooldown": 8.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=5} true"
+      ],
+      "steps": [
+        "sound{s=entity.warden.listening_angry;p=2.00;v=3} @self",
+        "skill{s=SG_DONTDOANTIMACE_ATTACK_2} @self",
+        "setgcd{ticks=80} @self",
+        "state{s=ATTACK3} @self",
+        "delay 20",
+        "sound{s=entity.player.attack.sweep;v=2;p=0.50} @self",
+        "sound{s=entity.player.attack.sweep;v=2;p=2.00} @self",
+        "delay 5",
+        "sound{s=entity.warden.attack_impact;v=2;p=2.00} @self",
+        "sound{s=entity.warden.attack_impact;v=2;p=0.50} @self",
+        "damage{a=20} @PIR{r=5}",
+        "throw{v=16;vy=4} @PIR{r=5}",
+        "recoil{r=0.5} @PIR{r=5}"
+      ]
+    },
+    "SG_RUN_SET_COOLDOWN_2": {
+      "cooldown": 32.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=24} true",
+        "playerNotWithin{d=16} true"
+      ],
+      "steps": [
+        "skill{s=SG_RUN_2} @self"
+      ]
+    },
+    "SG_RUN_2": {
+      "cooldown": 2.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=24} true",
+        "playerNotWithin{d=16} true"
+      ],
+      "steps": [
+        "skill{s=SG_RUN_BREAKBLOCKS_2;repeat=40;repeati=1} @self",
+        "skill{s=SG_DONTDOANTIMACE_RUN_2} @self",
+        "setspeed{s=2.5} @self",
+        "setspeed{s=1;delay=35} @self",
+        "setgcd{ticks=80} @self",
+        "state{s=RUN} @self",
+        "sound{s=entity.warden.heartbeat;v=5;p=2.00;repeat=4;repeati=5} @self",
+        "sound{s=entity.warden.heartbeat;v=5;p=0.50;repeat=3;repeati=5} @self",
+        "sound{s=entity.warden.heartbeat;v=5} @self",
+        "skill{s=SG_ATTACKAFTERRUN_2;repeat=35;repeati=1} @self",
+        "skill{s=SG_RUNSOUND_2;repeat=8;repeati=6} @self",
+        "skill{s=SG_SADWARDEN_2;delay=35} @self"
+      ]
+    },
+    "SG_RUN_BREAKBLOCKS_2": {
+      "cooldown": 0.0,
+      "conditions": [
+        "blockTypeInRadius{types=DEEPSLATE,DEEPSLATE_BRICKS,CRACKED_DEEPSLATE_BRICKS,CRACKED_DEEPSLATE_TILES,DEEPSLATE_BRICK_STAIRS,POLISHED_DEEPSLATE,POLISHED_DEEPSLATE_SLAB,POLISHED_DEEPSLATE_STAIRS} true",
+        "blockTypeInRadius{r=3;ry=0;types=DEEPSLATE,DEEPSLATE_BRICKS,CRACKED_DEEPSLATE_BRICKS,CRACKED_DEEPSLATE_TILES,DEEPSLATE_BRICK_STAIRS,POLISHED_DEEPSLATE,POLISHED_DEEPSLATE_SLAB,POLISHED_DEEPSLATE_STAIRS} true"
+      ],
+      "steps": [
+        "particle{p=block_crack;m=DEEPSLATE;spread=0.25;chance=0.5} @blocksinradius{r=4}",
+        "breakblock{forcesync=true;doDrops=false;doEffect=true;useTool=false} @BlocksInRadius{r=3;ry=1;shape=CUBE;yo=1}",
+        "breakblock{forcesync=true;doDrops=false;doEffect=true;useTool=false} @BlocksInRadius{r=3;ry=1;shape=CUBE;yo=2}",
+        "breakblock{forcesync=true;doDrops=false;doEffect=true;useTool=false} @BlocksInRadius{r=3;ry=1;shape=CUBE;yo=3}",
+        "breakblock{forcesync=true;doDrops=false;doEffect=true;useTool=false} @BlocksInRadius{r=3;ry=1;shape=CUBE;yo=4}",
+        "breakblock{forcesync=true;doDrops=false;doEffect=true;useTool=false} @BlocksInRadius{r=3;ry=1;shape=CUBE;yo=5}",
+        "skill{s=SG_RUN_BREAKBLOCKS_SOUND_2} @self"
+      ]
+    },
+    "SG_RUN_BREAKBLOCKS_SOUND_2": {
+      "cooldown": 0.2,
+      "conditions": [],
+      "steps": [
+        "sound{s=entity.wither.break_block;v=2} @self"
+      ]
+    },
+    "SG_SADWARDEN_2": {
+      "cooldown": 0.0,
+      "conditions": [
+        "skillOnCooldown{s=SG_ATTACKAFTERRUN_2} false"
+      ],
+      "steps": [
+        "sound{s=entity.warden.listening_angry0;v=3} @self",
+        "sound{s=entity.warden.listening_angry;p=0.50;v=3} @self"
+      ]
+    },
+    "SG_ATTACKAFTERRUN_2": {
+      "cooldown": 8.0,
+      "conditions": [
+        "playerWithin{d=4} true"
+      ],
+      "steps": [
+        "setspeed{s=1} @self",
+        "setgcd{ticks=80} @self",
+        "state{s=ATTACKAFTERRUN;ov=true} @self",
+        "skill{s=SG_DONTDOANTIMACE_ATTACKAFTERRUN_2} @self",
+        "sound{s=entity.warden.angry;p=2.00}",
+        "delay 5",
+        "sound{s=entity.player.attack.sweep;p=2.00} @self",
+        "sound{s=entity.player.attack.sweep;p=0.50} @self",
+        "sound{s=entity.player.attack.sweep} @self",
+        "sound{sound=entity.warden.roar;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.80;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=1.00;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=1.30;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=2.00;radius=100;volume=5.0} @self",
+        "delay 13",
+        "sound{s=entity.player.attack.sweep;p=2.00} @self",
+        "sound{s=entity.player.attack.sweep;p=0.50} @self",
+        "sound{s=entity.player.attack.sweep} @self",
+        "delay 3",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=2.00} @self",
+        "sound{s=entity.lightning_bolt.thunder;v=2;p=2.00} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=0.50} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2} @self",
+        "particle{p=effect;c=#ff0000;hs=12;a=32} @self",
+        "particlering{points=16;a=12;speed=0.2;p=sculk_soul;r=1} @self",
+        "particlering{points=16;a=12;speed=0.2;p=poof;r=1} @self",
+        "particlering{points=16;a=12;speed=0.2;p=poof;r=3;delay=1} @self",
+        "particlering{points=16;a=12;speed=0.2;p=poof;r=5;delay=2} @self",
+        "particlering{points=16;a=12;speed=0.2;p=poof;r=7;delay=3} @self",
+        "particlering{points=16;a=12;speed=0.2;p=poof;r=9;delay=4} @self",
+        "particlering{points=16;a=12;speed=0.2;p=poof;r=11;delay=5} @self",
+        "particlering{points=16;a=12;p=sculk_soul;r=11;delay=8} @self",
+        "particlering{points=32;a=12;speed=0.2;p=sculk_soul;r=11;delay=8} @self",
+        "sound{s=entity.generic.explode;p=2.00}",
+        "sound{s=entity.wither.break_block;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;p=0.50;v=2} @self",
+        "sound{s=entity.wither.break_block;v=2} @self",
+        "damage{a=20;is=true} @PIR{r=12}",
+        "throw{v=20;vy=2} @PIR{r=12}",
+        "recoil{r=1;repeat=5;repeati=1} @PIR{r=12}",
+        "recoil{r=0.7;repeat=20;repeati=1;delay=2} @PIR{r=12}",
+        "recoil{r=0.5;repeat=20;repeati=1;delay=4} @PIR{r=14}",
+        "recoil{r=0.3;repeat=20;repeati=1;delay=6} @PIR{r=16}",
+        "recoil{r=0.1;repeat=45;repeati=1;delay=8} @PIR{r=18}"
+      ]
+    },
+    "SG_RUNSOUND_2": {
+      "cooldown": 0.0,
+      "conditions": [
+        "skillOnCooldown{s=SG_RUN_SET_COOLDOWN_2} true"
+      ],
+      "steps": [
+        "sound{s=entity.warden.step;v=2} @self",
+        "sound{s=entity.warden.step;v=2;p=0.50}",
+        "sound{s=entity.warden.step;v=2;p=2.00}"
+      ]
+    },
+    "SG_WALKSOUND_2": {
+      "cooldown": 0.0,
+      "conditions": [
+        "ismoving true",
+        "skillOnCooldown{s=SG_RUN_2} false"
+      ],
+      "steps": [
+        "sound{s=entity.warden.step;v=2} @self",
+        "sound{s=entity.warden.step;v=2;p=0.50} @self",
+        "sound{s=entity.warden.step;v=2;p=2.00} @self"
+      ]
+    },
+    "SG_SOULSCREAM_2": {
+      "cooldown": 64.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=24} true",
+        "playerNotWithin{d=8} true"
+      ],
+      "steps": [
+        "lockrotation{l=true} @self",
+        "lockrotation{l=false;delay=80} @self",
+        "setspeed{s=0.0} @self",
+        "setspeed{s=1.0;delay=80} @self",
+        "skill{s=SG_DONTDOANTIMACE_SOULSCREAM_2} @self",
+        "setgcd{ticks=150} @self",
+        "state{s=SOULSCREAM} @self",
+        "delay 15",
+        "sound{s=entity.generic.explode;p=2.00;v=2} @self",
+        "sound{s=entity.generic.explode;p=0.50;v=2} @self",
+        "sound{s=entity.wither.break_block;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;p=0.50;v=2} @self",
+        "sound{s=entity.warden.angry;p=0.50;v=3} @self",
+        "summon{a=2;repeat=12;repeati=5;t=HPC_SCULK_GOLIATH_SOULSHOOTER_2;noise=16;os=true} @self",
+        "delay 25",
+        "sound{sound=entity.warden.roar;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.80;radius=100;volume=5.0;delay=5} @self",
+        "sound{sound=entity.warden.roar;pitch=1.00;radius=100;volume=5.0;delay=5} @self",
+        "sound{sound=entity.warden.roar;pitch=1.30;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=2.00;radius=100;volume=5.0} @self",
+        "delay 10",
+        "sound{sound=entity.warden.roar;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.80;radius=100;volume=5.0;delay=5} @self",
+        "sound{sound=entity.warden.roar;pitch=1.00;radius=100;volume=5.0;delay=5} @self",
+        "sound{sound=entity.warden.roar;pitch=1.30;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=2.00;radius=100;volume=5.0} @self"
+      ]
+    },
+    "SG_S_SHOOT_2": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "missile{v=32;verticaloffset=5;ot=SG_S_SHOOT_OT_2;oh=SG_S_SHOOT_OH_2;ohb=SG_S_SHOOT_OHB_2;intertia=8;hnp=false;mr=128} @PIR{r=64}",
+        "particle{p=poof;a=32;s=0.1} @self",
+        "sound{s=entity.wither.ambient;p=2.00;v=2} @self"
+      ]
+    },
+    "SG_S_SHOOT_OT_2": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "particle{p=soul_fire_flame;spread=0.2} @origin",
+        "particle{p=sculk_soul;spread=0.2} @origin",
+        "particle{p=effect;c=#ff0000;spread=0.2} @origin",
+        "sound{s=item.book.page_turn;p=2.00} @origin"
+      ]
+    },
+    "SG_S_SHOOT_OH_2": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "damage{a=3}",
+        "particle{p=explode}",
+        "potion{type=BLINDNESS;d=10}",
+        "particle{p=poof;a=12;s=0.5}",
+        "particle{p=sculk_soul;a=12;s=0.5}",
+        "particle{p=soul_fire_flame;a=12;s=0.5}",
+        "particle{p=effect;c=#ff0000;spread=0.2}",
+        "throw{v=5}",
+        "sound{s=entity.generic.explode;p=2.00}",
+        "sound{s=block.sculk_sensor.clicking;p=2.00}",
+        "sound{s=item.wolf_armor.break} @origin"
+      ]
+    },
+    "SG_S_SHOOT_OHB_2": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "damage{a=6}",
+        "particle{p=explode}",
+        "particle{p=poof;a=12;s=0.5}",
+        "sound{s=entity.generic.explode}",
+        "sound{s=block.sculk_sensor.clicking;p=2.00}"
+      ]
+    },
+    "SG_SOULERUPTION_2": {
+      "cooldown": 18.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=16} true",
+        "playerNotWithin{d=8} true"
+      ],
+      "steps": [
+        "skill{s=SG_DONTDOANTIMACE_GROUNDSMASH_2} @self",
+        "setgcd{ticks=120} @self",
+        "state{s=GROUNDSMASH} @self",
+        "sound{s=entity.warden.angry;v=3;p=2.00} @self",
+        "sound{s=entity.warden.angry;v=3;p=0.50} @self",
+        "delay 35",
+        "sound{s=entity.lightning_bolt.thunder;v=2;p=2.00} @self",
+        "sound{s=entity.lightning_bolt.thunder;v=2;p=0.50} @self",
+        "sound{s=entity.generic.explode;v=2;p=2.00} @self",
+        "sound{s=entity.generic.explode;v=2;p=0.50} @self",
+        "particle{p=explosion;a=6;spread=0.5;y=-3} @modelpart{p=rightarmlight}",
+        "particle{p=explosion;a=6;spread=0.5;y=-3} @modelpart{p=leftarmlight}",
+        "particle{p=poof;a=16;spread=0.5;y=-3;speed=0.5} @modelpart{p=rightarmlight}",
+        "particle{p=poof;a=16;spread=0.5;y=-3;speed=0.5} @modelpart{p=leftarmlight}",
+        "throw{v=20;vy=2} @PIR{r=12}",
+        "recoil{r=1;repeat=5;repeati=1} @PIR{r=14}",
+        "recoil{r=0.7;repeat=20;repeati=1;delay=2} @PIR{r=16}",
+        "recoil{r=0.5;repeat=20;repeati=1;delay=4} @PIR{r=18}",
+        "recoil{r=0.3;repeat=20;repeati=1;delay=6} @PIR{r=20}",
+        "recoil{r=0.1;repeat=35;repeati=1;delay=8} @PIR{r=22}",
+        "summon{t=HPC_SCULK_GOLIATH_GROUNDBREAK_2;noise=16;os=true;a=16} @self",
+        "projectile{v=16;ot=SG_SOULERUPTION_OT_2;mr=24;interval=4;hs=true} @modelpart{p=groundsmash_targeter1}",
+        "projectile{v=16;ot=SG_SOULERUPTION_OT_2;mr=24;interval=4;hs=true} @modelpart{p=groundsmash_targeter2}",
+        "projectile{v=16;ot=SG_SOULERUPTION_OT_2;mr=24;interval=4;hs=true} @modelpart{p=groundsmash_targeter3}",
+        "projectile{v=16;ot=SG_SOULERUPTION_OT_2;mr=24;interval=4;hs=true} @modelpart{p=groundsmash_targeter4}",
+        "projectile{v=16;ot=SG_SOULERUPTION_OT_2;mr=24;interval=4;hs=true} @modelpart{p=groundsmash_targeter5}",
+        "projectile{v=16;ot=SG_SOULERUPTION_OT_2;mr=24;interval=4;hs=true} @modelpart{p=groundsmash_targeter6}",
+        "projectile{v=16;ot=SG_SOULERUPTION_OT_2;mr=24;interval=4;hs=true} @modelpart{p=groundsmash_targeter7}",
+        "projectile{v=16;ot=SG_SOULERUPTION_OT_2;mr=24;interval=4;hs=true} @modelpart{p=groundsmash_targeter8}",
+        "delay 5",
+        "projectile{v=12;ot=SG_SOULERUPTION_OT_2;mr=24;interval=7;hs=true} @modelpart{p=groundsmash_targeter1}",
+        "projectile{v=12;ot=SG_SOULERUPTION_OT_2;mr=24;interval=7;hs=true} @modelpart{p=groundsmash_targeter2}",
+        "projectile{v=12;ot=SG_SOULERUPTION_OT_2;mr=24;interval=7;hs=true} @modelpart{p=groundsmash_targeter3}",
+        "projectile{v=12;ot=SG_SOULERUPTION_OT_2;mr=24;interval=7;hs=true} @modelpart{p=groundsmash_targeter4}",
+        "projectile{v=12;ot=SG_SOULERUPTION_OT_2;mr=24;interval=7;hs=true} @modelpart{p=groundsmash_targeter5}",
+        "projectile{v=12;ot=SG_SOULERUPTION_OT_2;mr=24;interval=7;hs=true} @modelpart{p=groundsmash_targeter6}",
+        "projectile{v=12;ot=SG_SOULERUPTION_OT_2;mr=24;interval=7;hs=true} @modelpart{p=groundsmash_targeter7}",
+        "projectile{v=12;ot=SG_SOULERUPTION_OT_2;mr=24;interval=7;hs=true} @modelpart{p=groundsmash_targeter8}"
+      ]
+    },
+    "SG_SOULERUPTION_OT_2": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "summon{t=HPC_SCULK_GOLIATH_GROUNDBREAK_2;noise=2;os=true} @origin",
+        "particle{p=sculk_soul;hs=0.75;a=12;y=-0.2} @origin",
+        "particle{p=block_crack;m=SCULK;hs=0.75;a=12;y=-0.2} @origin",
+        "particle{p=block_crack;m=SCULK_CATALYST;hs=0.75;a=12;y=-0.2} @origin"
+      ]
+    },
+    "SG_PICKUPSMASH_2": {
+      "cooldown": 48.0,
+      "conditions": [
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SONICSMASH_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_ATTACK_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SCREAM_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_RUN_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_ATTACKAFTERRUN_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SOULSCREAM_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_GROUNDSMASH_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SONICSMASH_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_STOMPCOMBO_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_SPAWN_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_DIG_2} false",
+        "skillOnCooldown{skill=SG_DONTDOANTIMACE_BREAKSCREAM_2} false",
+        "offGCD",
+        "playerWithin{d=6} true",
+        "playernotWithin{d=2} true"
+      ],
+      "steps": [
+        "setgcd{t=80}",
+        "skill{s=SG_DONTDOANTIMACE_PICKUPSMASH_2} @self",
+        "state{s=PICKUPSMASH} @self",
+        "setai{ai=false} @self",
+        "delay 5",
+        "sound{s=entity.phantom.bite;v=2;p=0.50} @self",
+        "sound{s=entity.phantom.bite;v=2;p=2.00} @self",
+        "mountmodel{f=true;d=false;mid=HPC_SCULK_GOLIATH_DESTROYED;p=seat} @PIR{r=5}",
+        "potion{effect=DARKNESS;duration=160;ambientparticles=false;hasicon=false;delay=25} @PIR{r=6}",
+        "summon{type=HPC_SCULK_GOLIATH_GROUNDBREAK_2;delay=25} @forward{f=5;yoffset=2}",
+        "delay 30",
+        "dismountallmodel{p=seat;mid=HPC_SCULK_GOLIATH_DESTROYED} @self",
+        "damage{a=24} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=2.00} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=0.50} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2} @self",
+        "particle{p=poof;a=32;s=0.1;y=1} @PIR{r=6}",
+        "recoil{r=1;repeat=5;repeati=1} @PIR{r=6}",
+        "recoil{r=0.7;repeat=20;repeati=1;delay=2} @PIR{r=6}",
+        "recoil{r=0.5;repeat=20;repeati=1;delay=4} @PIR{r=6}",
+        "recoil{r=0.3;repeat=20;repeati=1;delay=6} @PIR{r=6}",
+        "recoil{r=0.1;repeat=45;repeati=1;delay=8} @PIR{r=6}",
+        "potion{effect=SLOWNESS;level=3;duration=60;ambientparticles=false;hasicon=false} @PIR{r=6}",
+        "delay 20",
+        "setai{ai=true} @self"
+      ]
+    },
+    "SG_SONICSMASH_2": {
+      "cooldown": 12.0,
+      "conditions": [
+        "offGCD",
+        "playerWithin{d=24} true",
+        "playernotWithin{d=8} true"
+      ],
+      "steps": [
+        "setgcd{t=45}",
+        "skill{s=SG_DONTDOANTIMACE_SONICSMASH_2} @self",
+        "state{s=SONICSMASH} @self",
+        "sound{s=entity.warden.sonic_charge;p=2.00;v=3} @self",
+        "sound{s=entity.warden.sonic_charge;p=0.50;v=3} @self",
+        "sound{s=entity.warden.sonic_charge;v=3} @self",
+        "delay 23",
+        "projectile{v=64;ot=SG_SONICSMASH_OT_2;oh=SG_SONICSMASH_OH_2;mr=32;accuracy=0.75;startyoffset=3.5} @target",
+        "projectile{v=64;ot=SG_SONICSMASH_OT_2;oh=SG_SONICSMASH_OH_2;mr=32;accuracy=0.75;delay=2;startyoffset=3.5} @target",
+        "projectile{v=64;ot=SG_SONICSMASH_OT_2;oh=SG_SONICSMASH_OH_2;mr=32;accuracy=0.75;delay=4;startyoffset=3.5} @target",
+        "projectile{v=64;ot=SG_SONICSMASH_OT_2;oh=SG_SONICSMASH_OH_2;mr=32;accuracy=0.75;delay=6;startyoffset=3.5} @target",
+        "projectile{v=64;ot=SG_SONICSMASH_OT_2;oh=SG_SONICSMASH_OH_2;mr=32;accuracy=0.75;delay=8;startyoffset=3.5} @target",
+        "projectile{v=64;ot=SG_SONICSMASH_OT_2;oh=SG_SONICSMASH_OH_2;mr=32;accuracy=0.75;startyoffset=3.5} @target",
+        "projectile{v=64;ot=SG_SONICSMASH_OT_2;oh=SG_SONICSMASH_OH_2;mr=32;accuracy=0.75;delay=2;startyoffset=3.5} @target",
+        "projectile{v=64;ot=SG_SONICSMASH_OT_2;oh=SG_SONICSMASH_OH_2;mr=32;accuracy=0.75;delay=4;startyoffset=3.5} @target",
+        "projectile{v=64;ot=SG_SONICSMASH_OT_2;oh=SG_SONICSMASH_OH_2;mr=32;accuracy=0.75;delay=6;startyoffset=3.5} @target",
+        "projectile{v=64;ot=SG_SONICSMASH_OT_2;oh=SG_SONICSMASH_OH_2;mr=32;accuracy=0.75;delay=8;startyoffset=3.5} @target",
+        "sound{s=entity.warden.sonic_boom;p=0.50;v=3} @self",
+        "sound{s=entity.warden.sonic_boom;p=2.00;v=3} @self",
+        "sound{s=entity.warden.sonic_boom;v=3} @self"
+      ]
+    },
+    "SG_SONICSMASH_OT_2": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "particle{p=sonic_boom} @origin",
+        "particle{p=sculk_soul;spread=0.25} @origin"
+      ]
+    },
+    "SG_SONICSMASH_OH_2": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "particle{p=sculk_soul;spread=0.25;a=12;y=1}",
+        "damage{a=6;pi=true}",
+        "throw{v=8;vy=2}",
+        "potion{type=SLOWNESS;d=60;level=2;p=false;i=false}"
+      ]
+    },
+    "SG_STOMPCOMBO_2": {
+      "cooldown": 10.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=5} true"
+      ],
+      "steps": [
+        "setspeed{s=0.0;delay=40} @self",
+        "setspeed{s=1.0;delay=80} @self",
+        "lockrotation{l=true} @self",
+        "lockrotation{l=false;delay=80} @self",
+        "skill{s=SG_DONTDOANTIMACE_STOMPCOMBO_2} @self",
+        "setgcd{ticks=80} @self",
+        "state{s=STOMPCOMBO} @self",
+        "delay 8",
+        "sound{s=entity.warden.hurt;v=2;p=2.00} @self",
+        "sound{s=entity.warden.hurt;v=2;p=0.50} @self",
+        "particle{p=poof;a=12;hs=0.25;s=0.3} @modelpart{p=legparticle2}",
+        "particle{p=poof;a=12;hs=0.25;s=0.1} @modelpart{p=legparticle2}",
+        "particle{p=block_crack;m=SCULK;a=32;hs=1;s=0.3;y=0.3} @modelpart{p=legparticle2}",
+        "particle{p=sculk_soul;a=32;hs=1;s=0.1;y=0.3} @modelpart{p=legparticle2}",
+        "sound{s=entity.wither.break_block;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;p=0.50;v=2} @self",
+        "sound{s=entity.lightning_bolt.thunder;p=2.00;v=2} @self",
+        "damage{a=8;is=true} @PIR{r=8}",
+        "throw{yv=3} @PIR{r=8}",
+        "recoil{r=0.5} @PIR{r=16}",
+        "recoil{r=0.2;repeat=10;repeati=1} @PIR{r=16}",
+        "delay 15",
+        "sound{s=entity.warden.hurt;v=2;p=2.00} @self",
+        "sound{s=entity.warden.hurt;v=2;p=0.50} @self",
+        "particle{p=poof;a=12;hs=0.25;s=0.3} @modelpart{p=legparticle1}",
+        "particle{p=poof;a=12;hs=0.25;s=0.1} @modelpart{p=legparticle1}",
+        "particle{p=block_crack;m=SCULK;a=32;hs=1;s=0.3;y=0.3} @modelpart{p=legparticle1}",
+        "particle{p=sculk_soul;a=32;hs=1;s=0.1;y=0.3} @modelpart{p=legparticle1}",
+        "sound{s=entity.wither.break_block;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;p=0.50;v=2} @self",
+        "sound{s=entity.lightning_bolt.thunder;p=2.00;v=2} @self",
+        "damage{a=8;is=true} @PIR{r=8}",
+        "throw{yv=3} @PIR{r=8}",
+        "recoil{r=0.5} @PIR{r=16}",
+        "recoil{r=0.2;repeat=10;repeati=1} @PIR{r=16}",
+        "delay 29",
+        "sound{s=entity.warden.hurt;v=2;p=2.00} @self",
+        "sound{s=entity.warden.hurt;v=2;p=0.50} @self",
+        "damage{a=16;is=true} @PIR{r=12}",
+        "throw{yv=5} @PIR{r=8}",
+        "particle{p=poof;a=32;hs=0.5;s=0.3} @modelpart{p=leftarmparticle}",
+        "particle{p=poof;a=32;hs=0.5;s=0.1} @modelpart{p=leftarmparticle}",
+        "particle{p=block_crack;m=SCULK;a=32;hs=1;s=0.3;y=0.3} @modelpart{p=leftarmparticle}",
+        "particle{p=sculk_soul;a=32;hs=1;s=0.1;y=0.3} @modelpart{p=leftarmparticle}",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=2.00} @self",
+        "sound{s=entity.lightning_bolt.thunder;v=2;p=2.00} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2;p=0.50} @self",
+        "sound{s=item.mace.smash_ground_heavy;v=2} @self",
+        "sound{s=entity.wither.break_block;p=2.00;v=2} @self",
+        "sound{s=entity.wither.break_block;p=0.50;v=2} @self",
+        "sound{s=entity.lightning_bolt.thunder;p=2.00;v=2} @self",
+        "sound{s=entity.generic.explode;p=2.00;v=2} @self",
+        "recoil{r=0.7} @PIR{r=16}",
+        "recoil{r=0.2;repeat=20;repeati=1} @PIR{r=16}"
+      ]
+    },
+    "SG_SPAWN_2": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "setgcd{t=140} @self",
+        "setspeed{s=0.0} @self",
+        "setspeed{s=1.0;delay=140} @self",
+        "state{s=startphase2} @self",
+        "sound{s=entity.warden.hurt;p=2.00;v=2} @self",
+        "sound{s=entity.warden.hurt;p=0.50;v=2} @self",
+        "sound{s=entity.lightning_bolt.thunder;v=5;p=2.00} @self",
+        "delay 30",
+        "sound{s=entity.warden.listening_angry;p=0.50;v=2} @self",
+        "sound{s=entity.warden.listening_angry;p=2.00;v=2} @self",
+        "delay 65",
+        "sound{sound=entity.warden.roar;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.80;radius=100;volume=5.0;delay=5} @self",
+        "sound{sound=entity.warden.roar;pitch=1.00;radius=100;volume=5.0;delay=5} @self",
+        "sound{sound=entity.warden.roar;pitch=1.30;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=2.00;radius=100;volume=5.0} @self",
+        "sound{s=entity.lightning_bolt.thunder;v=5;p=2.00} @self",
+        "sound{s=entity.lightning_bolt.thunder;v=5;p=0.50} @self",
+        "recoil{r=0.1;repeat=60;repeati=1}"
+      ]
+    },
+    "SG_DIG_DAMAGE_CANCEL_2": {
+      "cooldown": 0.0,
+      "conditions": [
+        "skillOnCooldown{skill=SG_DIG_START_2} true"
+      ],
+      "steps": [
+        "cancelEvent"
+      ]
+    },
+    "SG_DIG_START_2": {
+      "cooldown": 8.0,
+      "conditions": [
+        "offGCD true",
+        "playerWithin{d=24} true",
+        "playerNotWithin{d=12} true"
+      ],
+      "steps": [
+        "skill{s=SG_DIG_2} @self"
+      ]
+    },
+    "SG_DIG_2": {
+      "cooldown": 30.0,
+      "conditions": [],
+      "steps": [
+        "skill{s=SG_DONTDOANTIMACE_DIG_2} @self",
+        "recoil{r=0.1;repeat=40;repeati=2;delay=40} @PIR{r=12}",
+        "setgcd{ticks=170} @self",
+        "state{s=DIG} @self",
+        "setspeed{s=0.0} @self",
+        "setspeed{s=2.0;delay=40} @self",
+        "setspeed{s=0.0;delay=120} @self",
+        "setspeed{s=1.0;delay=160} @self",
+        "delay 10",
+        "sound{s=entity.wither.break_block;v=3;p=0.50} @self",
+        "sound{s=entity.wither.break_block;v=3} @self",
+        "particle{p=block_crack;m=SCULK;a=32;spread=1;y=0.5;repeat=5;repeati=5} @self",
+        "particle{p=sculk_soul;a=32;spread=1;y=0.5;repeat=5;repeati=5} @self",
+        "sound{s=entity.warden.dig;v=3;p=2.00} @self",
+        "sound{s=entity.warden.dig;v=3;p=0.50} @self",
+        "sound{s=entity.warden.dig;v=3} @self",
+        "delay 30",
+        "summon{t=HPC_SCULK_GOLIATH_DIG_2;os=true;repeat=10;repeati=8} @self",
+        "summon{t=HPC_SCULK_GOLIATH_GROUNDBREAK;os=true;repeat=10;repeati=8;noise=4} @self",
+        "delay 80",
+        "sound{s=entity.wither.break_block;v=3;p=0.50} @self",
+        "sound{s=entity.wither.break_block;v=3} @self",
+        "damage{a=12} @PIR{r=4}",
+        "damage{a=2;ia=true} @PIR{r=8}",
+        "particle{p=block_crack;m=SCULK;a=32;spread=1;y=0.5;repeat=5;repeati=5} @self",
+        "particle{p=sculk_soul;a=32;spread=1;y=0.5;repeat=5;repeati=5} @self",
+        "throw{yv=8;v=8} @PIR{r=6}",
+        "recoil{r=1;repeat=2;repeati=1} @PIR{r=12}",
+        "summon{t=HPC_SCULK_GOLIATH_GROUNDBREAK;os=true;a=8;noise=8} @self"
+      ]
+    },
+    "SH_R_GROUND_2": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "sound{s=entity.generic.explode;v=2;p=2.00} @self",
+        "sound{s=block.soul_sand.break;v=2;p=2.00} @self",
+        "sound{s=block.soul_sand.break;v=2;p=0.50} @self",
+        "sound{s=particle.soul_escape;v=2;p=0.50} @self",
+        "particle{p=poof;a=6;s=0.5} @self",
+        "particle{p=squid_ink;a=6;s=0.5;spread=0.5} @self",
+        "particle{p=sculk_soul;a=6;spread=0.5} @self",
+        "damage{a=8;is=true} @PIR{r=5}",
+        "throw{v=8;vy=2;fo=true} @PIR{r=5}",
+        "delay 1",
+        "remove @self"
+      ]
+    },
+    "SG_BREAKSCREAM_2": {
+      "cooldown": 32.0,
+      "conditions": [
+        "offGCD",
+        "playerWithin{d=18} true",
+        "playernotWithin{d=4} true"
+      ],
+      "steps": [
+        "skill{s=SG_DONTDOANTIMACE_BREAKSCREAM_2} @self",
+        "setgcd{t=80}",
+        "state{s=BREAKSCREAM} @self",
+        "sound{s=entity.warden.angry;p=0.50;v=3} @self",
+        "delay 15",
+        "sound{sound=entity.warden.roar;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.80;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=1.00;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=1.30;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=2.00;radius=100;volume=5.0} @self",
+        "summon{a=2;repeat=20;repeati=4;noise=32;t=HPC_SCULK_GOLIATH_FALLINGROCK} @self",
+        "throw{v=8;vy=2;fo=true} @PIR{r=12}",
+        "recoil{recoil=0.5;repeat=30;repeatinterval=1} @PIR{radius=48}"
+      ]
+    },
+    "SG_SNIFF_2": {
+      "cooldown": 32.0,
+      "conditions": [
+        "offGCD",
+        "playerWithin{d=64} true",
+        "playernotWithin{d=32} true"
+      ],
+      "steps": [
+        "setgcd{t=80}",
+        "state{s=SNIFF} @self",
+        "sound{s=entity.warden.sniff;v=6;p=2.00} @self",
+        "sound{s=entity.warden.sniff;v=6;p=0.50} @self",
+        "sound{s=entity.warden.sniff;v=6} @self",
+        "delay 60",
+        "sound{s=entity.warden.listening;v=6;p=0.50} @self",
+        "sound{s=entity.warden.listening;v=6;p=2.00} @self",
+        "delay 50",
+        "sound{s=entity.warden.listening_angry;v=6;p=0.50} @self",
+        "sound{s=entity.warden.listening_angry;v=6;p=2.00} @self",
+        "delay 40",
+        "skill{s=SG_SCREAM_SNIFF} @self"
+      ]
+    },
+    "SG_SCREAM_SNIFF_2": {
+      "cooldown": 0.0,
+      "conditions": [
+        "offGCD true"
+      ],
+      "steps": [
+        "lockrotation{l=true} @self",
+        "lockrotation{l=false;delay=40} @self",
+        "skill{s=SG_DONTDOANTIMACE_SCREAM_2} @self",
+        "setgcd{ticks=80} @self",
+        "state{s=SCREAM} @self",
+        "sound{s=entity.warden.angry;p=0.50;v=3} @self",
+        "delay 15",
+        "sound{sound=entity.warden.roar;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.80;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=1.00;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=1.30;radius=100;volume=5.0} @self",
+        "sound{sound=entity.warden.roar;pitch=0.50;radius=100;volume=5.0;delay=10} @self",
+        "sound{sound=entity.warden.roar;pitch=0.80;radius=100;volume=5.0;delay=10} @self",
+        "sound{sound=entity.warden.roar;pitch=1.00;radius=100;volume=5.0;delay=10} @self",
+        "sound{sound=entity.warden.roar;pitch=1.30;radius=100;volume=5.0;delay=10} @self",
+        "sound{sound=entity.warden.roar;pitch=2.00;radius=100;volume=5.0;delay=10} @self",
+        "sound{sound=entity.lightning_bolt.thunder;pitch=0.50;radius=100;volume=5.0} @self",
+        "sound{sound=entity.lightning_bolt.thunder;pitch=2.00;radius=100;volume=5.0} @self",
+        "throw{v=8;vy=2;fo=true} @PIR{r=128}",
+        "recoil{recoil=0.5;repeat=10;repeatinterval=1} @PIR{radius=128}",
+        "recoil{recoil=0.1;repeat=70;repeatinterval=1} @PIR{radius=128}"
+      ]
+    },
+    "SG_HURT_2": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "sound{s=entity.warden.hurt;v=2;p=2.00} @self",
+        "sound{s=entity.warden.hurt;v=2;p=0.50} @self",
+        "sound{s=entity.warden.hurt;v=2} @self",
+        "particle{p=block_crack;m=SCULK;a=16;spread=0.5} @modelpart{p=heartlight}",
+        "particle{p=block_crack;m=SCULK_CATALYST;a=16;spread=0.5} @modelpart{p=heartlight}",
+        "particle{p=block_crack;m=SCULK_VEIN;a=16;spread=0.5} @modelpart{p=heartlight}",
+        "particle{p=effect;c=#00ffe5;a=16;spread=0.1} @modelpart{p=heartlight}"
+      ]
+    },
+    "SG_DEATH": {
+      "cooldown": 0.0,
+      "conditions": [],
+      "steps": [
+        "sound{s=entity.warden.death;p=0.50;v=5} @self",
+        "sound{s=entity.warden.death;p=2.00;v=5} @self",
+        "setgcd{t=200} @self",
+        "sound{s=entity.warden.hurt;v=2;p=2.00} @self",
+        "sound{s=entity.warden.hurt;v=2;p=0.50} @self",
+        "sound{s=entity.warden.hurt;v=2} @self",
+        "sound{s=entity.warden.heartbeat;v=2;p=2.00;repeat=20;repeati=1} @self",
+        "particle{p=block_crack;m=SCULK;a=16;spread=0.5} @modelpart{p=heartlight}",
+        "particle{p=block_crack;m=SCULK_CATALYST;a=16;spread=0.5} @modelpart{p=heartlight}",
+        "particle{p=block_crack;m=SCULK_VEIN;a=16;spread=0.5} @modelpart{p=heartlight}",
+        "particle{p=effect;c=#00ffe5;a=16;spread=0.1} @modelpart{p=heartlight}",
+        "delay 15",
+        "particle{p=poof;s=0.1;a=16} @modelpart{p=legparticle2}",
+        "delay 54",
+        "particle{p=squid_ink;s=0.1;a=64;hs=1;spread=0.5;y=-0.2;repeat=20;repeati=1} @modelpart{p=heartlight}",
+        "particle{p=poof;s=0.1;a=64;hs=1;spread=0.5;y=-0.2} @modelpart{p=heartlight}",
+        "particle{p=poof;s=0.5;a=64;hs=1;spread=0.5;y=-0.2} @modelpart{p=heartlight}"
+      ]
+    },
+    "SG_DONTDOANTIMACE_BREAKSCREAM_2": {
+      "cooldown": 3.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_DIG_2": {
+      "cooldown": 7.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_SPAWN_2": {
+      "cooldown": 7.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_ATTACK_2": {
+      "cooldown": 3.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_PICKUPSMASH_2": {
+      "cooldown": 3.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_SCREAM_2": {
+      "cooldown": 3.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_RUN_2": {
+      "cooldown": 3.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_ATTACKAFTERRUN_2": {
+      "cooldown": 2.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_SOULSCREAM_2": {
+      "cooldown": 6.0,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_GROUNDSMASH_2": {
+      "cooldown": 3.5,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_SONICSMASH_2": {
+      "cooldown": 2.25,
+      "conditions": [],
+      "steps": []
+    },
+    "SG_DONTDOANTIMACE_STOMPCOMBO_2": {
+      "cooldown": 4.0,
+      "conditions": [],
+      "steps": []
+    }
+  },
+  "triggers": {
+    "phase1": [
+      {
+        "event": "ontimer",
+        "period": 22,
+        "type": "random",
+        "skills": [
+          "SG_ATTACK1",
+          "SG_ATTACK2",
+          "SG_ATTACK3"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 12,
+        "type": "skill",
+        "skills": [
+          "SG_PULLSMASHES"
+        ],
+        "health_below": 50,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 5,
+        "type": "skill",
+        "skills": [
+          "SG_HALFEXPLODE"
+        ],
+        "health_below": 50,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 1,
+        "type": "skill",
+        "skills": [
+          "SG_PICKUPSMASH"
+        ],
+        "health_below": 50,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 29,
+        "type": "skill",
+        "skills": [
+          "SG_BREAKSCREAM"
+        ],
+        "health_below": 50,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 1,
+        "type": "skill",
+        "skills": [
+          "SG_LEAPSMASH"
+        ],
+        "health_below": 75,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 1,
+        "type": "skill",
+        "skills": [
+          "SG_STOMPCOMBO"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 6,
+        "type": "skill",
+        "skills": [
+          "SG_RUN_SET_COOLDOWN"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 5,
+        "type": "skill",
+        "skills": [
+          "SG_SCREAM_PUSHBACK"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 8,
+        "type": "skill",
+        "skills": [
+          "SG_SOULSCREAM"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 7,
+        "type": "skill",
+        "skills": [
+          "SG_SOULERUPTION"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "onspawnorload",
+        "period": 0,
+        "type": "skill",
+        "skills": [
+          "SG_LIGHT_VISUALS"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 28,
+        "type": "skill",
+        "skills": [
+          "SG_SONICSMASH"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 23,
+        "type": "skill",
+        "skills": [
+          "SG_DIG_START"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 28,
+        "type": "skill",
+        "skills": [
+          "SG_SNIFF"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ondamaged",
+        "period": 0,
+        "type": "skill",
+        "skills": [
+          "SG_DIG_DAMAGE_CANCEL"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "onspawn",
+        "period": 0,
+        "type": "skill",
+        "skills": [
+          "SG_SPAWN"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ondamaged",
+        "period": 0,
+        "type": "skill",
+        "skills": [
+          "SG_ANTIMACE"
+        ],
+        "health_below": 101,
+        "requires_mace": true
+      },
+      {
+        "event": "ontimer",
+        "period": 24,
+        "type": "skill",
+        "skills": [
+          "SG_WALKSOUND"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 200,
+        "type": "skill",
+        "skills": [
+          "SG_AMBIENTSOUND"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 80,
+        "type": "skill",
+        "skills": [
+          "SG_SLOWHEARTBEAT"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 50,
+        "type": "skill",
+        "skills": [
+          "SG_HEARTBEAT"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 30,
+        "type": "skill",
+        "skills": [
+          "SG_FASTHEARTBEAT"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ondamaged",
+        "period": 0,
+        "type": "skill",
+        "skills": [
+          "SG_HURT"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "onspawnorload",
+        "period": 0,
+        "type": "skill",
+        "skills": [
+          "SG_LIGHTS"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      }
+    ],
+    "phase2": [
+      {
+        "event": "ontimer",
+        "period": 22,
+        "type": "random",
+        "skills": [
+          "SG_ATTACK1_2",
+          "SG_ATTACK2_2",
+          "SG_ATTACK3_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 1,
+        "type": "skill",
+        "skills": [
+          "SG_PICKUPSMASH_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 29,
+        "type": "skill",
+        "skills": [
+          "SG_BREAKSCREAM_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 1,
+        "type": "skill",
+        "skills": [
+          "SG_STOMPCOMBO_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 6,
+        "type": "skill",
+        "skills": [
+          "SG_RUN_SET_COOLDOWN_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 5,
+        "type": "skill",
+        "skills": [
+          "SG_SCREAM_PUSHBACK_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 8,
+        "type": "skill",
+        "skills": [
+          "SG_SOULSCREAM_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 7,
+        "type": "skill",
+        "skills": [
+          "SG_SOULERUPTION_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "onspawnorload",
+        "period": 0,
+        "type": "skill",
+        "skills": [
+          "SG_LIGHT_VISUALS_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 28,
+        "type": "skill",
+        "skills": [
+          "SG_SONICSMASH_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 23,
+        "type": "skill",
+        "skills": [
+          "SG_DIG_START_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 28,
+        "type": "skill",
+        "skills": [
+          "SG_SNIFF_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ondamaged",
+        "period": 0,
+        "type": "skill",
+        "skills": [
+          "SG_DIG_DAMAGE_CANCEL_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "onspawn",
+        "period": 0,
+        "type": "skill",
+        "skills": [
+          "SG_SPAWN_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ondamaged",
+        "period": 0,
+        "type": "skill",
+        "skills": [
+          "SG_ANTIMACE_2"
+        ],
+        "health_below": 101,
+        "requires_mace": true
+      },
+      {
+        "event": "ontimer",
+        "period": 24,
+        "type": "skill",
+        "skills": [
+          "SG_WALKSOUND_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 200,
+        "type": "skill",
+        "skills": [
+          "SG_AMBIENTSOUND_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 80,
+        "type": "skill",
+        "skills": [
+          "SG_SLOWHEARTBEAT_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 50,
+        "type": "skill",
+        "skills": [
+          "SG_HEARTBEAT_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ontimer",
+        "period": 30,
+        "type": "skill",
+        "skills": [
+          "SG_FASTHEARTBEAT_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ondamaged",
+        "period": 0,
+        "type": "skill",
+        "skills": [
+          "SG_HURT_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "onspawnorload",
+        "period": 0,
+        "type": "skill",
+        "skills": [
+          "SG_LIGHTS_2"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      },
+      {
+        "event": "ondeath",
+        "period": 0,
+        "type": "skill",
+        "skills": [
+          "SG_DEATH"
+        ],
+        "health_below": 101,
+        "requires_mace": false
+      }
+    ]
+  }
+}
