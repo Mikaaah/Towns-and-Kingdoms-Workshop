@@ -1,3 +1,46 @@
+# Validation — Workshop 0.3.0
+
+Minecraft 1.21.1 / NeoForge 21.1.219 / Java 21.
+
+46 headless NeoForge GameTests pass, including the previous 21 Spawner Cage
+and Projector checks and 25 construction/utility checks. The suite covers:
+
+- Two-point measurement dimensions, distance and clearing.
+- Satchel block-only restrictions, inventory persistence, quick transfer,
+  locking the open item, partial refill, last-empty-stack refill and refill toggle.
+- Brush ghost templates without item creation/consumption, weighted selection,
+  real inventory consumption, satchel supply, missing materials, canceled placement,
+  and avoiding the same material across duplicate palette slots.
+- Mob name, health, UUID and persistent data preserved through capture/release;
+  blocked release, denied capture, canceled entity join and vanilla boss exclusion.
+- Independent mirror waypoints and rejection of an unbound mirror.
+- Exact forty living ticks before held-use teleportation; early release cancels.
+- Single-user travel; AoE travel with mobs, dropped items, nearby players and
+  intact riding groups; exclusion outside the spherical five-block radius.
+- Blocked waypoint planning moves nobody.
+- Cross-dimension player/mob travel preserving mob UUID, custom name and health.
+  The destination entity's added-to-level state is checked directly because fresh
+  chunk sections can be registered before UUID tracking lookups become visible.
+
+Client and server code compile. New recipes/models/lang JSON are parsed, all
+new textures are native 16x16, and five source sprites are byte-identical to the
+supplied packs. Only empty-lantern window pixels and purple mirror leaf pixels
+are edited. Development tests and their structure templates are excluded from
+the production JAR.
+
+Practical limits: no graphical client was available. Screen appearance, live
+item predicate rendering and the world measurement outline still need an in-game
+visual check. The vanilla server round trips do not prove every modded mob's
+transient runtime state; Mob Cage preserves the entity's saved NBT. Boss exclusions
+can be extended via the datapack tag. Native travel hooks can reject individual
+entities after a group has otherwise passed safe-position planning.
+
+The build sandbox hides process self-detection, so a local-only NeoForm runtime
+patch supplied the Java executable path. No build-tool patch is included in the
+mod or repository; ordinary developer machines use the standard Gradle wrapper.
+
+## Earlier release validation
+
 # Validation — Workshop 0.2.1
 
 Java 21 / Minecraft 1.21.1 / NeoForge 21.1.219. Built from an isolated snapshot

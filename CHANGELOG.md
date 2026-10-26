@@ -1,3 +1,16 @@
+# 0.3.0
+
+- Add Measuring Pencil with two-point dimensions/distance and a held-item world outline.
+- Add Builder’s Satchel: 27 building-block slots and optional main-hand restocking.
+- Add Builder’s Brush using the tassel texture: nine ghost templates, weights, random/sequence/coordinate modes, avoid-repeats and satchel sourcing.
+- Add a reusable Mob Cage with dark empty and lit occupied lantern textures and full saved mob data.
+- Add Magic Mirror with a bound waypoint, two-second held channel and five-second successful-use cooldown.
+- Add purple-leaf Chorus Mirror with a five-block spherical entity radius and riding-group support.
+- Plan safe mirror landings before travel and preserve native dimension travel hooks.
+- Add crafting recipes and datapack-configurable uncageable entity tags.
+- Use the supplied PixelMine graphics without resampling; only empty cage panes and Chorus Mirror leaves are edited.
+- Keep existing Spawner Cage, Projector and KubeJS items intact. Changes are based on main only.
+
 # 0.2.1
 
 - Add an Appearance tab with per-projector hex colors and live color swatches.

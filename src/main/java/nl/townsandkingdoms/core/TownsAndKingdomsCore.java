@@ -27,9 +27,10 @@ public final class TownsAndKingdomsCore {
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TAB = TABS.register("core", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.tnkcore"))
             .icon(() -> SPAWNER_CORE.toStack())
-            .displayItems((parameters, output) -> { output.accept(SPAWNER_CORE.get()); output.accept(PROJECTOR_ITEM.get()); }).build());
+            .displayItems((parameters, output) -> { output.accept(SPAWNER_CORE.get()); output.accept(PROJECTOR_ITEM.get()); nl.townsandkingdoms.core.construction.ConstructionSet.creative(output); }).build());
 
     public TownsAndKingdomsCore(IEventBus bus) {
+        nl.townsandkingdoms.core.construction.ConstructionSet.register(bus);
         BLOCKS.register(bus);
         BLOCK_ENTITIES.register(bus);
         ITEMS.register(bus);

@@ -1,7 +1,72 @@
-# Towns and Kingdoms - Workshop 0.2.1
+# Towns and Kingdoms - Workshop 0.3.0
 
 Minecraft 1.21.1 / NeoForge 21.1.219 or newer (21.1.x) / Java 21.
 Install the JAR on the server and all clients. No other mods required.
+
+## Construction and utility set
+
+All six new items use the supplied native 16x16 PixelMine textures. Open their
+screens or use the controls below; no setup commands are required. Default
+crafting recipes are included and can be adjusted normally by the modpack.
+
+| Item | ID | Controls and behavior |
+|---|---|---|
+| Measuring Pencil | `tnkcore:measuring_pencil` | Right-click two blocks to measure their inclusive X/Y/Z dimensions and straight-line distance. A purple outline is shown while holding the pencil. Third click starts a new measurement; sneak-right-click clears it. |
+| Builder’s Satchel | `tnkcore:builders_satchel` | Right-click for 27 slots of building blocks. Shift-click transfers real stacks. The held-block refill toggle replenishes partial stacks and the last emptied main-hand stack from the satchel. |
+| Builder’s Brush | `tnkcore:builders_brush` | Right-click air or sneak-right-click a block to configure. Set up to nine ghost templates, weights from 0–64, selection mode, avoid-repeats and satchel supply. Normal block use places one real material from inventory or a carried satchel. |
+| Mob Cage | `tnkcore:mob_cage` | Right-click a mob to capture; right-click a block to release. Empty lantern panes are dark; filled cages use the original lit texture. Reusable, with no durability. |
+| Magic Mirror | `tnkcore:magic_mirror` | Sneak-right-click binds your current location and dimension. Hold right-click for two seconds to teleport. Releasing early cancels; successful use has a five-second cooldown. |
+| Chorus Mirror | `tnkcore:chorus_mirror` | Purple-leaf version of the mirror. Same binding and two-second held use, bringing eligible entities within a spherical five-block radius: players, mobs, dropped items, XP and riding groups. |
+
+### Builder’s Brush
+
+The name replaces the earlier Block Palette idea. It uses the supplied tassel
+artwork. Clicking a palette slot with a carried block copies a template without
+consuming that block; clicking with an empty cursor clears it. Shift-clicking a
+block in your inventory adds a template to the first empty slot. Templates cannot
+be extracted as real blocks. A weight of zero disables a slot.
+
+Modes: weighted random, sequence, and a deterministic coordinate pattern.
+Avoid-repeats excludes the previous choice when another enabled material is
+available. Satchel supply is a separate brush option from a satchel's automatic
+held-block refill setting. Unavailable materials are skipped. The brush does not
+create blocks, and normal NeoForge placement/claim cancellation is honored.
+
+Satchels accept building BlockItems, excluding items carrying container or
+block-entity data. They do not hold other satchels, tools or filled storage blocks.
+An open satchel/brush is locked against hotbar/offhand swaps into itself.
+
+### Mob Cage
+
+Full entity NBT is retained, including name, health, UUID and saved mod data.
+Players, dead mobs, occupied vehicles/passengers and leashed mobs cannot be
+captured. Unleash/dismount first. Vanilla dragon and wither are excluded, along
+with common boss tags. Extend `tnkcore:uncageable` in the modpack to exclude more
+modded mobs. Mob data is limited to 64 KiB per cage.
+
+A blocked or canceled release keeps the filled cage. A mob whose UUID already
+exists cannot be released again. Entity interactions and joins retain their
+normal protection/event checks. Successful release leaves an empty reusable cage.
+
+### Mirrors
+
+Each mirror stores one independent waypoint. Binding records your current feet
+position, facing and dimension; it does not bind the block under your crosshair.
+The normal mirror only brings its user and requires dismounting first.
+
+The Chorus Mirror includes complete riding groups when a member is selected.
+It plans safe landing space for every group before moving any entity; insufficient
+space leaves the group at the source. Landings avoid collisions, world-border
+violations and obvious hazards. Small offsets are allowed to find nearby safe
+floor space. A maximum of 256 entities/passengers is supported per use.
+
+Dimension changes use Minecraft/NeoForge's native transition path. Other mods may
+prevent individual entities from travelling through their normal hooks. No claim
+or dimension-travel restrictions are deliberately bypassed.
+
+The regular mirror's original leaves, wooden frame and mirror pane are unchanged.
+Only green leaf pixels are recolored on the Chorus Mirror. Item graphics are flat
+inventory sprites; there is no additional 3D item model dependency.
 
 ## Quest Projector
 
@@ -57,7 +122,7 @@ Images and formatting do not require FTB Quests.
 Stable registry namespace: `tnkcore`. Projector item/block: `tnkcore:quest_projector`.
 Existing Spawner Cage IDs and saved data are unchanged.
 Existing 0.2.0 projector settings load with the default purple palette.
-Install matching Workshop 0.2.1 on the server and clients: the projector settings
+Install matching Workshop 0.3.0 on the server and clients: the projector settings
 packet now carries colors and the animation toggle (protocol version 2).
 
 ## Spawner Cage

@@ -18,6 +18,9 @@ public final class CoreClient {
             if (mc.level != null && mc.level.getBlockEntity(pos) instanceof nl.townsandkingdoms.core.projector.ProjectorBlockEntity be)
                 mc.setScreen(new nl.townsandkingdoms.core.projector.client.ProjectorScreen(be));
         });
+        event.enqueueWork(() -> ItemProperties.register(nl.townsandkingdoms.core.construction.ConstructionSet.CAGE.get(),
+                ResourceLocation.fromNamespaceAndPath("tnkcore", "occupied"),
+                (stack, level, entity, seed) -> nl.townsandkingdoms.core.construction.MobCageItem.filled(stack) ? 1F : 0F));
         event.enqueueWork(() -> ItemProperties.register(TownsAndKingdomsCore.SPAWNER_CORE.get(),
                 ResourceLocation.fromNamespaceAndPath(TownsAndKingdomsCore.MOD_ID, "filled"),
                 (stack, level, entity, seed) -> SpawnerCoreItem.isFilled(stack) ? 1.0F : 0.0F));
@@ -47,5 +50,8 @@ public final class CoreClient {
     @SubscribeEvent public static void reload(net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent event) {
         event.registerReloadListener((barrier, resources, prepareProfiler, applyProfiler, backgroundExecutor, gameExecutor) ->
             barrier.wait(null).thenRunAsync(nl.townsandkingdoms.core.projector.client.RemoteImages::clear, gameExecutor));
+    }
+    @SubscribeEvent public static void kitMenus(net.neoforged.neoforge.client.event.RegisterMenuScreensEvent event) {
+        nl.townsandkingdoms.core.construction.client.ConstructionClient.menus(event);
     }
 }

@@ -15,5 +15,11 @@
   "block.tnkcore.quest_projector": "Questprojector",
   "tooltip.tnkcore.projector.use": "Place and right-click to configure.",
   "tooltip.tnkcore.projector.modes": "Quests with tasks · Images · Formatted text",
-  "tooltip.tnkcore.projector.configured": "Contains saved display settings."
+  "tooltip.tnkcore.projector.configured": "Contains saved display settings.",
+  "item.tnkcore.measuring_pencil": "Measuring Pencil",
+  "item.tnkcore.builders_satchel": "Builder’s Satchel",
+  "item.tnkcore.builders_brush": "Builder’s Brush",
+  "item.tnkcore.mob_cage": "Mob Cage",
+  "item.tnkcore.magic_mirror": "Magic Mirror",
+  "item.tnkcore.chorus_mirror": "Chorus Mirror"
 }

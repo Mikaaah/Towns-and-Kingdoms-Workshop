@@ -1,0 +1,11 @@
+{
+  "parent": "tnkcore:item/mob_cage_empty",
+  "overrides": [
+    {
+      "predicate": {
+        "tnkcore:occupied": 1
+      },
+      "model": "tnkcore:item/mob_cage_full"
+    }
+  ]
+}

@@ -7,3 +7,18 @@ paths and tint registration are adapted for NeoForge 1.21.1.
 
 These assets remain subject to their original license. This source project
 does not grant additional redistribution rights to third-party assets.
+
+## Construction / utility items (0.3.0)
+
+Supplied by the project owner from PixelMine Graphic Medieval Adventure Gear
+and PixelMine Graphic Pixel Art MCMMO Job Items:
+
+- Measuring Pencil: `pencil.png` (Job Items), unchanged.
+- Builder’s Satchel: `first_aid_kit.png` (Adventure Gear), unchanged.
+- Builder’s Brush: `tassel.png` (Job Items), unchanged.
+- Occupied Mob Cage: `lantern.png` (Adventure Gear), unchanged.
+- Empty Mob Cage: same lantern with its window panes darkened.
+- Magic Mirror: `guardian_tree_mirror.png` (Job Items), unchanged.
+- Chorus Mirror: same mirror with only the green leaf pixels recolored purple.
+
+All item textures retain their original 16x16 resolution and transparency.
