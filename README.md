@@ -1,8 +1,15 @@
-# Towns and Kingdoms - Workshop 0.4.0
+# Towns and Kingdoms - Workshop 0.4.1
 
 Minecraft 1.21.1 / NeoForge 21.1.219 or newer (21.1.x) / Java 21.
 Install the JAR on the server and all clients. The existing Workshop features require no other mods.
 The optional TNK3 Goliath encounter has the requirements below.
+
+## Dependency hotfix (0.4.1)
+
+Replace empty version ranges for KubeJS, Twilight Forest and Deeper and Darker
+with explicit open-ended `[0,)` ranges. These mods remain optional for Workshop
+as a whole and required by the TNK3 boss presence check. All other dependency
+ranges, load ordering and runtime behavior are unchanged.
 
 ## TNK3 Sculk Goliath (0.4.0)
 
@@ -195,3 +202,4 @@ break/place events. Test classes/templates are excluded from the release JAR.
 
 The source layout keeps feature classes separate so more Core features can be
 added under the same stable `tnkcore` namespace.
+

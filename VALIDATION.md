@@ -1,3 +1,22 @@
+# Validation — Workshop 0.4.1
+
+Metadata-only dependency hotfix based on the tested 0.4.0 release.
+
+- Updated TOML parses and declares version 0.4.1.
+- KubeJS, Twilight Forest and Deeper and Darker use `[0,)` instead of empty
+  version ranges. Every other dependency value and mixin setting is unchanged.
+- Maven VersionRange checks exercise the affected version formats and confirm
+  the explicit range accepts them. Empty ranges fail containsVersion checks.
+- Repackage the production 0.4.0 JAR with updated mod metadata only. Every other
+  archive entry is byte-identical, including every compiled class and asset.
+- Source build version and runtime mod version both read 0.4.1.
+
+No new gameplay build or GameTest run is claimed for this metadata-only patch.
+The 49 passing tests below apply to the unchanged 0.4.0 classes. A full launch
+with the user's specific mod versions remains to be checked in their instance.
+
+## Previous release validation
+
 # Validation — Workshop 0.4.0
 
 Minecraft 1.21.1 / NeoForge 21.1.219 / Java 21 / GeckoLib 4.9.3 compile target.
@@ -165,3 +184,4 @@ Verified static 16x16 neutral grey empty texture (max 110 brightness), filled
 texture and animation metadata byte-identical to supplied originals, and model
 override wiring. Client appearance inspected as a pixel preview; not run in a
 graphical Minecraft client.
+

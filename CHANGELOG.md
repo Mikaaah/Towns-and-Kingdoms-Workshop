@@ -1,3 +1,11 @@
+# 0.4.1
+
+- Replace empty dependency version ranges for KubeJS, Twilight Forest and
+  Deeper and Darker with explicit open-ended `[0,)` ranges.
+- Preserve every other dependency range, TNK3 mod/marker presence check,
+  platform requirement and gameplay feature.
+- Metadata-only hotfix; compiled 0.4.0 classes and assets are byte-identical.
+
 # 0.4.0
 
 - Integrate the full-skills Sculk Goliath branch into main, preserving Workshop
@@ -73,3 +81,4 @@
 - Capture a monster spawner and place it elsewhere while retaining its saved data.
 - Consume the core after successful placement; no durability or recipe.
 - Added a Core creative tab, filled-state glint and English/Dutch tooltips.
+
