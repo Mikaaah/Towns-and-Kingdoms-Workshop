@@ -10,67 +10,6 @@ UI-only update using three byte-identical source PNGs from the owner's Tavern HU
 
 The shared client theme and all three menus compile in GitHub CI; the existing server integration suite passes. Changes are limited to client rendering, live control labels and release metadata. No inventory protocol or projector save payload changes. Graphical client screenshots are still needed to verify final appearance at different GUI scales.
 
-# Validation — Workshop 0.4.2
-
-Resource-only animation fix: 43 clips, 734 timelines checked; 545 out-of-order tracks repaired. JSON values compare equal before/after; serialized timestamps now increase monotonically. Every compiled class remains byte-identical to 0.4.1. GeckoLib source rejects a zero-time keyframe after another entry. Live client rendering still needs verification.
-
-# Validation — Workshop 0.4.1
-
-Metadata-only dependency hotfix based on the tested 0.4.0 release.
-
-- Updated TOML parses and declares version 0.4.1.
-- KubeJS, Twilight Forest and Deeper and Darker use `[0,)` instead of empty
-  version ranges. Every other dependency value and mixin setting is unchanged.
-- Maven VersionRange checks exercise the affected version formats and confirm
-  the explicit range accepts them. Empty ranges fail containsVersion checks.
-- Repackage the production 0.4.0 JAR with updated mod metadata only. Every other
-  archive entry is byte-identical, including every compiled class and asset.
-- Source build version and runtime mod version both read 0.4.1.
-
-No new gameplay build or GameTest run is claimed for this metadata-only patch.
-The 49 passing tests below apply to the unchanged 0.4.0 classes. A full launch
-with the user's specific mod versions remains to be checked in their instance.
-
-## Previous release validation
-
-# Validation — Workshop 0.4.0
-
-Minecraft 1.21.1 / NeoForge 21.1.219 / Java 21 / GeckoLib 4.9.3 compile target.
-Imported full-skills branch `eb22c12763d7fce264e0ab343100410e8a7fe040` into
-main based on `a09d9d193a0f6f51abae3baa48ed6546c83963fd`.
-
-- Production mod compiles and builds as 0.4.0.
-- All **49** required headless GameTests pass: previous 46 tests plus three
-  Goliath skill-library/parser/callback checks.
-- All **49** pass again with GeckoLib removed from the runtime classpath and
-  the castle mixin explicitly enabled. The mod list contains only Minecraft,
-  NeoForge and Workshop. The log confirms CastlePaletteMixin applies to
-  StructurePiece; the corrected MutableBlockPos shadow matches Minecraft 1.21.1.
-- Skill data retains all 115 definitions, 1,370 action lines and 48 phase
-  triggers. Nested references, guard names and projectile callbacks resolve,
-  including the documented native healing callback alias. Implicit damage
-  actions inherit their callback target; explicit parent targets remain intact.
-- All four original model, animation and texture sets and skill JSON are
-  byte-identical to the imported branch. Resource JSON and mod TOML parse.
-- Main's projector implementation, hex palette, motion, construction tools and
-  existing assets are retained. The Goliath is excluded from Mob Cage capture.
-- The production JAR contains both feature sets and all boss resources, and
-  excludes development tests and test structures.
-
-Limits: the complete TNK3 modpack, a graphical client and a live Final Castle
-fight were not available. These checks do not verify full combat/animation
-parity, progression gating, patrol behavior, castle appearance or multiplayer
-balance. Use the full-skill audit and in-game checklist for those checks. The
-boss remains pack-gated; the KubeJS enable marker is shipped in the repository's
-`pack/` folder rather than silently installed by the JAR.
-
-The sandbox's process self-detection required a local build-cache workaround
-for NeoForm. It is not part of the repository or distributed mod. Headless tests
-use a local placeholder asset-index properties file; production resources are
-built normally.
-
-## Previous releases
-
 # Validation — Workshop 0.3.0
 
 Minecraft 1.21.1 / NeoForge 21.1.219 / Java 21.
@@ -118,7 +57,7 @@ mod or repository; ordinary developer machines use the standard Gradle wrapper.
 
 Java 21 / Minecraft 1.21.1 / NeoForge 21.1.219. Built from an isolated snapshot
 of main at ab01003d2670dfbc3d285322940417ee63757506. Only the main branch is
-updated for this feature; boss development branches are not used or changed.
+updated for this feature.
 
 Twenty-one headless NeoForge GameTests pass. Existing settings persistence,
 drop/re-placement and save-permission tests now use a custom palette and motion

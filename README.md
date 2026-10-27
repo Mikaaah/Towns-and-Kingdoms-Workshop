@@ -10,36 +10,6 @@ Construction tools, quest projections, cages and travel utilities for Towns & Ki
 
 Minecraft 1.21.1 / NeoForge 21.1.219 or newer (21.1.x) / Java 21.
 Install the JAR on the server and all clients. The existing Workshop features require no other mods.
-The optional TNK3 Goliath encounter has the requirements below.
-
-## Dependency hotfix (0.4.1)
-
-Replace empty version ranges for KubeJS, Twilight Forest and Deeper and Darker
-with explicit open-ended `[0,)` ranges. These mods remain optional for Workshop
-as a whole and required by the TNK3 boss presence check. All other dependency
-ranges, load ordering and runtime behavior are unchanged.
-
-## TNK3 Sculk Goliath (0.4.0)
-
-Imported from `feature/tnk3-sculk-goliath-full-skills` at
-`eb22c12763d7fce264e0ab343100410e8a7fe040`, retaining the current main-branch
-projector hex colors, projection motion, construction tools and utility items.
-All 115 named skill definitions (1,370 action lines and 48 phase triggers),
-the native runtime, four model/animation/texture sets, Final Castle encounter,
-static castle palette and sparse Deeper and Darker patrols are included.
-
-Install GeckoLib 4.9.3 or compatible GeckoLib 4, Twilight Forest, Deeper and
-Darker, and KubeJS on client and server. Copy
-`pack/kubejs/config/tnk3_goliath_enabled.json` from this repository into the
-modpack's `kubejs/config/` folder. This pack marker is intentionally separate
-from the mod JAR. No commands are needed: approach a Final Castle boss gazebo.
-New castle generation gets static sculk/deepslate replacements; previously
-generated castles are not rewritten. The boss has 850 HP then 400 HP, remembers
-defeated castles, and cannot be stored in Workshop's Mob Cage.
-
-See [full-skill audit](docs/SCULK_GOLIATH_FULL_SKILL_AUDIT.md) for native runtime
-approximations, and [in-game checklist](docs/SCULK_GOLIATH_TEST_CHECKLIST.md)
-for full-pack visual/combat testing still required.
 
 ## Construction and utility set
 

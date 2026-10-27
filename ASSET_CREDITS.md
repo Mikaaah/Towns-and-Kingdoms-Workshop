@@ -23,13 +23,9 @@ and PixelMine Graphic Pixel Art MCMMO Job Items:
 
 All item textures retain their original 16x16 resolution and transparency.
 
-## TNK3 Sculk Goliath (0.4.0)
+## Additional licensed assets
 
-The project owner supplied `HypactC - Sculk Goliath.zip`. Its four ModelEngine
-models, animations and textures were converted to native GeckoLib resources,
-and its MythicMobs skill definitions were preserved in a native data/runtime
-port. These assets remain private and pack-specific, subject to their original
-license, and are not a separately distributed boss mod.
+Additional project-owner-supplied assets by HypactC remain subject to their original license. No additional redistribution rights are granted.
 
 ## Tavern HUD interface textures (0.6.0)
 

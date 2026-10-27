@@ -8,42 +8,12 @@
 - Replace plain panels with the supplied Tavern HUD's timber/stone frames and hotbar slot artwork.
 - Use original selection artwork for focused/selected controls and real item icons in headers.
 - Compact projector appearance layout; add a brush material-notes panel.
-- Retain dependency and Goliath animation fixes.
 
 # 0.5.0
 
 - Unify projector, brush and satchel interfaces with parchment panels, walnut frames and amethyst controls inspired by TNKLoot's NPC counters.
 - Replace vanilla buttons and slider rendering; show live state in brush/satchel controls.
-- Preserve all inventory actions, projector settings, dependency fixes and Goliath animation fixes.
-
-# 0.4.2
-
-- Sort all four Goliath animation timelines numerically so GeckoLib does not reject late zero-time keyframes.
-- Fix source converter to emit chronological keyframes. Preserve every animation value and gameplay class.
-
-# 0.4.1
-
-- Replace empty dependency version ranges for KubeJS, Twilight Forest and
-  Deeper and Darker with explicit open-ended `[0,)` ranges.
-- Preserve every other dependency range, TNK3 mod/marker presence check,
-  platform requirement and gameplay feature.
-- Metadata-only hotfix; compiled 0.4.0 classes and assets are byte-identical.
-
-# 0.4.0
-
-- Integrate the full-skills Sculk Goliath branch into main, preserving Workshop
-  0.3.0 construction tools, mirrors, Mob Cage and the current projector features.
-- Include all 115 named skills, 1,370 action lines, 48 phase triggers, four
-  animated models, two boss phases and Final Castle encounter integration.
-- Include static castle corruption, capped Deeper and Darker patrols, loot and
-  a separate TNK3 KubeJS enable marker. Existing features remain independent.
-- Isolate optional entity initialization behind dependency checks; exclude the
-  boss from Mob Cage capture; eject grabbed players on phase changes/death.
-- Repair inherited projectile targets, resolve the source healing callback
-  alias and select healing/phase-two helper callbacks correctly.
-- Correct the castle mixin shadow signature for Minecraft 1.21.1 and add
-  a CI run without optional boss mods that explicitly applies the mixin.
-- Retain the documented native skill approximations and full-pack QA checklist.
+- Preserve all inventory actions, projector settings and dependency fixes.
 
 # 0.3.0
 
