@@ -1,4 +1,4 @@
-# Towns and Kingdoms - Workshop 0.4.2
+# Towns and Kingdoms - Workshop 0.5.0
 
 Minecraft 1.21.1 / NeoForge 21.1.219 or newer (21.1.x) / Java 21.
 Install the JAR on the server and all clients. The existing Workshop features require no other mods.
@@ -202,4 +202,9 @@ break/place events. Test classes/templates are excluded from the release JAR.
 
 The source layout keeps feature classes separate so more Core features can be
 added under the same stable `tnkcore` namespace.
+
+
+## Unified Workshop interfaces (0.5.0)
+
+Projector, Builder's Brush and Builder's Satchel share parchment panels, walnut frames and amethyst controls inspired by TNKLoot NPC counters. Buttons, sliders, fields and inventory slots use matching colors. Brush/satchel controls display their current state. Existing settings and inventory actions are preserved.
 

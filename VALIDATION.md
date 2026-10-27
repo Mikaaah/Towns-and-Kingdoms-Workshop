@@ -1,3 +1,7 @@
+# Validation — Workshop 0.5.0
+
+The shared client theme and all three menus compile in GitHub CI; the existing server integration suite passes. Changes are limited to client rendering, live control labels and release metadata. No inventory protocol or projector save payload changes. Graphical client screenshots are still needed to verify final appearance at different GUI scales.
+
 # Validation — Workshop 0.4.2
 
 Resource-only animation fix: 43 clips, 734 timelines checked; 545 out-of-order tracks repaired. JSON values compare equal before/after; serialized timestamps now increase monotonically. Every compiled class remains byte-identical to 0.4.1. GeckoLib source rejects a zero-time keyframe after another entry. Live client rendering still needs verification.
@@ -188,4 +192,5 @@ Verified static 16x16 neutral grey empty texture (max 110 brightness), filled
 texture and animation metadata byte-identical to supplied originals, and model
 override wiring. Client appearance inspected as a pixel preview; not run in a
 graphical Minecraft client.
+
 

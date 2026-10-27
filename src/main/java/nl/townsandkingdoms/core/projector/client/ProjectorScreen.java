@@ -126,7 +126,7 @@ public final class ProjectorScreen extends Screen {
         if(appearance){
             for(int i=0;i<5;i++){
                 int y=top+55+i*colorStep();
-                g.drawString(font,COLOR_LABELS[i],left+10,y+5,0xFFFFE8BA);
+                g.drawString(font,COLOR_LABELS[i],left+10,y+5,WorkshopStyle.INK);
                 g.fill(left+239,y,left+259,y+18,0xFF8A7D99);
                 if(validColor(paletteHex[i]))g.fill(left+240,y+1,left+258,y+17,ProjectorPalette.opaque(ProjectorPalette.parseHex(paletteHex[i])));
                 else g.drawString(font,"!",left+245,y+5,0xFFFF7777);

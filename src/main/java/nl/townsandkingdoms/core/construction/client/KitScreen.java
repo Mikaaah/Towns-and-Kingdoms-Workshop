@@ -15,7 +15,7 @@ public final class KitScreen extends AbstractContainerScreen<KitMenu> {
     @Override protected void init(){super.init();
         if(menu.brush){for(int i=0;i<9;i++){int x=8+(i%3)*54,y=46+(i/3)*43;button(x,y,16,"−",16+i);button(x+18,y,16,"+",i);}
             button(180,26,140,"Change selection mode",32);button(180,64,140,"Toggle avoid repeats",33);button(180,102,140,"Toggle satchel supply",34);
-        }else button(8,23,160,"Toggle held-block refill",64);
+        }else button(8,28,160,"Toggle held-block refill",64);
     }
     @Override protected void renderBg(GuiGraphics g,float partial,int mouseX,int mouseY){
         WorkshopStyle.frame(g,leftPos,topPos,imageWidth,imageHeight);
