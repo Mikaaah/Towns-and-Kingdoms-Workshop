@@ -103,7 +103,10 @@ public final class ProjectorRenderer implements BlockEntityRenderer<ProjectorBlo
     }
     private void drawText(PoseStack pose,MultiBufferSource buffers,FormattedCharSequence text,float x,float y,int color){font.drawInBatch(text,x,y,color,false,pose.last().pose(),buffers,Font.DisplayMode.NORMAL,0,LIGHT);}
     private static void quad(PoseStack pose,MultiBufferSource buffers,ResourceLocation texture,float x,float y,float w,float h,float z,int color){
-        var v=buffers.getBuffer(RenderType.entityTranslucentEmissive(texture));var p=pose.last();
+        // The emissive layer is COLOR_WRITE only. Later water/block-entity passes can
+        // overwrite a hologram that never wrote its depth. Use the standard
+        // translucent COLOR_DEPTH_WRITE layer; packed full-bright light is retained.
+        var v=buffers.getBuffer(RenderType.entityTranslucent(texture));var p=pose.last();
         v.addVertex(p,x,y+h,z).setColor(color).setUv(0,1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LIGHT).setNormal(p,0,0,1);
         v.addVertex(p,x+w,y+h,z).setColor(color).setUv(1,1).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LIGHT).setNormal(p,0,0,1);
         v.addVertex(p,x+w,y,z).setColor(color).setUv(1,0).setOverlay(OverlayTexture.NO_OVERLAY).setLight(LIGHT).setNormal(p,0,0,1);

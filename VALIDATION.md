@@ -1,3 +1,7 @@
+# Validation — Workshop 0.6.1
+
+Client renderer changes only: projection quads use entityTranslucent rather than entityTranslucentEmissive. Full-bright packed light remains unchanged. CI compiles the client code and runs existing GameTests; the reported water/chest rendering interaction needs verification in the user's graphical client, including shader and Fabulous configurations if used.
+
 # Validation — Workshop 0.6.0
 
 UI-only update using three byte-identical source PNGs from the owner's Tavern HUD pack. Nine-slice rendering preserves pixel-art corners; plain centre fills prevent stretched source details. Visual layout inspected with a code-based reconstruction using the real textures and a substitute font. Final in-game appearance and GUI-scale behavior still need a client check. CI build and baseline game tests are run for this release.

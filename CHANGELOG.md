@@ -1,3 +1,8 @@
+# 0.6.1
+
+- Render hologram panels/images with the standard depth-writing translucent layer instead of the color-only emissive layer, preventing later water/chest passes from overwriting projection surfaces.
+- Preserve full-bright lighting, hex colors, bobbing and existing GUI/assets.
+
 # 0.6.0
 
 - Replace plain panels with the supplied Tavern HUD's timber/stone frames and hotbar slot artwork.
