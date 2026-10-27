@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'net.neoforged.moddev' version '2.0.148'
 }
-version = '0.4.2'
+version = '0.5.0'
 group = 'nl.townsandkingdoms.core'
 base { archivesName = 'towns-and-kingdoms-workshop-1.21.1-neoforge' }
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
@@ -31,4 +31,5 @@ neoForge {
 tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
 // Integration tests are available in development runs, never in the shipped mod.
 tasks.named('jar') { exclude 'nl/townsandkingdoms/core/test/**'; exclude 'data/tnkcore/structure/empty.nbt'; exclude 'data/tnkcore/structure/construction_empty.nbt' }
+
 

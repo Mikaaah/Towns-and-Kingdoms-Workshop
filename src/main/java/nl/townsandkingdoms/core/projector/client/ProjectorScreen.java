@@ -1,6 +1,7 @@
 package nl.townsandkingdoms.core.projector.client;
 
 import java.util.*;
+import nl.townsandkingdoms.core.client.WorkshopStyle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.*;
@@ -36,7 +37,7 @@ public final class ProjectorScreen extends Screen {
     private void capture(){if(editor!=null)text=editor.getValue();if(image!=null)url=image.getValue().trim();if(search!=null)query=search.getValue();}
     private void rebuild(){capture();rebuildWidgets();}
     private Button button(int x,int y,int width,String label,java.util.function.Consumer<Button> action) {
-        return addRenderableWidget(Button.builder(Component.literal(label),action::accept).bounds(x,y,width,20).build());
+        return addRenderableWidget(WorkshopStyle.button(x,y,width,20,label,action::accept));
     }
     @Override protected void init() {
         search=null;image=null;editor=null;Arrays.fill(colorFields,null);
@@ -54,9 +55,9 @@ public final class ProjectorScreen extends Screen {
                 final int index=i;
                 var field=addRenderableWidget(new EditBox(font,left+130,bodyTop+i*step,100,18,Component.literal(COLOR_LABELS[i]+" hex color")));
                 field.setMaxLength(7);field.setValue(paletteHex[i]);field.setEditable(editable);
-                field.setTextColor(validColor(paletteHex[i])?0xFFE8E0F0:0xFFFF7777);
+                field.setTextColor(validColor(paletteHex[i])?0xFFFFE8BA:0xFFFF7777);
                 field.setTooltip(Tooltip.create(Component.literal("Six hexadecimal digits, with or without #. Example: #9D5BFF")));
-                field.setResponder(v->{paletteHex[index]=v;field.setTextColor(validColor(v)?0xFFE8E0F0:0xFFFF7777);});
+                field.setResponder(v->{paletteHex[index]=v;field.setTextColor(validColor(v)?0xFFFFE8BA:0xFFFF7777);});
                 colorFields[i]=field;
             }
             button(left+10,top+h-66,w-124,"Gentle bobbing: "+(bobbing?"on":"off"),b->{bobbing=!bobbing;b.setMessage(Component.literal("Gentle bobbing: "+(bobbing?"on":"off")));}).active=editable;
@@ -113,35 +114,40 @@ public final class ProjectorScreen extends Screen {
         PacketDistributor.sendToServer(new ProjectorNetwork.Save(pos,revision,s));onClose();
     }catch(IllegalArgumentException e){error=e.getMessage();if(Arrays.stream(paletteHex).anyMatch(v->!validColor(v))){appearance=true;rebuild();}}}
     @Override public void render(GuiGraphics g,int mouseX,int mouseY,float tick){
-        g.fill(left,top,left+w,top+h,0xF0181426);g.fill(left,top,left+w,top+2,0xFFAE77F5);
-        g.drawString(font,title,left+10,top+10,0xFFE3CFFF);
-        g.drawString(font,editable?"Configure your projection":"Read only · placer can edit",left+130,top+10,0xFFA89CB8);
+        WorkshopStyle.frame(g,left,top,w,h);
+        WorkshopStyle.inset(g,left+7,top+51,w-14,h-144);
+        for(var child:children())if(child instanceof EditBox field){
+            WorkshopStyle.control(g,field.getX()-1,field.getY()-1,field.getWidth()+2,field.getHeight()+2,field.isFocused(),true);
+            field.setBordered(false);
+        }
+        g.drawString(font,title,left+10,top+10,WorkshopStyle.CREAM);
+        g.drawString(font,editable?"Configure your projection":"Read only · placer can edit",left+130,top+10,0xFFE1CBE8);
         super.render(g,mouseX,mouseY,tick);
         if(appearance){
             for(int i=0;i<5;i++){
                 int y=top+55+i*colorStep();
-                g.drawString(font,COLOR_LABELS[i],left+10,y+5,0xFFE8E0F0);
+                g.drawString(font,COLOR_LABELS[i],left+10,y+5,0xFFFFE8BA);
                 g.fill(left+239,y,left+259,y+18,0xFF8A7D99);
                 if(validColor(paletteHex[i]))g.fill(left+240,y+1,left+258,y+17,ProjectorPalette.opaque(ProjectorPalette.parseHex(paletteHex[i])));
                 else g.drawString(font,"!",left+245,y+5,0xFFFF7777);
             }
             if(w>=440){
-                g.drawString(font,"#RRGGBB",left+282,top+61,0xFFBEB0CE);
-                g.drawString(font,"Body affects tinted parts",left+282,top+82,0xFFBEB0CE);
-                g.drawString(font,"of the supplied model.",left+282,top+95,0xFFBEB0CE);
-                g.drawString(font,"Motion moves the whole",left+282,top+127,0xFFBEB0CE);
-                g.drawString(font,"projection as one field.",left+282,top+140,0xFFBEB0CE);
+                g.drawString(font,"#RRGGBB",left+282,top+61,WorkshopStyle.MUTED);
+                g.drawString(font,"Body affects tinted parts",left+282,top+82,WorkshopStyle.MUTED);
+                g.drawString(font,"of the supplied model.",left+282,top+95,WorkshopStyle.MUTED);
+                g.drawString(font,"Motion moves the whole",left+282,top+127,WorkshopStyle.MUTED);
+                g.drawString(font,"projection as one field.",left+282,top+140,WorkshopStyle.MUTED);
             }
         }else if(mode==ProjectorSettings.Mode.QUESTS){
-            String s=QuestBridge.status();g.drawString(font,s.isEmpty()?selected.size()+" / 5 quests selected":s,left+175,top+h-105,0xFFCEC4DD);
+            String s=QuestBridge.status();g.drawString(font,s.isEmpty()?selected.size()+" / 5 quests selected":s,left+175,top+h-105,WorkshopStyle.INK);
         } else if(mode==ProjectorSettings.Mode.IMAGE){
-            g.drawString(font,"Direct PNG, JPG or GIF link (first frame)",left+10,top+57,0xFFCEC4DD);
+            g.drawString(font,"Direct PNG, JPG or GIF link (first frame)",left+10,top+57,WorkshopStyle.INK);
             var entry=RemoteImages.get(url);
             if(entry.texture()!=null){int areaH=Math.max(15,h-213);int areaW=w-155;float scale=Math.min((float)areaW/entry.width(),(float)areaH/entry.height());int iw=Math.max(1,(int)(entry.width()*scale)),ih=Math.max(1,(int)(entry.height()*scale));
                 g.blit(entry.texture(),left+140,top+99,0,0,iw,ih,iw,ih);
-            } else g.drawString(font,font.plainSubstrByWidth(entry.message(),w-30),left+10,top+128,0xFFBEB0CE);
+            } else g.drawString(font,font.plainSubstrByWidth(entry.message(),w-30),left+10,top+128,WorkshopStyle.MUTED);
         } else {
-            g.drawString(font,"&0–&f colors · &#RRGGBB · &l bold · &o italic · &n underline",left+10,top+h-116,0xFFBEB0CE);
+            g.drawString(font,"&0–&f colors · &#RRGGBB · &l bold · &o italic · &n underline",left+10,top+h-116,WorkshopStyle.MUTED);
         }
         if(!error.isEmpty())g.drawString(font,font.plainSubstrByWidth(error,w-120),left+90,top+h-22,0xFFFF8888);
     }
@@ -155,9 +161,17 @@ public final class ProjectorScreen extends Screen {
     @Override public void resize(Minecraft mc,int width,int height){capture();super.resize(mc,width,height);}
     @Override public boolean isPauseScreen(){return false;}
     private static final class ValueSlider extends AbstractSliderButton {
+        @Override public void renderWidget(GuiGraphics g,int mouseX,int mouseY,float tick){
+            WorkshopStyle.control(g,getX(),getY(),getWidth(),getHeight(),isHoveredOrFocused(),active);
+            int knob=getX()+3+(int)(value*(getWidth()-10));
+            g.fill(getX()+4,getY()+getHeight()-5,getX()+getWidth()-4,getY()+getHeight()-3,0xFF342438);
+            g.fill(knob,getY()+getHeight()-6,knob+4,getY()+getHeight()-2,0xFFE4BC77);
+            g.drawCenteredString(Minecraft.getInstance().font,getMessage(),getX()+getWidth()/2,getY()+4,WorkshopStyle.CREAM);
+        }
         final float min,max;final String label;final java.util.function.Consumer<Float> change;
         ValueSlider(int x,int y,int w,float initial,float min,float max,String label,java.util.function.Consumer<Float> change){super(x,y,w,20,Component.empty(),(initial-min)/(max-min));this.min=min;this.max=max;this.label=label;this.change=change;updateMessage();}
         @Override protected void updateMessage(){setMessage(Component.literal(label+": "+String.format(Locale.ROOT,"%.1f blocks",min+value*(max-min))));}
         @Override protected void applyValue(){change.accept(Math.round((min+(float)value*(max-min))*10)/10F);}
     }
 }
+

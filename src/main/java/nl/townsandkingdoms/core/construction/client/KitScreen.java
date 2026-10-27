@@ -1,6 +1,7 @@
 package nl.townsandkingdoms.core.construction.client;
 
 import net.minecraft.client.gui.GuiGraphics;
+import nl.townsandkingdoms.core.client.WorkshopStyle;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -10,25 +11,38 @@ import nl.townsandkingdoms.core.construction.*;
 public final class KitScreen extends AbstractContainerScreen<KitMenu> {
     public KitScreen(KitMenu menu,Inventory inv,Component title){super(menu,inv,title);imageWidth=menu.brush?330:176;imageHeight=menu.brush?250:214;inventoryLabelY=menu.brush?154:114;}
     private void send(int id){if(minecraft!=null&&minecraft.gameMode!=null)minecraft.gameMode.handleInventoryButtonClick(menu.containerId,id);}
-    private void button(int x,int y,int w,String label,int id){addRenderableWidget(Button.builder(Component.literal(label),b->send(id)).bounds(leftPos+x,topPos+y,w,18).build());}
+    private Button button(int x,int y,int w,String label,int id){return addRenderableWidget(WorkshopStyle.button(leftPos+x,topPos+y,w,18,label,b->send(id)));}
     @Override protected void init(){super.init();
         if(menu.brush){for(int i=0;i<9;i++){int x=8+(i%3)*54,y=46+(i/3)*43;button(x,y,16,"−",16+i);button(x+18,y,16,"+",i);}
             button(180,26,140,"Change selection mode",32);button(180,64,140,"Toggle avoid repeats",33);button(180,102,140,"Toggle satchel supply",34);
         }else button(8,23,160,"Toggle held-block refill",64);
     }
     @Override protected void renderBg(GuiGraphics g,float partial,int mouseX,int mouseY){
-        g.fill(leftPos,topPos,leftPos+imageWidth,topPos+imageHeight,0xF01D1826);g.fill(leftPos,topPos,leftPos+imageWidth,topPos+2,0xFFAF7CEB);
-        for(var slot:menu.slots){g.fill(leftPos+slot.x-1,topPos+slot.y-1,leftPos+slot.x+17,topPos+slot.y+17,0xFF74677F);g.fill(leftPos+slot.x,topPos+slot.y,leftPos+slot.x+16,topPos+slot.y+16,0xFF100D17);}
+        WorkshopStyle.frame(g,leftPos,topPos,imageWidth,imageHeight);
+        WorkshopStyle.inset(g,leftPos+5,topPos+inventoryLabelY-2,166,imageHeight-inventoryLabelY-4);
+        for(var slot:menu.slots)WorkshopStyle.slot(g,leftPos+slot.x,topPos+slot.y);
+
     }
     @Override protected void renderLabels(GuiGraphics g,int x,int y){
-        g.drawString(font,title,8,6,0xFFE8D9FA,false);g.drawString(font,playerInventoryTitle,8,inventoryLabelY,0xFFBBAACB,false);
-        if(menu.brush){for(int i=0;i<9;i++)g.drawString(font,"×"+menu.values.get(i),28+(i%3)*54,31+(i/3)*43,0xFFE1D3EE,false);
-            g.drawString(font,BrushItem.MODES[menu.values.get(9)],180,48,0xFFD8B5FA,false);
-            g.drawString(font,"Avoid repeats: "+(menu.values.get(10)>0?"on":"off"),180,86,0xFFD8B5FA,false);
-            g.drawString(font,"Satchel supply: "+(menu.values.get(11)>0?"on":"off"),180,124,0xFFD8B5FA,false);
-            g.drawString(font,"Click block onto a slot.",180,140,0xFFAE9DBB,false);
-            g.drawString(font,"Empty cursor clears.",180,153,0xFFAE9DBB,false);
-        }else g.drawString(font,"Refill: "+(menu.values.get(12)>0?"on":"off"),114,7,0xFFD8B5FA,false);
+        g.drawString(font,title,8,12,WorkshopStyle.CREAM,false);g.drawString(font,playerInventoryTitle,8,inventoryLabelY,WorkshopStyle.MUTED,false);
+        if(menu.brush){for(int i=0;i<9;i++)g.drawString(font,"×"+menu.values.get(i),28+(i%3)*54,31+(i/3)*43,WorkshopStyle.INK,false);
+            g.drawString(font,"How blocks are selected",180,48,WorkshopStyle.INK,false);
+            g.drawString(font,"Skip previous material",180,86,WorkshopStyle.INK,false);
+            g.drawString(font,"Use carried satchels",180,124,WorkshopStyle.INK,false);
+            g.drawString(font,"Click block onto a slot.",180,140,WorkshopStyle.MUTED,false);
+            g.drawString(font,"Empty cursor clears.",180,153,WorkshopStyle.MUTED,false);
+        }else g.drawString(font,"Refill: "+(menu.values.get(12)>0?"on":"off"),112,12,WorkshopStyle.CREAM,false);
+    }
+    @Override protected void containerTick(){
+        super.containerTick();
+        int i=menu.brush?18:0;
+        var buttons=children().stream().filter(c->c instanceof Button).map(c->(Button)c).toList();
+        if(menu.brush && buttons.size()>=21){
+            buttons.get(i).setMessage(Component.literal(BrushItem.MODES[menu.values.get(9)]));
+            buttons.get(i+1).setMessage(Component.literal("Avoid repeats: "+(menu.values.get(10)>0?"ON":"OFF")));
+            buttons.get(i+2).setMessage(Component.literal("Satchel supply: "+(menu.values.get(11)>0?"ON":"OFF")));
+        }else if(!menu.brush && !buttons.isEmpty())buttons.get(0).setMessage(Component.literal("Held-block refill: "+(menu.values.get(12)>0?"ON":"OFF")));
     }
     @Override public void render(GuiGraphics g,int x,int y,float tick){super.render(g,x,y,tick);renderTooltip(g,x,y);}
 }
+

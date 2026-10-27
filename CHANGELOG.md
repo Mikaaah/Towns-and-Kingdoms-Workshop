@@ -1,3 +1,9 @@
+# 0.5.0
+
+- Unify projector, brush and satchel interfaces with parchment panels, walnut frames and amethyst controls inspired by TNKLoot's NPC counters.
+- Replace vanilla buttons and slider rendering; show live state in brush/satchel controls.
+- Preserve all inventory actions, projector settings, dependency fixes and Goliath animation fixes.
+
 # 0.4.2
 
 - Sort all four Goliath animation timelines numerically so GeckoLib does not reject late zero-time keyframes.
@@ -86,4 +92,5 @@
 - Capture a monster spawner and place it elsewhere while retaining its saved data.
 - Consume the core after successful placement; no durability or recipe.
 - Added a Core creative tab, filled-state glint and English/Dutch tooltips.
+
 
