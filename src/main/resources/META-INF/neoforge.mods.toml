@@ -3,7 +3,7 @@ loaderVersion="[4,)"
 license="All Rights Reserved"
 [[mods]]
 modId="tnkcore"
-version="0.5.0"
+version="0.6.0"
 displayName="Towns and Kingdoms - Workshop"
 authors="Towns & Kingdoms"
 description='''Workshop tools, construction utilities, Quest Projector and the optional TNK3 encounter.'''
@@ -58,4 +58,5 @@ side="BOTH"
 [[mixins]]
 config="tnkcore.mixins.json"
 requiredMods=["twilightforest","deeperdarker","kubejs"]
+
 

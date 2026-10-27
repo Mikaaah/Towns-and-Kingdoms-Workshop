@@ -19,19 +19,25 @@ public final class KitScreen extends AbstractContainerScreen<KitMenu> {
     }
     @Override protected void renderBg(GuiGraphics g,float partial,int mouseX,int mouseY){
         WorkshopStyle.frame(g,leftPos,topPos,imageWidth,imageHeight);
+        g.renderItem(menu.owner,leftPos+9,topPos+7);
         WorkshopStyle.inset(g,leftPos+5,topPos+inventoryLabelY-2,166,imageHeight-inventoryLabelY-4);
+        if(menu.brush)WorkshopStyle.inset(g,leftPos+180,topPos+174,140,65);
         for(var slot:menu.slots)WorkshopStyle.slot(g,leftPos+slot.x,topPos+slot.y);
 
     }
     @Override protected void renderLabels(GuiGraphics g,int x,int y){
-        g.drawString(font,title,8,12,WorkshopStyle.CREAM,false);g.drawString(font,playerInventoryTitle,8,inventoryLabelY,WorkshopStyle.MUTED,false);
+        g.drawString(font,title,30,12,WorkshopStyle.CREAM,false);g.drawString(font,playerInventoryTitle,8,inventoryLabelY,WorkshopStyle.MUTED,false);
         if(menu.brush){for(int i=0;i<9;i++)g.drawString(font,"×"+menu.values.get(i),28+(i%3)*54,31+(i/3)*43,WorkshopStyle.INK,false);
             g.drawString(font,"How blocks are selected",180,48,WorkshopStyle.INK,false);
             g.drawString(font,"Skip previous material",180,86,WorkshopStyle.INK,false);
             g.drawString(font,"Use carried satchels",180,124,WorkshopStyle.INK,false);
             g.drawString(font,"Click block onto a slot.",180,140,WorkshopStyle.MUTED,false);
             g.drawString(font,"Empty cursor clears.",180,153,WorkshopStyle.MUTED,false);
-        }else g.drawString(font,"Refill: "+(menu.values.get(12)>0?"on":"off"),112,12,WorkshopStyle.CREAM,false);
+            g.drawString(font,"PALETTE NOTES",188,182,WorkshopStyle.CREAM,false);
+            g.drawString(font,"Shift-click to add.",188,198,WorkshopStyle.MUTED,false);
+            g.drawString(font,"Zero weight disables.",188,211,WorkshopStyle.MUTED,false);
+            g.drawString(font,"Uses real materials.",188,224,WorkshopStyle.MUTED,false);
+        }
     }
     @Override protected void containerTick(){
         super.containerTick();

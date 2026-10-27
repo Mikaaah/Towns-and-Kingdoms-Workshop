@@ -41,7 +41,7 @@ public final class ProjectorScreen extends Screen {
     }
     @Override protected void init() {
         search=null;image=null;editor=null;Arrays.fill(colorFields,null);
-        w=Math.min(480,width-16);h=Math.min(340,height-16);left=(width-w)/2;top=(height-h)/2;
+        w=Math.min(440,width-16);h=Math.min(appearance?276:320,height-16);left=(width-w)/2;top=(height-h)/2;
         int tab=(w-24)/4;
         for(var value:ProjectorSettings.Mode.values()) {
             var b=button(left+8+value.ordinal()*tab,top+27,tab-3,(!appearance&&value==mode?"● ":"")+switch(value){case QUESTS->"Quests";case IMAGE->"Image";case TEXT->"Formatted text";},b1->{mode=value;appearance=false;page=0;rebuild();});
@@ -115,13 +115,14 @@ public final class ProjectorScreen extends Screen {
     }catch(IllegalArgumentException e){error=e.getMessage();if(Arrays.stream(paletteHex).anyMatch(v->!validColor(v))){appearance=true;rebuild();}}}
     @Override public void render(GuiGraphics g,int mouseX,int mouseY,float tick){
         WorkshopStyle.frame(g,left,top,w,h);
-        WorkshopStyle.inset(g,left+7,top+51,w-14,h-144);
+        g.renderItem(nl.townsandkingdoms.core.TownsAndKingdomsCore.PROJECTOR_ITEM.toStack(),left+10,top+5);
+        WorkshopStyle.inset(g,left+7,top+51,w-14,h-140);
         for(var child:children())if(child instanceof EditBox field){
             WorkshopStyle.control(g,field.getX()-1,field.getY()-1,field.getWidth()+2,field.getHeight()+2,field.isFocused(),true);
             field.setBordered(false);
         }
-        g.drawString(font,title,left+10,top+10,WorkshopStyle.CREAM);
-        g.drawString(font,editable?"Configure your projection":"Read only · placer can edit",left+130,top+10,0xFFE1CBE8);
+        g.drawString(font,title,left+32,top+10,WorkshopStyle.CREAM);
+        g.drawString(font,editable?"Configure your projection":"Read only · placer can edit",left+145,top+10,WorkshopStyle.MUTED);
         super.render(g,mouseX,mouseY,tick);
         if(appearance){
             for(int i=0;i<5;i++){
@@ -164,7 +165,7 @@ public final class ProjectorScreen extends Screen {
         @Override public void renderWidget(GuiGraphics g,int mouseX,int mouseY,float tick){
             WorkshopStyle.control(g,getX(),getY(),getWidth(),getHeight(),isHoveredOrFocused(),active);
             int knob=getX()+3+(int)(value*(getWidth()-10));
-            g.fill(getX()+4,getY()+getHeight()-5,getX()+getWidth()-4,getY()+getHeight()-3,0xFF342438);
+            g.fill(getX()+4,getY()+getHeight()-5,getX()+getWidth()-4,getY()+getHeight()-3,0xFF24221D);
             g.fill(knob,getY()+getHeight()-6,knob+4,getY()+getHeight()-2,0xFFE4BC77);
             g.drawCenteredString(Minecraft.getInstance().font,getMessage(),getX()+getWidth()/2,getY()+4,WorkshopStyle.CREAM);
         }

@@ -1,3 +1,10 @@
+# 0.6.0
+
+- Replace plain panels with the supplied Tavern HUD's timber/stone frames and hotbar slot artwork.
+- Use original selection artwork for focused/selected controls and real item icons in headers.
+- Compact projector appearance layout; add a brush material-notes panel.
+- Retain dependency and Goliath animation fixes.
+
 # 0.5.0
 
 - Unify projector, brush and satchel interfaces with parchment panels, walnut frames and amethyst controls inspired by TNKLoot's NPC counters.
@@ -92,5 +99,6 @@
 - Capture a monster spawner and place it elsewhere while retaining its saved data.
 - Consume the core after successful placement; no durability or recipe.
 - Added a Core creative tab, filled-state glint and English/Dutch tooltips.
+
 
 

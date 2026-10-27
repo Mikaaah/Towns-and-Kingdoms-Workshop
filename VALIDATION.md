@@ -1,3 +1,7 @@
+# Validation — Workshop 0.6.0
+
+UI-only update using three byte-identical source PNGs from the owner's Tavern HUD pack. Nine-slice rendering preserves pixel-art corners; plain centre fills prevent stretched source details. Visual layout inspected with a code-based reconstruction using the real textures and a substitute font. Final in-game appearance and GUI-scale behavior still need a client check. CI build and baseline game tests are run for this release.
+
 # Validation — Workshop 0.5.0
 
 The shared client theme and all three menus compile in GitHub CI; the existing server integration suite passes. Changes are limited to client rendering, live control labels and release metadata. No inventory protocol or projector save payload changes. Graphical client screenshots are still needed to verify final appearance at different GUI scales.
@@ -192,5 +196,6 @@ Verified static 16x16 neutral grey empty texture (max 110 brightness), filled
 texture and animation metadata byte-identical to supplied originals, and model
 override wiring. Client appearance inspected as a pixel preview; not run in a
 graphical Minecraft client.
+
 
 

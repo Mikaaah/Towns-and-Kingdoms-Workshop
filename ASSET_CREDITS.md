@@ -30,3 +30,8 @@ models, animations and textures were converted to native GeckoLib resources,
 and its MythicMobs skill definitions were preserved in a native data/runtime
 port. These assets remain private and pack-specific, subject to their original
 license, and are not a separately distributed boss mod.
+
+## Tavern HUD interface textures (0.6.0)
+
+Sam1qk_'s Tavern Hud v1.3, supplied by the owner with editing permission. Original tavern_top.png, hotbar.png and hotbar_selection.png are included under the Workshop namespace. Source artwork bytes are unchanged; frame/slot regions are composed at runtime with preserved corners. No global HUD overrides are installed.
+
