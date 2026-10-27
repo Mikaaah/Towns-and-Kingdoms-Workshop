@@ -4,7 +4,7 @@
 
 Construction tools, quest projections, cages and travel utilities for Towns & Kingdoms.
 
-[Documentation](wiki/Home.md) · [Changelog](CHANGELOG.md) · [Report an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Core/issues)
+[Documentation](wiki/Home.md) · [Changelog](CHANGELOG.md) · [Report an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/issues)
 
 **Source version: 0.6.1**
 

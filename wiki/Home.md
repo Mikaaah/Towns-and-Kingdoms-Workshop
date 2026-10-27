@@ -12,4 +12,4 @@ Construction and utility tools for Minecraft 1.21.1 / NeoForge. Source version 0
 - [TNK3 encounter](TNK3-Encounter.md)
 - [Troubleshooting](Troubleshooting.md)
 
-[Repository](https://github.com/Mikaaah/Towns-and-Kingdoms-Core) · [Report an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Core/issues)
+[Repository](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop) · [Report an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/issues)

@@ -9,4 +9,4 @@ Owner-supplied artwork. Use one banner at the top of the README and documentatio
 
 These links supersede earlier artwork references. Preserve the artwork, proportions and typography.
 
-The provided artwork pack is also preserved in [`docs/branding/banner.png`](https://github.com/Mikaaah/Towns-and-Kingdoms-Core/blob/main/docs/branding/banner.png) and [`docs/branding/logo.png`](https://github.com/Mikaaah/Towns-and-Kingdoms-Core/blob/main/docs/branding/logo.png). The direct URLs above identify the latest owner-supplied versions.
+The provided artwork pack is also preserved in [`docs/branding/banner.png`](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/blob/main/docs/branding/banner.png) and [`docs/branding/logo.png`](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/blob/main/docs/branding/logo.png). The direct URLs above identify the latest owner-supplied versions.
