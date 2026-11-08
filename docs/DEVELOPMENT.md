@@ -1,10 +1,7 @@
-# Workshop — Development
+# Project reference
 
-Requires Java 21.
+[Player guide](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/wiki) · [Release notes](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/blob/main/CHANGELOG.md) · [Support](../SUPPORT.md)
 
-```sh
-./gradlew build
-./gradlew runGameTestServer
-```
+For behavior and compatibility, use the guide matching your installed version. Include exact versions and reproduction steps when reporting a problem.
 
-The GameTest suite covers spawner capture, placement and protection checks. Preserve the `tnkcore` registry namespace and packet compatibility when changing features.
+[All projects](https://mikaaah.github.io/TownsAndKingdoms/projects/) · [Discord](https://discord.gg/CRYk3uDPVt)

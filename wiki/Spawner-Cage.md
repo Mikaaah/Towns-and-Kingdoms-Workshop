@@ -1,7 +1,9 @@
+[← Guide home](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/wiki) · [Project](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop) · [Get help](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/issues)
+
 # Spawner Cage
 
 Capture one regular monster spawner and place it elsewhere while preserving its saved block-entity data. The core is consumed after placement, including in Creative. Failed placement keeps the filled core.
 
 No recipe is included; modpacks can supply a recipe or quest reward. Custom spawner blocks and trial spawners are outside this feature’s scope.
 
-[Workshop documentation](Home.md)
+[Workshop documentation](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/wiki/Home)

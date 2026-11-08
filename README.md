@@ -1,184 +1,49 @@
-<p align="center"><img src="https://i.imgur.com/fHpgPO1.png" alt="Towns & Kingdoms — Workshop" width="100%"></p>
+<p align="center"><img src="docs/branding/banner.png" alt="Towns & Kingdoms Workshop" width="100%"></p>
 
-# Towns & Kingdoms — Workshop
+<h1 align="center">Towns & Kingdoms Workshop</h1>
 
-Construction tools, quest projections, cages and travel utilities for Towns & Kingdoms.
+<p align="center"><strong>A toolbox for better towns: building tools, quest holograms, cages and pocket-sized journeys home.</strong></p>
 
-[Wiki](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/wiki) · [Changelog](CHANGELOG.md) · [Report an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/issues)
+<p align="center"><a href="https://www.curseforge.com/members/mikaaah/projects">Downloads</a> · <a href="https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/wiki">Player guide</a> · <a href="https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/blob/main/CHANGELOG.md">Changelog</a> · <a href="https://discord.gg/CRYk3uDPVt">Discord</a></p>
 
-**Source version: 0.6.1**
+<p align="center"><img src="https://img.shields.io/badge/Minecraft-1.21.1-5b8731?style=flat-square" alt="Minecraft 1.21.1"> <img src="https://img.shields.io/badge/NeoForge-d77828?style=flat-square" alt="NeoForge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
 
-Minecraft 1.21.1 / NeoForge 21.1.219 or newer (21.1.x) / Java 21.
-Install the JAR on the server and all clients. The existing Workshop features require no other mods.
+## Make your next build feel like home
 
-## Construction and utility set
+| Tool | What it does |
+| --- | --- |
+| **Measuring Pencil** | Mark two blocks and see dimensions, distance and a purple outline. |
+| **Builder’s Satchel** | Keep 27 slots of building materials close, with optional held-block refills. |
+| **Builder’s Brush** | Place real materials from weighted palettes, sequences or coordinate patterns. |
+| **Quest Projector** | Display up to five FTB quests, an image or formatted text as a configurable hologram. |
+| **Mob Cage** | Capture an eligible mob and release it elsewhere with its saved data. |
+| **Spawner Cage** | Carry one regular spawner, keeping its settings; the cage is consumed on placement. |
+| **Magic Mirror** | Bind a waypoint and hold use to travel home. |
+| **Chorus Mirror** | Bring nearby eligible entities and riding groups along for the trip. |
 
-All six new items use the supplied native 16x16 PixelMine textures. Open their
-screens or use the controls below; no setup commands are required. Default
-crafting recipes are included and can be adjusted normally by the modpack.
+Parchment panels, timber frames and amethyst controls connect the projector, brush and satchel screens. A useful tool should feel at home in the world.
 
-| Item | ID | Controls and behavior |
-|---|---|---|
-| Measuring Pencil | `tnkcore:measuring_pencil` | Right-click two blocks to measure their inclusive X/Y/Z dimensions and straight-line distance. A purple outline is shown while holding the pencil. Third click starts a new measurement; sneak-right-click clears it. |
-| Builder’s Satchel | `tnkcore:builders_satchel` | Right-click for 27 slots of building blocks. Shift-click transfers real stacks. The held-block refill toggle replenishes partial stacks and the last emptied main-hand stack from the satchel. |
-| Builder’s Brush | `tnkcore:builders_brush` | Right-click air or sneak-right-click a block to configure. Set up to nine ghost templates, weights from 0–64, selection mode, avoid-repeats and satchel supply. Normal block use places one real material from inventory or a carried satchel. |
-| Mob Cage | `tnkcore:mob_cage` | Right-click a mob to capture; right-click a block to release. Empty lantern panes are dark; filled cages use the original lit texture. Reusable, with no durability. |
-| Magic Mirror | `tnkcore:magic_mirror` | Sneak-right-click binds your current location and dimension. Hold right-click for two seconds to teleport. Releasing early cancels; successful use has a five-second cooldown. |
-| Chorus Mirror | `tnkcore:chorus_mirror` | Purple-leaf version of the mirror. Same binding and two-second held use, bringing eligible entities within a spherical five-block radius: players, mobs, dropped items, XP and riding groups. |
+## Get started
 
-### Builder’s Brush
+Install matching Workshop versions on **client and server** with **Minecraft 1.21.1, NeoForge 21.1.219+ within 21.1.x, and Java 21**. The source on this branch is **0.6.1**. FTB Quests is optional and enables the projector’s quest display.
 
-The name replaces the earlier Block Palette idea. It uses the supplied tassel
-artwork. Clicking a palette slot with a carried block copies a template without
-consuming that block; clicking with an empty cursor clears it. Shift-clicking a
-block in your inventory adds a template to the first empty slot. Templates cannot
-be extracted as real blocks. A weight of zero disables a slot.
+1. Pick a building tool from the Workshop creative tab or check its recipe in your pack.
+2. Right-click to open a satchel, configure a projector, or begin a measurement.
+3. For the brush, right-click air or sneak-right-click a block to edit its palette.
 
-Modes: weighted random, sequence, and a deterministic coordinate pattern.
-Avoid-repeats excludes the previous choice when another enabled material is
-available. Satchel supply is a separate brush option from a satchel's automatic
-held-block refill setting. Unavailable materials are skipped. The brush does not
-create blocks, and normal NeoForge placement/claim cancellation is honored.
+| Find your way | Guide |
+| --- | --- |
+| Exact controls, restrictions and item IDs | [Feature reference](docs/FEATURES.md) |
+| Set up a goal display | [Quest Projector](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/wiki/Quest-Projector) |
+| Move a spawner | [Spawner Cage](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/wiki/Spawner-Cage) |
+| Something behaving strangely? | [Support](SUPPORT.md) |
 
-Satchels accept building BlockItems, excluding items carrying container or
-block-entity data. They do not hold other satchels, tools or filled storage blocks.
-An open satchel/brush is locked against hotbar/offhand swaps into itself.
+The stable item namespace is **`tnkcore`**. Pack recipes and rewards can differ from the standalone defaults; use the installed pack’s recipe viewer.
 
-### Mob Cage
+## Pull up a chair
 
-Full entity NBT is retained, including name, health, UUID and saved mod data.
-Players, dead mobs, occupied vehicles/passengers and leashed mobs cannot be
-captured. Unleash/dismount first. Vanilla dragon and wither are excluded, along
-with common boss tags. Extend `tnkcore:uncageable` in the modpack to exclude more
-modded mobs. Mob data is limited to 64 KiB per cage.
+Questions, builds, feedback, server news and the occasional wildly overambitious factory: join the **Towns & Kingdoms Modding Hub**.
 
-A blocked or canceled release keeps the filled cage. A mob whose UUID already
-exists cannot be released again. Entity interactions and joins retain their
-normal protection/event checks. Successful release leaves an empty reusable cage.
+[![Join the Towns & Kingdoms Discord](https://i.imgur.com/Ojgcccm.png)](https://discord.gg/CRYk3uDPVt)
 
-### Mirrors
-
-Each mirror stores one independent waypoint. Binding records your current feet
-position, facing and dimension; it does not bind the block under your crosshair.
-The normal mirror only brings its user and requires dismounting first.
-
-The Chorus Mirror includes complete riding groups when a member is selected.
-It plans safe landing space for every group before moving any entity; insufficient
-space leaves the group at the source. Landings avoid collisions, world-border
-violations and obvious hazards. Small offsets are allowed to find nearby safe
-floor space. A maximum of 256 entities/passengers is supported per use.
-
-Dimension changes use Minecraft/NeoForge's native transition path. Other mods may
-prevent individual entities from travelling through their normal hooks. No claim
-or dimension-travel restrictions are deliberately bypassed.
-
-The regular mirror's original leaves, wooden frame and mirror pane are unchanged.
-Only green leaf pixels are recolored on the Chorus Mirror. Item graphics are flat
-inventory sprites; there is no additional 3D item model dependency.
-
-## Quest Projector
-
-A placeable projector using the supplied Polaroid Studio / KidTokio model and
-original animated texture. Place it and right-click: all setup uses the screen.
-
-- **Quests:** search by quest/chapter name and select up to five quests. The
-  hologram shows titles, task item icons, required amounts and live progress for
-  the viewing player's FTB Quests team. Hidden quests/details stay hidden.
-  Long lists automatically turn pages every eight seconds, repeating the quest
-  heading on continued pages. The arrow beside a quest opens its FTB details.
-- **Image:** paste a direct HTTP/HTTPS image link and press Preview / reload.
-  PNG, JPG and GIF are supported (first frame for GIF). Aspect ratio is preserved.
-- **Formatted text:** multiline text with Minecraft `&0`–`&f` colors,
-  `&#RRGGBB`, `&l` bold, `&o` italic, `&n` underline, `&m` strike-through,
-  `&r` reset, plus `**bold**` and `*italic*`. Literal `\n` also creates a newline.
-- **Appearance:** separate six-digit hex inputs (`#RRGGBB`, or without `#`) with
-  color swatches for the model's tintable parts, projection accent, default text,
-  completed tasks and backdrop. The original untinted metal parts stay neutral.
-  Each placed projector stores its own palette; configured drops use its body tint.
-  Inline text formatting still overrides the default text color.
-- Gentle bobbing moves the entire projected field together (text, task icons,
-  images and backdrop), ±0.035 blocks over a seven-second cycle. Toggle it on/off
-  in Appearance. It is enabled by default, including on older projector settings.
-  The supplied two-frame texture animation remains unchanged; each frame lasts
-  ten ticks (half a second). The block model itself has no moving parts.
-- Adjustable projection width (1–8 blocks), elevation (0.5–6 blocks), backdrop
-  and optional face-player orientation. Otherwise it faces its placement direction.
-- Only the placer or an operator can change settings. Other players can view
-  the selection and open linked quests. Claim interaction denial is respected.
-- Breaking the projector preserves its display settings on the dropped item;
-  placing it assigns ownership to the new placer.
-
-Crafting pattern (I = iron ingot, G = glass, A = amethyst shard, R = redstone):
-
-| | | |
-|---|---|---|
-| I | G | I |
-| A | R | A |
-| I | I | I |
-
-FTB Quests is optional: required only for quest mode. The bridge targets its
-Minecraft 1.21.1 / 2101 API and reads the already synchronized local team data.
-It does not submit tasks, take items, change progression or auto-claim rewards.
-Use the normal quest details for those actions. Your KubeJS items stay intact.
-
-Images are fetched on clients with two bounded background workers, a 32-image
-session cache, an 8 MB transfer cap and a 4096-pixel / 8-megapixel decode cap.
-Public internet hosts only; redirects receive the same address validation.
-A failed image displays a status message and can be retried with Preview / reload.
-Images and formatting do not require FTB Quests.
-
-Stable registry namespace: `tnkcore`. Projector item/block: `tnkcore:quest_projector`.
-Existing Spawner Cage IDs and saved data are unchanged.
-Existing 0.2.0 projector settings load with the default purple palette.
-Install matching Workshop versions on the server and clients. Since 0.3.0, the projector settings
-packet now carries colors and the animation toggle (protocol version 2).
-
-## Spawner Cage
-
-![Empty cage (left) and filled cage (right)](docs/spawner-cage-textures.png)
-
-Empty: dull grey and static. Filled: the original animated orange flame.
-
-Item ID: `tnkcore:spawner_core`
-
-`/give @s tnkcore:spawner_core`
-
-Also available in the Towns and Kingdoms - Workshop creative tab.
-No recipe is included. Add a late-game recipe or quest reward in the modpack.
-
-1. Right-click a regular monster spawner with an empty core to capture it.
-2. Right-click a block with the filled core to place the spawner at the target face.
-3. The core is consumed after successful placement, including in Creative.
-
-Filled cages show the captured mob, additional spawn-pool types, spawn count,
-delay range, activation range and spawn range from the saved spawner data.
-
-One core carries one spawner. No durability, repairs or reusable remainder.
-The empty cage uses a static, dull grey version of the supplied texture.
-A filled cage switches to the original animated orange texture.
-The original PNG and animation metadata are included unchanged for the filled state.
-The registry ID remains `tnkcore:spawner_core` for existing worlds and scripts.
-
-Full spawner block-entity data is retained, including spawn potentials, delays,
-entity data, persistent mod data and attachments. This is intended to preserve
-Apotheosis settings on vanilla spawner blocks; no direct Apotheosis dependency.
-Custom spawner blocks and trial spawners are outside this first feature's scope.
-
-Capture checks NeoForge's block-break protection event. Both capture and placement
-participate in NeoForge's standard item-use snapshot transaction, allowing claim
-mods to cancel and roll back the operation. Failed placement keeps the filled core.
-No XP or spawner item drops are generated by capture.
-
-## Developer documentation
-
-See the [development guide](docs/DEVELOPMENT.md) for build commands and verification.
-
-
-## Unified Workshop interfaces (0.5.0)
-
-Projector, Builder's Brush and Builder's Satchel share parchment panels, walnut frames and amethyst controls inspired by TNKLoot NPC counters. Buttons, sliders, fields and inventory slots use matching colors. Brush/satchel controls display their current state. Existing settings and inventory actions are preserved.
-
-
-## Tavern HUD interfaces (0.6.0)
-
-Use the supplied Tavern HUD artwork for timber/stone frames, recessed hotbar slots and selection highlights. Compact projector appearance layout and material notes in the brush menu. All gameplay and settings remain unchanged.
+**[Join Discord](https://discord.gg/CRYk3uDPVt)** · [Explore all projects](https://mikaaah.github.io/TownsAndKingdoms/projects/) · [CurseForge projects](https://www.curseforge.com/members/mikaaah/projects)

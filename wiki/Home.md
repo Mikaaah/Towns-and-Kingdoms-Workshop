@@ -6,9 +6,11 @@ Construction and utility tools for Minecraft 1.21.1 / NeoForge. Source version 0
 
 ## Guides
 
-- [Getting started](Getting-Started.md)
-- [Construction and utilities](Construction-and-Utilities.md)
-- [Quest Projector](Quest-Projector.md)
-- [Troubleshooting](Troubleshooting.md)
+- [Getting started](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/wiki/Getting-Started)
+- [Construction and utilities](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/wiki/Construction-and-Utilities)
+- [Quest Projector](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/wiki/Quest-Projector)
+- [Spawner Cage](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/wiki/Spawner-Cage)
+- [Complete feature reference](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/blob/main/docs/FEATURES.md)
+- [Troubleshooting](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/wiki/Troubleshooting)
 
 [Repository](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop) · [Report an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/issues)
