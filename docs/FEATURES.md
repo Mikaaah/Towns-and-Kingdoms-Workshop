@@ -1,6 +1,6 @@
 # Workshop feature reference
 
-# Construction and utility set
+## Construction and utility set
 
 Open the item screens or use the controls below. Modpacks can replace the included crafting recipes.
 
@@ -13,7 +13,7 @@ Open the item screens or use the controls below. Modpacks can replace the includ
 | Magic Mirror | `tnkcore:magic_mirror` | Sneak-right-click binds your current location and dimension. Hold right-click for two seconds to teleport. Releasing early cancels; successful use has a five-second cooldown. |
 | Chorus Mirror | `tnkcore:chorus_mirror` | Purple-leaf version of the mirror. Same binding and two-second held use, bringing eligible entities within a spherical five-block radius: players, mobs, dropped items, XP and riding groups. |
 
-## Builder’s Brush
+### Builder’s Brush
 
 The name replaces the earlier Block Palette idea. It uses the supplied tassel
 artwork. Clicking a palette slot with a carried block copies a template without
@@ -31,7 +31,7 @@ Satchels accept building BlockItems, excluding items carrying container or
 block-entity data. They do not hold other satchels, tools or filled storage blocks.
 An open satchel/brush is locked against hotbar/offhand swaps into itself.
 
-## Mob Cage
+### Mob Cage
 
 Full entity NBT is retained, including name, health, UUID and saved mod data.
 Players, dead mobs, occupied vehicles/passengers and leashed mobs cannot be
@@ -43,7 +43,7 @@ A blocked or canceled release keeps the filled cage. A mob whose UUID already
 exists cannot be released again. Entity interactions and joins retain their
 normal protection/event checks. Successful release leaves an empty reusable cage.
 
-## Mirrors
+### Mirrors
 
 Each mirror stores one independent waypoint. Binding records your current feet
 position, facing and dimension; it does not bind the block under your crosshair.
@@ -63,7 +63,7 @@ The regular mirror's original leaves, wooden frame and mirror pane are unchanged
 Only green leaf pixels are recolored on the Chorus Mirror. Item graphics are flat
 inventory sprites; there is no additional 3D item model dependency.
 
-# Quest Projector
+## Quest Projector
 
 A placeable projector using the supplied Polaroid Studio / KidTokio model and
 original animated texture. Place it and right-click: all setup uses the screen.
@@ -120,7 +120,7 @@ Existing 0.2.0 projector settings load with the default purple palette.
 Install matching Workshop versions on the server and clients. Since 0.3.0, the projector settings
 packet now carries colors and the animation toggle (protocol version 2).
 
-# Spawner Cage
+## Spawner Cage
 
 ![Empty cage (left) and filled cage (right)](../docs/spawner-cage-textures.png)
 
