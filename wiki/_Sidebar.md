@@ -14,3 +14,5 @@
 - [All mod projects](https://mikaaah.github.io/TownsAndKingdoms/projects/)
 - [Join Discord](https://discord.gg/CRYk3uDPVt)
 - [Report an issue](https://github.com/Mikaaah/Towns-and-Kingdoms-Workshop/issues)
+
+- [Trading Hub — TNK3](Trading-Hub)

@@ -8,6 +8,10 @@
 
 <p align="center"><img src="https://img.shields.io/badge/Minecraft-1.21.1-5b8731?style=flat-square" alt="Minecraft 1.21.1"> <img src="https://img.shields.io/badge/NeoForge-d77828?style=flat-square" alt="NeoForge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
 
+## Choose your guide
+
+The public Java source on this branch is **0.6.1**. **TNK3 Beta 1.0 bundles Workshop 0.11.10**, which also includes the Trading Hub and optional Ponder compatibility. Use the pack's [Workshop guide](https://mikaaah.github.io/TownsAndKingdoms/workshop/) and [Trading Hub guide](https://mikaaah.github.io/TownsAndKingdoms/trading-hub/) for that edition.
+
 ## Make your next build feel like home
 
 | Tool | What it does |

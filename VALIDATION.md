@@ -47,9 +47,6 @@ transient runtime state; Mob Cage preserves the entity's saved NBT. Boss exclusi
 can be extended via the datapack tag. Native travel hooks can reject individual
 entities after a group has otherwise passed safe-position planning.
 
-The build sandbox hides process self-detection, so a local-only NeoForm runtime
-patch supplied the Java executable path. No build-tool patch is included in the
-mod or repository; ordinary developer machines use the standard Gradle wrapper.
 
 ## Earlier release validation
 
@@ -129,16 +126,9 @@ Apotheosis itself was not installed for this test run. Round-trip tests include
 custom persistent mod data and altered spawner parameters; compatibility relies
 on retaining the complete saved block-entity payload.
 
-Environment note: NeoForm's process self-detection is unavailable in this build
-sandbox. The build used existing matching NeoForge 21.1.219 generated Minecraft
-artifacts, skipping regeneration. Compilation and server GameTests ran normally.
-A standard development machine can use the Gradle wrapper without those skips.
 
 0.1.1: client-only model predicate compiled; dedicated-server GameTests all passed.
 Verified static 16x16 neutral grey empty texture (max 110 brightness), filled
 texture and animation metadata byte-identical to supplied originals, and model
 override wiring. Client appearance inspected as a pixel preview; not run in a
 graphical Minecraft client.
-
-
-
