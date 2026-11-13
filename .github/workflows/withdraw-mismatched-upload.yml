@@ -1,0 +1,33 @@
+name: Withdraw mismatched Workshop upload
+on:
+  push:
+    branches: ['publish/workshop-1.1.0']
+    paths: ['.github/workflows/withdraw-mismatched-upload.yml']
+permissions:
+  contents: read
+jobs:
+  withdraw:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mark the mismatched file as withdrawn
+        env:
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.request, uuid
+          token = os.environ["CURSEFORGE_TOKEN"]
+          metadata = {
+              "fileID": 9601610,
+              "displayName": "WITHDRAWN - corrupted transfer - use file 9601638",
+              "releaseType": "alpha",
+              "changelogType": "html",
+              "changelog": '<p><strong>Withdrawn: this file was corrupted during transfer. Do not install.</strong></p><p>Use the verified <a href="https://www.curseforge.com/minecraft/mc-mods/towns-kingdoms-workshop/files/9601638">Workshop 1.1.0 release</a>.</p>'
+          }
+          boundary = uuid.uuid4().hex
+          body = ("--" + boundary + '\r\nContent-Disposition: form-data; name="metadata"\r\nContent-Type: application/json\r\n\r\n' + json.dumps(metadata) + "\r\n--" + boundary + "--\r\n").encode()
+          request = urllib.request.Request("https://minecraft.curseforge.com/api/projects/1789377/update-file", data=body, headers={"X-Api-Token": token, "Content-Type": "multipart/form-data; boundary=" + boundary}, method="POST")
+          with urllib.request.urlopen(request, timeout=60) as response:
+              result = json.load(response)
+          assert result.get("id") == 9601610, "Withdrawal metadata update was not confirmed"
+          print("Withdrawn mismatched file 9601610; verified release is 9601638")
+          PY
