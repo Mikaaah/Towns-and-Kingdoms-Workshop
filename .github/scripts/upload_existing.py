@@ -1,6 +1,9 @@
 import hashlib, json, os, pathlib, urllib.request, urllib.error, uuid
 root = pathlib.Path("release/1.1.0")
 jar = root / "towns-and-kingdoms-workshop-1.1.0-neoforge-1.21.1.jar"
+expected_sha256 = "0c4fc81f10c042f6d0db41d62844618bbea8d8727c67775b40e657be609ed90f"
+if hashlib.sha256(jar.read_bytes()).hexdigest() != expected_sha256:
+    raise SystemExit("Existing JAR checksum mismatch; refusing upload.")
 token = os.environ.get("CURSEFORGE_TOKEN", "")
 if not token:
     raise SystemExit("CURSEFORGE_TOKEN is missing from this repository.")
