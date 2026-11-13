@@ -9,13 +9,21 @@ base = "https://minecraft.curseforge.com"
 def get_json(url):
     with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=60) as r:
         return json.load(r)
-selected = ["1.21.1", "NeoForge", "Java 21"]
+versions = get_json(base + "/api/game/versions")
+if isinstance(versions, dict):
+    versions = versions.get("data", versions.get("versions", []))
+matches = [v for v in versions if str(v.get("name", "")).lower() in ("1.21.1", "neoforge", "java 21")]
+print("Version tag matches: " + json.dumps(matches))
+selected = [v["id"] for v in matches]
+if not selected:
+    raise SystemExit("No matching CurseForge version tags; names sample: " + json.dumps(versions[:5]))
+
 metadata = {
     "displayName": jar.name,
     "releaseType": "release",
     "changelogType": "html",
     "changelog": (root / "CHANGELOG.html").read_text(encoding="utf-8"),
-    "gameVersionNames": selected,
+    "gameVersions": selected,
     "relations": {"projects": [
         {"slug": "waystones", "type": "requiredDependency"},
         {"slug": "balm", "type": "requiredDependency"}
@@ -33,7 +41,7 @@ try:
     with urllib.request.urlopen(request, timeout=180) as r:
         result = json.load(r)
 except urllib.error.HTTPError as e:
-    raise SystemExit("CurseForge upload failed with HTTP " + str(e.code))
+    raise SystemExit("CurseForge upload failed with HTTP " + str(e.code) + ": " + e.read().decode("utf-8", "replace").replace(token, "[redacted]")[:1500])
 file_id = result.get("id", result.get("data", {}).get("id"))
 if not isinstance(file_id, int) or file_id <= 0:
     raise SystemExit("Upload response did not contain a valid CurseForge file ID.")
