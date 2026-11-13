@@ -1,0 +1,25 @@
+name: Upload existing Workshop 1.1.0 to CurseForge
+on:
+  push:
+    branches: ['publish/workshop-1.1.0']
+    paths: ['release/1.1.0/**', '.github/workflows/upload-workshop-1.1.0.yml', '.github/scripts/upload_existing.py']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: curseforge-workshop-1.1.0
+  cancel-in-progress: false
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Upload the existing JAR and full HTML changelog
+        env:
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+        run: python3 .github/scripts/upload_existing.py
+      - name: Save the upload receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: workshop-1.1.0-curseforge-receipt
+          path: curseforge-upload-result.json
