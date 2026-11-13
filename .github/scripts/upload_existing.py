@@ -9,21 +9,13 @@ base = "https://minecraft.curseforge.com"
 def get_json(url):
     with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=60) as r:
         return json.load(r)
-versions = get_json(base + "/api/game/versions")
-if isinstance(versions, dict):
-    versions = versions.get("data", versions.get("versions", []))
-selected = []
-for name in ("1.21.1", "NeoForge", "Java 21"):
-    found = [v["id"] for v in versions if v["name"].lower() == name.lower()]
-    if len(found) != 1:
-        raise SystemExit("Could not resolve CurseForge version: " + name)
-    selected.append(found[0])
+selected = ["1.21.1", "NeoForge", "Java 21"]
 metadata = {
     "displayName": jar.name,
     "releaseType": "release",
     "changelogType": "html",
     "changelog": (root / "CHANGELOG.html").read_text(encoding="utf-8"),
-    "gameVersions": selected,
+    "gameVersionNames": selected,
     "relations": {"projects": [
         {"slug": "waystones", "type": "requiredDependency"},
         {"slug": "balm", "type": "requiredDependency"}
