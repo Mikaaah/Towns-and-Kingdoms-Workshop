@@ -10,6 +10,11 @@ def get_json(url):
     with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=60) as r:
         return json.load(r)
 selected = [11779, 10150, 11135]  # Minecraft 1.21.1, NeoForge, Java 21; resolved from CurseForge's version list.
+environment = [v for v in get_json(base + "/api/game/versions") if str(v.get("name", "")).lower() in ("client", "server")]
+print("Environment tags: " + json.dumps(environment))
+if len(environment) != 2:
+    raise SystemExit("Could not resolve the Client and Server environment tags.")
+selected.extend(v["id"] for v in environment)
 metadata = {
     "displayName": jar.name,
     "releaseType": "release",
