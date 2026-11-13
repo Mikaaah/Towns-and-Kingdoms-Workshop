@@ -9,15 +9,7 @@ base = "https://minecraft.curseforge.com"
 def get_json(url):
     with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=60) as r:
         return json.load(r)
-versions = get_json(base + "/api/game/versions")
-if isinstance(versions, dict):
-    versions = versions.get("data", versions.get("versions", []))
-matches = [v for v in versions if str(v.get("name", "")).lower() in ("1.21.1", "neoforge", "java 21")]
-print("Version tag matches: " + json.dumps(matches))
-selected = [v["id"] for v in matches]
-if not selected:
-    raise SystemExit("No matching CurseForge version tags; names sample: " + json.dumps(versions[:5]))
-
+selected = [11779, 10150, 11135]  # Minecraft 1.21.1, NeoForge, Java 21; resolved from CurseForge's version list.
 metadata = {
     "displayName": jar.name,
     "releaseType": "release",
