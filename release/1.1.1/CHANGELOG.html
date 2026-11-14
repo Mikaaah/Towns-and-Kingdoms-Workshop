@@ -1,0 +1,15 @@
+<div style="font-family:'Segoe UI',Tahoma,Verdana,Arial,sans-serif;font-size:16px;line-height:1.65">
+<h2 style="color:#b18aff">Workshop 1.1.1 — TNK3 Beta Compatibility</h2>
+<p>Minecraft 1.21.1 · NeoForge · Java 21</p>
+<ul>
+<li>Prevent the JEI/Configured inactive-schema crash by excluding unavailable configuration files while keeping active settings accessible.</li>
+<li>Fix concurrent Yammo structure-cache scan initialization and write complete cache replacements before exposing them to readers.</li>
+<li>Condition 47 known broken recipes on their referenced items being registered, preserving recipes for available content.</li>
+<li>Repair ten affected loot tables: preserve usable loot and original weights when optional items are absent, and correct Iron's Jewelry material-tag keys.</li>
+<li>Correct the recorded spawn-category mismatches for Stonelings, Toretoises, Foxhounds and Ocelots without changing their spawn weights or group sizes.</li>
+<li>Repair missing optional references in six tag resources.</li>
+<li>Correct BF BlockPack chiseling identifiers where equivalent registered items exist, and omit invalid base entries without inventing replacement blocks.</li>
+</ul>
+<p>Preserves all released Workshop 1.1.0 classes and assets. No additional required optional mods. Replace Workshop on both client and server and restart.</p>
+<p>Automated unit and headless integration tests passed. Full TNK3 beta verification remains pending; custom-mod issues and other unresolved tickets stay open.</p>
+</div>
